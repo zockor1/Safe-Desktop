@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Usuario" table="USUARIO" schema="DBA_SAFE" optimistic-lock="version">
+        <id name="idUsuario" type="int">
+            <column name="ID_USUARIO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="username" type="string">
+            <column name="USERNAME" length="50" not-null="true" />
+        </property>
+        <property name="clave" type="string">
+            <column name="CLAVE" length="50" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="100" not-null="true" />
+        </property>
+        <property name="rol" type="int">
+            <column name="ROL" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="personas" table="PERSONA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USUARIO_ID_USUARIO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Persona" />
+        </set>
+    </class>
+</hibernate-mapping>

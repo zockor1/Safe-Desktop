@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Contrato" table="CONTRATO" schema="DBA_SAFE" optimistic-lock="version">
+        <id name="idContrato" type="int">
+            <column name="ID_CONTRATO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="fechaInicio" type="date">
+            <column name="FECHA_INICIO" length="7" not-null="true" />
+        </property>
+        <property name="fechaTermino" type="date">
+            <column name="FECHA_TERMINO" length="7" not-null="true" />
+        </property>
+        <set name="empresas" table="EMPRESA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONTRATO_ID_CONTRATO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Empresa" />
+        </set>
+    </class>
+</hibernate-mapping>

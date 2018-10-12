@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Persona" table="PERSONA" schema="DBA_SAFE" optimistic-lock="version">
+        <id name="idPersona" type="int">
+            <column name="ID_PERSONA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="usuario" class="modelo.Usuario" fetch="select">
+            <column name="USUARIO_ID_USUARIO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="run" type="string">
+            <column name="RUN" length="12" not-null="true" />
+        </property>
+        <property name="nombres" type="string">
+            <column name="NOMBRES" length="100" not-null="true" />
+        </property>
+        <property name="appPaterno" type="string">
+            <column name="APP_PATERNO" length="30" not-null="true" />
+        </property>
+        <property name="appMaterno" type="string">
+            <column name="APP_MATERNO" length="30" />
+        </property>
+        <set name="clientes" table="CLIENTE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PERSONA_ID_PERSONA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Cliente" />
+        </set>
+        <set name="trabajadors" table="TRABAJADOR" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PERSONA_ID_PERSONA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Trabajador" />
+        </set>
+    </class>
+</hibernate-mapping>

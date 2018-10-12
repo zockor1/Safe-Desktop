@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Empresa" table="EMPRESA" schema="DBA_SAFE" optimistic-lock="version">
+        <id name="idEmpresa" type="int">
+            <column name="ID_EMPRESA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cliente" class="modelo.Cliente" fetch="select">
+            <column name="CLIENTE_ID_CLIENTE" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="comuna" class="modelo.Comuna" fetch="select">
+            <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
+            <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="contrato" class="modelo.Contrato" fetch="select">
+            <column name="CONTRATO_ID_CONTRATO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="rut" type="string">
+            <column name="RUT" length="12" not-null="true" />
+        </property>
+        <property name="nombreFantasia" type="string">
+            <column name="NOMBRE_FANTASIA" length="100" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="trabajadors" table="TRABAJADOR" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EMPRESA_ID_EMPRESA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Trabajador" />
+        </set>
+    </class>
+</hibernate-mapping>

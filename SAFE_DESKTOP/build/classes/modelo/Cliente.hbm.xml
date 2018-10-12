@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Cliente" table="CLIENTE" schema="DBA_SAFE" optimistic-lock="version">
+        <id name="idCliente" type="int">
+            <column name="ID_CLIENTE" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="comuna" class="modelo.Comuna" fetch="select">
+            <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
+            <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="persona" class="modelo.Persona" fetch="select">
+            <column name="PERSONA_ID_PERSONA" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="telefono" type="string">
+            <column name="TELEFONO" length="15" not-null="true" />
+        </property>
+        <set name="empresas" table="EMPRESA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CLIENTE_ID_CLIENTE" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Empresa" />
+        </set>
+    </class>
+</hibernate-mapping>
