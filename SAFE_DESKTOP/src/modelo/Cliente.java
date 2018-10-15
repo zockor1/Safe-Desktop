@@ -11,27 +11,22 @@ public class Cliente  implements java.io.Serializable {
 
 
      private int idCliente;
-     private Comuna comuna;
-     private Persona persona;
+     private String comuna;
+     private String region;
+     private int idPersona;
      private String telefono;
+     private Persona persona;
      private Set empresas = new HashSet(0);
 
     public Cliente() {
     }
 
-	
-    public Cliente(int idCliente, Comuna comuna, Persona persona, String telefono) {
-        this.idCliente = idCliente;
-        this.comuna = comuna;
-        this.persona = persona;
+    //Constructor
+    public Cliente(String telefono, String com, String reg, int idPer) {
         this.telefono = telefono;
-    }
-    public Cliente(int idCliente, Comuna comuna, Persona persona, String telefono, Set empresas) {
-       this.idCliente = idCliente;
-       this.comuna = comuna;
-       this.persona = persona;
-       this.telefono = telefono;
-       this.empresas = empresas;
+        this.comuna = com;
+        this.region = reg;
+        this.idPersona = idPer;
     }
    
     public int getIdCliente() {
@@ -41,20 +36,7 @@ public class Cliente  implements java.io.Serializable {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    public Comuna getComuna() {
-        return this.comuna;
-    }
     
-    public void setComuna(Comuna comuna) {
-        this.comuna = comuna;
-    }
-    public Persona getPersona() {
-        return this.persona;
-    }
-    
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
     public String getTelefono() {
         return this.telefono;
     }
@@ -62,12 +44,45 @@ public class Cliente  implements java.io.Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public String getComuna() {
+        return comuna;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
+    }
+    
     public Set getEmpresas() {
         return this.empresas;
     }
     
     public void setEmpresas(Set empresas) {
         this.empresas = empresas;
+    }
+    
+    public Persona getPersona(){
+        return this.persona;
+    }
+    
+    public void setPersona(Persona persona){
+        this.persona = persona;
     }
 
 

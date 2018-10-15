@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentacion;
 
 import javax.swing.JOptionPane;
@@ -11,12 +6,14 @@ import negocio.NegContrato;
 
 /**
  *
- * @author Zockor
+ * @author Ignacio Antilanca
  */
 public class jdAddEmpresa extends javax.swing.JDialog {
 
     /**
      * Creates new form jdAddEmpresa
+     * @param parent
+     * @param modal
      */
     public jdAddEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -41,8 +38,6 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         lblTituloEmpresa = new javax.swing.JLabel();
         jpAddContrato = new javax.swing.JPanel();
         dpFechaTermino = new org.jdesktop.swingx.JXDatePicker();
-        lblId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         lblFechaInicio = new javax.swing.JLabel();
         lblFechaTermino = new javax.swing.JLabel();
         dpFechaInicio = new org.jdesktop.swingx.JXDatePicker();
@@ -82,8 +77,6 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         jpAddContrato.setBackground(new java.awt.Color(255, 255, 255));
         jpAddContrato.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Contrato"));
 
-        lblId.setText("ID");
-
         lblFechaInicio.setText("Fecha de Inicio");
 
         lblFechaTermino.setText("Fecha de Inicio");
@@ -93,11 +86,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         jpAddContratoLayout.setHorizontalGroup(
             jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpAddContratoLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(lblId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(171, 171, 171)
                 .addComponent(lblFechaInicio)
                 .addGap(18, 18, 18)
                 .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,8 +102,6 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFechaInicio)
                     .addComponent(lblFechaTermino)
                     .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,16 +180,17 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * @param evt 
+     */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
         Contrato c = new Contrato();
-        c.setIdContrato(Integer.parseInt(this.txtId.getText()));
         c.setFechaInicio(this.dpFechaInicio.getDate());
         c.setFechaTermino(this.dpFechaTermino.getDate());
         NegContrato contrato = new NegContrato();
         try {
             contrato.addContrato(c);
-            JOptionPane.showMessageDialog(rootPane, "Contrato ingresado correctamente");
+            JOptionPane.showMessageDialog(rootPane, "Contrato ingresado correctamente");   
         } catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado");
         }
@@ -260,10 +248,8 @@ public class jdAddEmpresa extends javax.swing.JDialog {
     private javax.swing.JPanel jpAddEmpresa;
     private javax.swing.JLabel lblFechaInicio;
     private javax.swing.JLabel lblFechaTermino;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblTituloEmpresa;
     private javax.swing.JPanel pnlAddEmpresa;
     private javax.swing.JPanel pnlAddEmpresaBanner;
-    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

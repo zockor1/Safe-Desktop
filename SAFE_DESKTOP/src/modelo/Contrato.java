@@ -20,6 +20,10 @@ public class Contrato  implements java.io.Serializable {
     public Contrato() {
     }
 
+    public Contrato(Date fechaInicio, Date fechaTermino) {
+        this.fechaInicio = fechaInicio;
+        this.fechaTermino = fechaTermino;
+    }
 	
     public Contrato(int idContrato, Date fechaInicio, Date fechaTermino) {
         this.idContrato = idContrato;

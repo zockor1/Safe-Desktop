@@ -60,7 +60,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         lblCuentas = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblCuentas = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
+        btnAgregarCuenta = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         piSearchIcon = new org.edisoncor.gui.panel.PanelImage();
@@ -68,7 +68,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         lblEmpresas = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblEmpresas = new javax.swing.JTable();
-        btnAgregar1 = new javax.swing.JButton();
+        btnAgregarEmpresa = new javax.swing.JButton();
         piIconSearch1 = new org.edisoncor.gui.panel.PanelImage();
         txtSearch2 = new javax.swing.JTextField();
         lblPag = new javax.swing.JLabel();
@@ -244,9 +244,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(jScrollPane3);
         jScrollPane3.setBounds(0, 166, 710, 192);
 
-        btnAgregar.setText("AGREGAR +");
-        jpCuentas.add(btnAgregar);
-        btnAgregar.setBounds(0, 132, 110, 23);
+        btnAgregarCuenta.setText("AGREGAR +");
+        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCuentaActionPerformed(evt);
+            }
+        });
+        jpCuentas.add(btnAgregarCuenta);
+        btnAgregarCuenta.setBounds(0, 132, 110, 23);
         jpCuentas.add(txtSearch);
         txtSearch.setBounds(546, 132, 155, 20);
 
@@ -304,14 +309,14 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.add(jScrollPane4);
         jScrollPane4.setBounds(0, 162, 710, 200);
 
-        btnAgregar1.setText("AGREGAR +");
-        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarEmpresa.setText("AGREGAR +");
+        btnAgregarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregar1ActionPerformed(evt);
+                btnAgregarEmpresaActionPerformed(evt);
             }
         });
-        jpEmpresas.add(btnAgregar1);
-        btnAgregar1.setBounds(0, 132, 110, 23);
+        jpEmpresas.add(btnAgregarEmpresa);
+        btnAgregarEmpresa.setBounds(0, 132, 110, 23);
 
         piIconSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/search_icon.png"))); // NOI18N
         piIconSearch1.setMaximumSize(new java.awt.Dimension(20, 20));
@@ -401,10 +406,15 @@ public class jfPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_piLogoutMouseClicked
 
-    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+    private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
         jdAddEmpresa ventana = new jdAddEmpresa(this, true);
         ventana.setVisible(true);
-    }//GEN-LAST:event_btnAgregar1ActionPerformed
+    }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
+
+    private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
+         jdAddCuenta ventana = new jdAddCuenta(this, true);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,8 +452,8 @@ public class jfPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnAgregar1;
+    private javax.swing.JButton btnAgregarCuenta;
+    private javax.swing.JButton btnAgregarEmpresa;
     private javax.swing.JButton btnCuentas;
     private javax.swing.JButton btnEmpresa;
     private javax.swing.JButton btnInicio;

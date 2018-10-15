@@ -16,20 +16,20 @@ public class Persona  implements java.io.Serializable {
      private String nombres;
      private String appPaterno;
      private String appMaterno;
+     private int idUser;
      private Set clientes = new HashSet(0);
      private Set trabajadors = new HashSet(0);
 
     public Persona() {
     }
 
-	
-    public Persona(int idPersona, Usuario usuario, String run, String nombres, String appPaterno) {
-        this.idPersona = idPersona;
-        this.usuario = usuario;
+    public Persona(String run, String nombres, String appPaterno, String appMaterno, int idUser) {
         this.run = run;
         this.nombres = nombres;
         this.appPaterno = appPaterno;
+        this.appMaterno = appMaterno;
     }
+    
     public Persona(int idPersona, Usuario usuario, String run, String nombres, String appPaterno, String appMaterno, Set clientes, Set trabajadors) {
        this.idPersona = idPersona;
        this.usuario = usuario;
@@ -83,6 +83,15 @@ public class Persona  implements java.io.Serializable {
     public void setAppMaterno(String appMaterno) {
         this.appMaterno = appMaterno;
     }
+    
+    public int getIdUser(){
+        return this.idUser;
+    }
+    
+    public void setIdUser(int idUser){
+        this.idUser = idUser;
+    }
+    
     public Set getClientes() {
         return this.clientes;
     }

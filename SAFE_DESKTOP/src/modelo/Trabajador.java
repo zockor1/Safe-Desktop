@@ -1,7 +1,6 @@
 package modelo;
 // Generated 26-09-2018 15:18:05 by Hibernate Tools 4.3.1
 
-
 import java.util.Date;
 
 /**
@@ -11,22 +10,21 @@ public class Trabajador  implements java.io.Serializable {
 
 
      private TrabajadorId id;
-     private Empresa empresa;
-     private Persona persona;
      private String telefono;
      private Date fechaContrato;
      private String cargo;
+     private int idPersona;
+     private Empresa empresa;
+     private Persona persona;
 
     public Trabajador() {
     }
 
-    public Trabajador(TrabajadorId id, Empresa empresa, Persona persona, String telefono, Date fechaContrato, String cargo) {
-       this.id = id;
-       this.empresa = empresa;
-       this.persona = persona;
-       this.telefono = telefono;
-       this.fechaContrato = fechaContrato;
-       this.cargo = cargo;
+    public Trabajador(String telefono, Date fechaContrato, String cargo, int idPersona) {
+        this.telefono = telefono;
+        this.fechaContrato = fechaContrato;
+        this.cargo = cargo;
+        this.idPersona = idPersona;
     }
    
     public TrabajadorId getId() {
@@ -36,20 +34,7 @@ public class Trabajador  implements java.io.Serializable {
     public void setId(TrabajadorId id) {
         this.id = id;
     }
-    public Empresa getEmpresa() {
-        return this.empresa;
-    }
     
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-    public Persona getPersona() {
-        return this.persona;
-    }
-    
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
     public String getTelefono() {
         return this.telefono;
     }
@@ -71,10 +56,30 @@ public class Trabajador  implements java.io.Serializable {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-
-
-
-
+    
+    public int getIdPersona(){
+        return this.idPersona;
+    }
+    
+    public void setIdPersona(int idPersona){
+        this.idPersona = idPersona;
+    }
+    
+    public Empresa getEmpresa(){
+        return this.empresa;
+    }
+    
+    public void setEmpresa(Empresa empresa){
+        this.empresa = empresa;
+    }
+    
+    public Persona getPersona(){
+        return this.persona;
+    }
+    
+    public void setPersona(Persona persona){
+        this.persona = persona;
+    }
 }
 
 

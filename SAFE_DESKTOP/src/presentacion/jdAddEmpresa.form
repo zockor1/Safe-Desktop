@@ -149,11 +149,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="lblId" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtId" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                       <Component id="lblFechaInicio" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="dpFechaInicio" min="-2" pref="132" max="-2" attributes="0"/>
@@ -171,8 +167,6 @@
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="dpFechaTermino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblId" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtId" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFechaTermino" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="dpFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -184,13 +178,6 @@
           </Layout>
           <SubComponents>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="dpFechaTermino">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblId">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ID"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtId">
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaInicio">
               <Properties>
