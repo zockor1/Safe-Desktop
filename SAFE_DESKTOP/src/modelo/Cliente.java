@@ -11,22 +11,21 @@ public class Cliente  implements java.io.Serializable {
 
 
      private int idCliente;
-     private String comuna;
-     private String region;
+     private int comunaId;
      private int idPersona;
      private String telefono;
      private Persona persona;
+     private Comuna comuna;
      private Set empresas = new HashSet(0);
 
     public Cliente() {
     }
 
     //Constructor
-    public Cliente(String telefono, String com, String reg, int idPer) {
+    public Cliente(String telefono, int idPer, int com) {
         this.telefono = telefono;
-        this.comuna = com;
-        this.region = reg;
         this.idPersona = idPer;
+        this.comunaId = com;
     }
    
     public int getIdCliente() {
@@ -45,24 +44,8 @@ public class Cliente  implements java.io.Serializable {
         this.telefono = telefono;
     }
 
-    public String getComuna() {
-        return comuna;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
     public int getIdPersona() {
         return idPersona;
-    }
-
-    public void setComuna(String comuna) {
-        this.comuna = comuna;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     public void setIdPersona(int idPersona) {
@@ -84,10 +67,22 @@ public class Cliente  implements java.io.Serializable {
     public void setPersona(Persona persona){
         this.persona = persona;
     }
+    
+    public int getComunaId() {
+        return this.comunaId;
+    }
+    
+    public void setComunaId(int comunaId){
+        this.comunaId = comunaId;
+    }
 
+    public Comuna getComuna() {
+        return comuna;
+    }
 
-
-
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
+    }
 }
 
 

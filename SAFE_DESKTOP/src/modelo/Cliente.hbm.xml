@@ -10,7 +10,7 @@
         </id>
         <many-to-one name="comuna" class="modelo.Comuna" fetch="select">
             <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
-            <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
+            <column name="REGION_ID_REGION" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <many-to-one name="persona" class="modelo.Persona" fetch="select">
             <column name="PERSONA_ID_PERSONA" precision="22" scale="0" not-null="true" />

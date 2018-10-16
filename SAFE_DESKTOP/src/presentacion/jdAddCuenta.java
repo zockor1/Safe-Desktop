@@ -79,6 +79,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
         ddlComuna = new javax.swing.JComboBox<>();
         txtCargo = new javax.swing.JTextField();
         dpFechaContrato = new org.jdesktop.swingx.JXDatePicker();
+        lblIdEmp = new javax.swing.JLabel();
+        ddlIdEmpresa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -266,6 +268,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
         ddlComuna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblIdEmp.setText("Empresa");
+
+        ddlIdEmpresa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jpAdicionalLayout = new javax.swing.GroupLayout(jpAdicional);
         jpAdicional.setLayout(jpAdicionalLayout);
         jpAdicionalLayout.setHorizontalGroup(
@@ -288,11 +294,13 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFechaContra)
-                    .addComponent(lblCargo))
+                    .addComponent(lblCargo)
+                    .addComponent(lblIdEmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dpFechaContrato, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addComponent(txtCargo))
+                    .addComponent(txtCargo)
+                    .addComponent(ddlIdEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jpAdicionalLayout.setVerticalGroup(
@@ -307,13 +315,15 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRegion)
-                    .addComponent(ddlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ddlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCargo)
+                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblComuna)
                     .addComponent(ddlComuna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCargo)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblIdEmp)
+                    .addComponent(ddlIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -415,31 +425,32 @@ public class jdAddCuenta extends javax.swing.JDialog {
             p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
 
             NegPersona per = new NegPersona();
-            per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico)         
-
-            if (this.ddlRol.getSelectedIndex() == 3) {
-                Cliente cl = new Cliente();
-                cl.setTelefono(this.txtTelefono.getText());
-                cl.setComuna(this.ddlComuna.getSelectedItem().toString());
-                cl.setRegion(this.ddlRegion.getSelectedItem().toString());
-                cl.setIdPersona(per.obtenerPersonaId());
-
-                NegCliente neg = new NegCliente();
-                neg.addCliente(cl);
-                JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
-
-            } else if (this.ddlRol.getSelectedIndex() == 4) {
-                Trabajador tr = new Trabajador();
-                tr.setTelefono(this.txtTelefono.getText());
-                tr.setCargo(this.txtCargo.getText());
-                tr.setFechaContrato(this.dpFechaContrato.getDate());
-                tr.setIdPersona(per.obtenerPersonaId());
-
-                NegTrabajador negT = new NegTrabajador();
-                negT.addTrabajador(tr);
-                JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+            per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
+            
+            switch (this.ddlRol.getSelectedIndex()) {
+                case 3:
+                    Cliente cl = new Cliente();
+                    cl.setTelefono(this.txtTelefono.getText());
+                    cl.setComunaId(1);//this.ddlComunaId.getSelectedIndex()...
+                    cl.setIdPersona(per.obtenerPersonaId());
+                    NegCliente neg = new NegCliente();
+                    neg.addCliente(cl);
+                    JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                    break;
+                case 4:
+                    Trabajador tr = new Trabajador();
+                    tr.setTelefono(this.txtTelefono.getText());
+                    tr.setCargo(this.txtCargo.getText());
+                    tr.setFechaContrato(this.dpFechaContrato.getDate());
+                    tr.setIdPersona(per.obtenerPersonaId());
+                    tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                    NegTrabajador negT = new NegTrabajador();
+                    negT.addTrabajador(tr);
+                    JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                    break;
             }
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
@@ -525,6 +536,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     private javax.swing.JButton btnAgregarCuenta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> ddlComuna;
+    private javax.swing.JComboBox<String> ddlIdEmpresa;
     private javax.swing.JComboBox<String> ddlRegion;
     private javax.swing.JComboBox<String> ddlRol;
     private org.jdesktop.swingx.JXDatePicker dpFechaContrato;
@@ -537,6 +549,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     private javax.swing.JLabel lblComuna;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblFechaContra;
+    private javax.swing.JLabel lblIdEmp;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblPass2;

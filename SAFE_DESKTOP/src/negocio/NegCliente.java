@@ -28,11 +28,10 @@ public class NegCliente {
     public void addCliente(Cliente c){
         try {
             Transaction tx = sesion.beginTransaction();
-            Query q = sesion.createSQLQuery("call pkg_crud_cliente.create_cliente(?,?,?,?)")
+            Query q = sesion.createSQLQuery("call pkg_crud_cliente.create_cliente(?,?,?)")
                     .setParameter(0, c.getTelefono())
-                    .setParameter(1, c.getComuna())
-                    .setParameter(2, c.getRegion())
-                    .setParameter(3, c.getIdPersona());
+                    .setParameter(1, c.getIdPersona())
+                    .setParameter(2, c.getComunaId());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {

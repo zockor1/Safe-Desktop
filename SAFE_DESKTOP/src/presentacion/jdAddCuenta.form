@@ -422,11 +422,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblFechaContra" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblIdEmp" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="dpFechaContrato" pref="106" max="32767" attributes="0"/>
                           <Component id="txtCargo" max="32767" attributes="0"/>
+                          <Component id="ddlIdEmpresa" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -446,13 +448,15 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblRegion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ddlRegion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblComuna" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ddlComuna" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblIdEmp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ddlIdEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -520,6 +524,26 @@
             <Component class="javax.swing.JTextField" name="txtCargo">
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="dpFechaContrato">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblIdEmp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Empresa"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="ddlIdEmpresa">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

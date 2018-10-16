@@ -14,17 +14,19 @@ public class Trabajador  implements java.io.Serializable {
      private Date fechaContrato;
      private String cargo;
      private int idPersona;
+     private int idEmpresa;
      private Empresa empresa;
      private Persona persona;
 
     public Trabajador() {
     }
 
-    public Trabajador(String telefono, Date fechaContrato, String cargo, int idPersona) {
+    public Trabajador(String telefono, Date fechaContrato, String cargo, int idPersona, int idEmp) {
         this.telefono = telefono;
         this.fechaContrato = fechaContrato;
         this.cargo = cargo;
         this.idPersona = idPersona;
+        this.idEmpresa = idEmp;
     }
    
     public TrabajadorId getId() {
@@ -79,6 +81,14 @@ public class Trabajador  implements java.io.Serializable {
     
     public void setPersona(Persona persona){
         this.persona = persona;
+    }
+    
+    public int getIdEmpresa(){
+        return this.idEmpresa;
+    }
+    
+    public void setIdEmpresa(int idEmp){
+        this.idEmpresa = idEmp;
     }
 }
 
