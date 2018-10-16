@@ -2,19 +2,19 @@ package negocio;
 
 //Importaciones
 import java.util.List;
-import modelo.Empresa;
+import modelo.Region;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
  * @author Ignacio Antillanca
  */
-
-public class NegEmpresa {
-//Variables
+public class NegRegion {
+    
+    //Variables
     Session sesion;
     
-    public NegEmpresa(){
+    public NegRegion(){
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
     
@@ -22,9 +22,9 @@ public class NegEmpresa {
      * @return Lista de regiones en la base de datos
      * @throws Exception 
      */
-    public List<Empresa> getAllEmpresa() throws Exception {       
+    public List<Region> getAllRegion() throws Exception {       
         try {
-         Query q = sesion.createQuery("from Empresa");
+         Query q = sesion.createQuery("from Region");
          return q.list();   
         } catch (Exception ex){
           System.out.println("ERROR:" + ex.toString());  

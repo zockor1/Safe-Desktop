@@ -12,8 +12,7 @@
             <column name="CLIENTE_ID_CLIENTE" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <many-to-one name="comuna" class="modelo.Comuna" fetch="select">
-            <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
-            <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
+             <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <many-to-one name="contrato" class="modelo.Contrato" fetch="select">
             <column name="CONTRATO_ID_CONTRATO" precision="22" scale="0" not-null="true" />

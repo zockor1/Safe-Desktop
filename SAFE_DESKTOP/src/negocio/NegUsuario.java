@@ -114,6 +114,7 @@ public class NegUsuario {
                     + "FROM USUARIO A)\n"
                     + "WHERE ID_USUARIO = max_pk");
             Object result = q.uniqueResult();
+            tx.commit();
             return ((Number)result).intValue();
         } catch (NumberFormatException ex) {
             System.out.print("ERROR: " + ex.toString());

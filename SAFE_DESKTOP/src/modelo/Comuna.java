@@ -11,7 +11,7 @@ import java.util.Set;
 public class Comuna  implements java.io.Serializable {
 
 
-     private ComunaId id;
+     private int idComuna;
      private Region region;
      private String nombre;
      private Set clientes = new HashSet(0);
@@ -20,26 +20,25 @@ public class Comuna  implements java.io.Serializable {
     public Comuna() {
     }
 
-	
-    public Comuna(ComunaId id, Region region, String nombre) {
-        this.id = id;
+    public Comuna(int idComuna, Region region, String nombre) {
+        this.idComuna = idComuna;
         this.region = region;
         this.nombre = nombre;
     }
-    public Comuna(ComunaId id, Region region, String nombre, Set clientes, Set empresas) {
-       this.id = id;
+    public Comuna(int idComuna, Region region, String nombre, Set clientes, Set empresas) {
+       this.idComuna = idComuna;
        this.region = region;
        this.nombre = nombre;
        this.clientes = clientes;
        this.empresas = empresas;
     }
    
-    public ComunaId getId() {
-        return this.id;
+    public int getIdComuna() {
+        return this.idComuna;
     }
     
-    public void setId(ComunaId id) {
-        this.id = id;
+    public void setIdComuna(int idComuna) {
+        this.idComuna = idComuna;
     }
     public Region getRegion() {
         return this.region;
@@ -69,10 +68,6 @@ public class Comuna  implements java.io.Serializable {
     public void setEmpresas(Set empresas) {
         this.empresas = empresas;
     }
-
-
-
-
 }
 
 

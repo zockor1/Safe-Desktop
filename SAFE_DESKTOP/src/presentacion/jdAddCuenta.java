@@ -3,22 +3,35 @@ package presentacion;
 //Importaciones
 import java.awt.Component;
 import java.awt.HeadlessException;
+import java.awt.event.ItemEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.Comuna;
 import modelo.Persona;
+import modelo.Region;
+import modelo.Empresa;
 import modelo.Trabajador;
 import modelo.Usuario;
 import negocio.NegCliente;
+import negocio.NegComuna;
+import negocio.NegEmpresa;
 import negocio.NegPersona;
 import negocio.NegTrabajador;
 import negocio.NegUsuario;
+import negocio.NegRegion;
 
 /**
  * @author Ignacio Antillanca
  * @version 1.2
  */
 public class jdAddCuenta extends javax.swing.JDialog {
-
+    //Variables
+    List<Comuna> listComuna;
+    List<Region> listRegion;
+    List<Empresa> listEmpresa;
+    
     /**
      * Constructore que inicializa el modal del registro de cuentas.
      * @param parent
@@ -83,6 +96,11 @@ public class jdAddCuenta extends javax.swing.JDialog {
         ddlIdEmpresa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pnlAddCuenta.setBackground(new java.awt.Color(255, 255, 255));
         pnlAddCuenta.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -97,17 +115,17 @@ public class jdAddCuenta extends javax.swing.JDialog {
         pnlAddCuentaBanner.setLayout(pnlAddCuentaBannerLayout);
         pnlAddCuentaBannerLayout.setHorizontalGroup(
             pnlAddCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddCuentaBannerLayout.createSequentialGroup()
-                .addGap(228, 228, 228)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCuentaBannerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(225, 225, 225))
         );
         pnlAddCuentaBannerLayout.setVerticalGroup(
             pnlAddCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddCuentaBannerLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addComponent(lblTituloCuenta)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jpAddUsuario.setBackground(new java.awt.Color(255, 255, 255));
@@ -265,6 +283,11 @@ public class jdAddCuenta extends javax.swing.JDialog {
         lblFechaContra.setText("Fecha Contrato");
 
         ddlRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ddlRegion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ddlRegionItemStateChanged(evt);
+            }
+        });
 
         ddlComuna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -411,11 +434,9 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
             Usuario u = new Usuario();
             u.setUsername(this.txtUsername.getText());
-            u.setClave(this.txtPass.getText());
+            u.setClave(this.txtPass.getSelectedText());
             u.setEmail(this.txtCorreo.getText());
             u.setRol(this.ddlRol.getSelectedIndex());
-
-            user.addUsuario(u); //Se ingresa un usuario
 
             Persona p = new Persona();
             p.setRun(this.txtRun.getText());
@@ -431,7 +452,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 case 3:
                     Cliente cl = new Cliente();
                     cl.setTelefono(this.txtTelefono.getText());
-                    cl.setComunaId(1);//this.ddlComunaId.getSelectedIndex()...
+                    cl.setComunaId(this.ddlComuna.getSelectedIndex()+1);
                     cl.setIdPersona(per.obtenerPersonaId());
                     NegCliente neg = new NegCliente();
                     neg.addCliente(cl);
@@ -478,6 +499,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 panelAdicionalEnable();
                 this.dpFechaContrato.setEnabled(false);
                 this.txtCargo.setEnabled(false);
+                this.ddlIdEmpresa.setEnabled(false);
                 break;
             case 4:
                 panelAdicionalEnable();
@@ -489,6 +511,75 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 break;
         }
     }//GEN-LAST:event_ddlRolActionPerformed
+
+    /**
+     * Meotod que realiza la carga de los jcombobox al momento de mostrar la
+     * ventana.
+     *
+     * @param evt
+     */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        NegRegion negR = new NegRegion();
+        NegComuna negC = new NegComuna();
+        NegEmpresa negE = new NegEmpresa();
+
+        DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
+        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
+        DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
+
+        cModelR.removeAllElements();
+        cModelC.removeAllElements();
+        cModelE.removeAllElements();
+
+        cModelR.addElement("Región...");
+        cModelC.addElement("Comuna...");
+        cModelE.addElement("Empresa...");
+        try {
+            listRegion = negR.getAllRegion();
+            listComuna = negC.getAllComuna();
+            listEmpresa = negE.getAllEmpresa();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error inesperado (combobox)");
+        }
+
+        for (Region r : listRegion) {
+            cModelR.addElement(r.getNombre());
+        }
+
+        for (Comuna c : listComuna) {
+            if (c.getRegion().getIdRegion() == 1) {
+                cModelC.addElement(c.getNombre());
+            }
+        }
+
+        for (Empresa e : listEmpresa) {
+            cModelE.addElement(e.getNombreFantasia());
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    /**
+     * Metodo que filtra las comunas en base a la region seleccionada.
+     * @param evt 
+     */
+    private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.ddlRegion.getSelectedIndex() > 0) {
+                NegComuna negC = new NegComuna();
+                DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
+                cModelC.removeAllElements();
+                try {
+                    listComuna = negC.getAllComuna();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Error con la actualizacion de comunas.");
+                }
+                for (Comuna c : listComuna) {
+                    if (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex()) {
+                        cModelC.addElement(c.getNombre());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_ddlRegionItemStateChanged
 
     /**
      * @param args the command line arguments

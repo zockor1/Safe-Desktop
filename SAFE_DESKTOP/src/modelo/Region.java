@@ -50,10 +50,6 @@ public class Region  implements java.io.Serializable {
     public void setComunas(Set comunas) {
         this.comunas = comunas;
     }
-
-
-
-
 }
 
 

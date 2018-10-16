@@ -4,15 +4,11 @@
 <!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="modelo.Comuna" table="COMUNA" schema="DBA_SAFE" optimistic-lock="version">
-        <composite-id name="id" class="modelo.ComunaId">
-            <key-property name="idComuna" type="int">
-                <column name="ID_COMUNA" precision="22" scale="0" />
-            </key-property>
-            <key-property name="regionIdRegion" type="big_decimal">
-                <column name="REGION_ID_REGION" precision="22" scale="0" />
-            </key-property>
-        </composite-id>
-        <many-to-one name="region" class="modelo.Region" update="false" insert="false" fetch="select">
+        <id name="idComuna" type="int">
+            <column name="ID_COMUNA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="region" class="modelo.Region" fetch="select">
             <column name="REGION_ID_REGION" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
@@ -21,14 +17,12 @@
         <set name="clientes" table="CLIENTE" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
-                <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="modelo.Cliente" />
         </set>
         <set name="empresas" table="EMPRESA" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="COMUNA_ID_COMUNA" precision="22" scale="0" not-null="true" />
-                <column name="COMUNA_REGION_ID_REGION" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="modelo.Empresa" />
         </set>
