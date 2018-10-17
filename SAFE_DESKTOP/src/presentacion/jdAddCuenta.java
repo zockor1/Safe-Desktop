@@ -33,7 +33,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     List<Empresa> listEmpresa;
     
     /**
-     * Constructore que inicializa el modal del registro de cuentas.
+     * Constructor que inicializa el modal del registro de cuentas.
      * @param parent
      * @param modal
      */
@@ -404,7 +404,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Metodo que deshabilita el panel con la informacion adicional necesaria
+     * Método que deshabilita el panel con la informacion adicional necesaria
      * para el registro de clientes o trabajadores
      */
     public void panelAdicionalDisable(){
@@ -414,7 +414,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }
     
     /**
-     * Metodo que habilita el panel con la informacion adicional necesaria
+     * Método que habilita el panel con la informacion adicional necesaria
      * para el registro de clientes o trabajadores
      */
     public void panelAdicionalEnable(){
@@ -424,61 +424,97 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }
     
     /**
-     * Metodo que obtiene los datos ingresados en el formulario de cuenta de
+     * Método que obtiene los datos ingresados en el formulario de cuenta de
      * usuario nueva y los envia a su respectivo controller.
+     *
      * @param evt
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
-        try {
-            NegUsuario user = new NegUsuario();
+        if (!validateEmptys()) {
 
-            Usuario u = new Usuario();
-            u.setUsername(this.txtUsername.getText());
-            u.setClave(this.txtPass.getSelectedText());
-            u.setEmail(this.txtCorreo.getText());
-            u.setRol(this.ddlRol.getSelectedIndex());
+            try {
+                Usuario u = new Usuario();
+                u.setUsername(this.txtUsername.getText());
+                u.setClave(String.valueOf(this.txtPass.getPassword()));
+                u.setEmail(this.txtCorreo.getText());
+                u.setRol(this.ddlRol.getSelectedIndex());
 
-            Persona p = new Persona();
-            p.setRun(this.txtRun.getText());
-            p.setNombres(this.txtNombres.getText());
-            p.setAppPaterno(this.txtAppPaterno.getText());
-            p.setAppMaterno(this.txtAppMaterno.getText());
-            p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+                NegUsuario user = new NegUsuario();
+                user.addUsuario(u);
 
-            NegPersona per = new NegPersona();
-            per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
-            
-            switch (this.ddlRol.getSelectedIndex()) {
-                case 3:
-                    Cliente cl = new Cliente();
-                    cl.setTelefono(this.txtTelefono.getText());
-                    cl.setComunaId(this.ddlComuna.getSelectedIndex()+1);
-                    cl.setIdPersona(per.obtenerPersonaId());
-                    NegCliente neg = new NegCliente();
-                    neg.addCliente(cl);
-                    JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
-                    break;
-                case 4:
-                    Trabajador tr = new Trabajador();
-                    tr.setTelefono(this.txtTelefono.getText());
-                    tr.setCargo(this.txtCargo.getText());
-                    tr.setFechaContrato(this.dpFechaContrato.getDate());
-                    tr.setIdPersona(per.obtenerPersonaId());
-                    tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
-                    NegTrabajador negT = new NegTrabajador();
-                    negT.addTrabajador(tr);
-                    JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
-                    break;
+                Persona p = new Persona();
+                p.setRun(this.txtRun.getText());
+                p.setNombres(this.txtNombres.getText());
+                p.setAppPaterno(this.txtAppPaterno.getText());
+                p.setAppMaterno(this.txtAppMaterno.getText());
+                p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+
+                NegPersona per = new NegPersona();
+                per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
+
+                switch (this.ddlRol.getSelectedIndex()) {
+                    case 3:
+                        Cliente cl = new Cliente();
+                        cl.setTelefono(this.txtTelefono.getText());
+                        cl.setComunaId(this.ddlComuna.getSelectedIndex());
+                        cl.setIdPersona(per.obtenerPersonaId());
+                        NegCliente neg = new NegCliente();
+                        neg.addCliente(cl);
+                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                        break;
+                    case 4:
+                        Trabajador tr = new Trabajador();
+                        tr.setTelefono(this.txtTelefono.getText());
+                        tr.setCargo(this.txtCargo.getText());
+                        tr.setFechaContrato(this.dpFechaContrato.getDate());
+                        tr.setIdPersona(per.obtenerPersonaId());
+                        tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                        NegTrabajador negT = new NegTrabajador();
+                        negT.addTrabajador(tr);
+                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                        break;
+                }
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
             }
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
+    /**
+     * Método que valida que los campos del formulario de usuario no esten
+     * vacios.
+     *
+     * @return campo true/false
+     */
+    private boolean validateEmptys() {
+        boolean campo = this.txtUsername.getText().isEmpty();
+        campo |= this.txtPass.getText().isEmpty();
+        campo |= this.txtPass2.getText().isEmpty();
+        campo |= this.txtCorreo.getText().isEmpty();
+        campo |= this.ddlRol.getSelectedIndex() == 0;
+        campo |= this.txtRun.getText().isEmpty();
+        campo |= this.txtNombres.getText().isEmpty();
+        campo |= this.txtAppPaterno.getText().isEmpty();
+        campo |= this.txtAppMaterno.getText().isEmpty();
+        if (this.ddlRol.getSelectedIndex() == 3) {
+            campo |= this.txtTelefono.getText().isEmpty();
+            campo |= this.ddlRegion.getSelectedIndex() == 0;
+            campo |= this.ddlComuna.getSelectedIndex() == 0;
+        } else if (this.ddlRol.getSelectedIndex() == 4) {
+            campo |= this.txtTelefono.getText().isEmpty();
+            campo |= this.dpFechaContrato.getDate() == null;
+            campo |= this.txtCargo.getText().isEmpty();
+            campo |= this.ddlIdEmpresa.getSelectedIndex() == 0;
+        }
+        return campo;
+    }
+    
     /**
      * Accion del boton "CANCELAR" del modal de registro de cuenta.
      * Termina el proceso, cerrando la ventana emergente
@@ -489,7 +525,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
-     * Meotod que modifica el formulario de registro de cuenta en el caso
+     * Método que modifica el formulario de registro de cuenta en el caso
      * que el tipo de cuenta sea cliente o trabajador
      * @param evt 
      */
@@ -513,7 +549,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_ddlRolActionPerformed
 
     /**
-     * Meotod que realiza la carga de los jcombobox al momento de mostrar la
+     * Método que realiza la carga de los jcombobox al momento de mostrar la
      * ventana.
      *
      * @param evt
@@ -567,6 +603,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 NegComuna negC = new NegComuna();
                 DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
                 cModelC.removeAllElements();
+                cModelC.addElement("Comuna...");
                 try {
                     listComuna = negC.getAllComuna();
                 } catch (Exception ex) {
