@@ -440,42 +440,44 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 u.setRol(this.ddlRol.getSelectedIndex());
 
                 NegUsuario user = new NegUsuario();
-                user.addUsuario(u);
+                if (user.addUsuario(u)) {
+                    Persona p = new Persona();
+                    p.setRun(this.txtRun.getText());
+                    p.setNombres(this.txtNombres.getText());
+                    p.setAppPaterno(this.txtAppPaterno.getText());
+                    p.setAppMaterno(this.txtAppMaterno.getText());
+                    p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
 
-                Persona p = new Persona();
-                p.setRun(this.txtRun.getText());
-                p.setNombres(this.txtNombres.getText());
-                p.setAppPaterno(this.txtAppPaterno.getText());
-                p.setAppMaterno(this.txtAppMaterno.getText());
-                p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+                    NegPersona per = new NegPersona();
+                    per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
 
-                NegPersona per = new NegPersona();
-                per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
-
-                switch (this.ddlRol.getSelectedIndex()) {
-                    case 3:
-                        Cliente cl = new Cliente();
-                        cl.setTelefono(this.txtTelefono.getText());
-                        cl.setComunaId(this.ddlComuna.getSelectedIndex());
-                        cl.setIdPersona(per.obtenerPersonaId());
-                        NegCliente neg = new NegCliente();
-                        neg.addCliente(cl);
-                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
-                        break;
-                    case 4:
-                        Trabajador tr = new Trabajador();
-                        tr.setTelefono(this.txtTelefono.getText());
-                        tr.setCargo(this.txtCargo.getText());
-                        tr.setFechaContrato(this.dpFechaContrato.getDate());
-                        tr.setIdPersona(per.obtenerPersonaId());
-                        tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
-                        NegTrabajador negT = new NegTrabajador();
-                        negT.addTrabajador(tr);
-                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
-                        break;
+                    switch (this.ddlRol.getSelectedIndex()) {
+                        case 3:
+                            Cliente cl = new Cliente();
+                            cl.setTelefono(this.txtTelefono.getText());
+                            cl.setComunaId(this.ddlComuna.getSelectedIndex());
+                            cl.setIdPersona(per.obtenerPersonaId());
+                            NegCliente neg = new NegCliente();
+                            neg.addCliente(cl);
+                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                            break;
+                        case 4:
+                            Trabajador tr = new Trabajador();
+                            tr.setTelefono(this.txtTelefono.getText());
+                            tr.setCargo(this.txtCargo.getText());
+                            tr.setFechaContrato(this.dpFechaContrato.getDate());
+                            tr.setIdPersona(per.obtenerPersonaId());
+                            tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                            NegTrabajador negT = new NegTrabajador();
+                            negT.addTrabajador(tr);
+                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                            break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario ya se encuentra registrado", "", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
