@@ -1,9 +1,13 @@
 package presentacion;
 
 //Importaciones
+import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -21,28 +25,34 @@ import negocio.NegPersona;
 import negocio.NegTrabajador;
 import negocio.NegUsuario;
 import negocio.NegRegion;
+import presentacion.validaciones.jTextFieldCharLimits;
+import presentacion.validaciones.validadorCorreo;
+import presentacion.validaciones.validadorRunChileno;
 
 /**
  * @author Ignacio Antillanca
- * @version 1.2
+ * @version 1.3
  */
 public class jdAddCuenta extends javax.swing.JDialog {
+
     //Variables
     List<Comuna> listComuna;
     List<Region> listRegion;
     List<Empresa> listEmpresa;
-    
+
     /**
      * Constructor que inicializa el modal del registro de cuentas.
+     *
      * @param parent
      * @param modal
      */
     public jdAddCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600); 
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600);
         this.setLocationRelativeTo(this);
         this.panelAdicionalDisable();
     }
@@ -91,9 +101,9 @@ public class jdAddCuenta extends javax.swing.JDialog {
         ddlRegion = new javax.swing.JComboBox<>();
         ddlComuna = new javax.swing.JComboBox<>();
         txtCargo = new javax.swing.JTextField();
-        dpFechaContrato = new org.jdesktop.swingx.JXDatePicker();
         lblIdEmp = new javax.swing.JLabel();
         ddlIdEmpresa = new javax.swing.JComboBox<>();
+        dpFechaContrato = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -208,6 +218,30 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
         lblAppMaterno.setText("Apellido materno");
 
+        txtRun.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRunKeyTyped(evt);
+            }
+        });
+
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombresKeyTyped(evt);
+            }
+        });
+
+        txtAppPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAppPaternoKeyTyped(evt);
+            }
+        });
+
+        txtAppMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAppMaternoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpAddPersonaLayout = new javax.swing.GroupLayout(jpAddPersona);
         jpAddPersona.setLayout(jpAddPersonaLayout);
         jpAddPersonaLayout.setHorizontalGroup(
@@ -282,6 +316,12 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
         lblFechaContra.setText("Fecha Contrato");
 
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
         ddlRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ddlRegion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -290,6 +330,12 @@ public class jdAddCuenta extends javax.swing.JDialog {
         });
 
         ddlComuna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCargoKeyTyped(evt);
+            }
+        });
 
         lblIdEmp.setText("Empresa");
 
@@ -321,19 +367,20 @@ public class jdAddCuenta extends javax.swing.JDialog {
                     .addComponent(lblIdEmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dpFechaContrato, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                     .addComponent(txtCargo)
-                    .addComponent(ddlIdEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ddlIdEmpresa, 0, 106, Short.MAX_VALUE)
+                    .addComponent(dpFechaContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jpAdicionalLayout.setVerticalGroup(
             jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpAdicionalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelefono)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaContra)
+                .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTelefono)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFechaContra))
                     .addComponent(dpFechaContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -407,22 +454,22 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Método que deshabilita el panel con la informacion adicional necesaria
      * para el registro de clientes o trabajadores
      */
-    public void panelAdicionalDisable(){
+    public void panelAdicionalDisable() {
         for (Component cp : this.jpAdicional.getComponents()) {
             cp.setEnabled(false);
         }
     }
-    
+
     /**
-     * Método que habilita el panel con la informacion adicional necesaria
-     * para el registro de clientes o trabajadores
+     * Método que habilita el panel con la informacion adicional necesaria para
+     * el registro de clientes o trabajadores
      */
-    public void panelAdicionalEnable(){
+    public void panelAdicionalEnable() {
         for (Component cp : this.jpAdicional.getComponents()) {
             cp.setEnabled(true);
         }
     }
-    
+
     /**
      * Método que obtiene los datos ingresados en el formulario de cuenta de
      * usuario nueva y los envia a su respectivo controller.
@@ -431,57 +478,66 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         if (!validateEmptys()) {
-            if (validar()) {
+            if (validateDuplicate()) {
                 try {
                     Usuario u = new Usuario();
                     u.setUsername(this.txtUsername.getText());
-                    u.setClave(String.valueOf(this.txtPass.getPassword()));
-                    u.setEmail(this.txtCorreo.getText());
-                    u.setRol(this.ddlRol.getSelectedIndex());
+                    if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
+                        u.setClave(String.valueOf(this.txtPass.getPassword()));
+                        if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
+                            u.setEmail(this.txtCorreo.getText());
+                            u.setRol(this.ddlRol.getSelectedIndex());
+                            if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
+                                NegUsuario user = new NegUsuario();
+                                user.addUsuario(u);
+                                Persona p = new Persona();
+                                p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                p.setNombres(this.txtNombres.getText());
+                                p.setAppPaterno(this.txtAppPaterno.getText());
+                                p.setAppMaterno(this.txtAppMaterno.getText());
+                                p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
 
-                    NegUsuario user = new NegUsuario();
-                    user.addUsuario(u);
-                    Persona p = new Persona();
-                    p.setRun(this.txtRun.getText());
-                    p.setNombres(this.txtNombres.getText());
-                    p.setAppPaterno(this.txtAppPaterno.getText());
-                    p.setAppMaterno(this.txtAppMaterno.getText());
-                    p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+                                NegPersona per = new NegPersona();
+                                per.addPersona(p);
+                                switch (this.ddlRol.getSelectedIndex()) {
+                                    case 3:
+                                        Cliente cl = new Cliente();
+                                        cl.setTelefono(this.txtTelefono.getText());
+                                        cl.setComunaId(this.ddlComuna.getSelectedIndex());
+                                        cl.setIdPersona(per.obtenerPersonaId());
+                                        NegCliente neg = new NegCliente();
+                                        neg.addCliente(cl);
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                                        break;
+                                    case 4:
+                                        Trabajador tr = new Trabajador();
+                                        tr.setTelefono(this.txtTelefono.getText());
+                                        tr.setCargo(this.txtCargo.getText());
+                                        tr.setFechaContrato(this.dpFechaContrato.getDate());
+                                        tr.setIdPersona(per.obtenerPersonaId());
+                                        tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                                        NegTrabajador negT = new NegTrabajador();
+                                        negT.addTrabajador(tr);
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                                        break;
+                                    default:
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                                        break;
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El RUN ingresado no es valido.", "", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El formato del correo es incorrecto", "", JOptionPane.ERROR_MESSAGE);
+                        }
 
-                    NegPersona per = new NegPersona();
-                    per.addPersona(p);
-                    switch (this.ddlRol.getSelectedIndex()) {
-                        case 3:
-                            Cliente cl = new Cliente();
-                            cl.setTelefono(this.txtTelefono.getText());
-                            cl.setComunaId(this.ddlComuna.getSelectedIndex());
-                            cl.setIdPersona(per.obtenerPersonaId());
-                            NegCliente neg = new NegCliente();
-                            neg.addCliente(cl);
-                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
-                            break;
-                        case 4:
-                            Trabajador tr = new Trabajador();
-                            tr.setTelefono(this.txtTelefono.getText());
-                            tr.setCargo(this.txtCargo.getText());
-                            tr.setFechaContrato(this.dpFechaContrato.getDate());
-                            tr.setIdPersona(per.obtenerPersonaId());
-                            tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
-                            NegTrabajador negT = new NegTrabajador();
-                            negT.addTrabajador(tr);
-                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
-                            break;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (HeadlessException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado", "", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                   
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
@@ -516,20 +572,22 @@ public class jdAddCuenta extends javax.swing.JDialog {
         }
         return campo;
     }
-    
+
     /**
-     * Accion del boton "CANCELAR" del modal de registro de cuenta.
-     * Termina el proceso, cerrando la ventana emergente
-     * @param evt 
+     * Accion del boton "CANCELAR" del modal de registro de cuenta. Termina el
+     * proceso, cerrando la ventana emergente
+     *
+     * @param evt
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
-     * Método que modifica el formulario de registro de cuenta en el caso
-     * que el tipo de cuenta sea cliente o trabajador
-     * @param evt 
+     * Método que modifica el formulario de registro de cuenta en el caso que el
+     * tipo de cuenta sea cliente o trabajador
+     *
+     * @param evt
      */
     private void ddlRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlRolActionPerformed
         switch (this.ddlRol.getSelectedIndex()) {
@@ -597,7 +655,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
     /**
      * Metodo que filtra las comunas en base a la region seleccionada.
-     * @param evt 
+     *
+     * @param evt
      */
     private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -621,12 +680,89 @@ public class jdAddCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_ddlRegionItemStateChanged
 
     /**
-     * Método que verifica que el nobmre de usuario o run ingresado, no se
+     * Función que evita escribir caracteres diferentes a números, en el campos
+     * de ingreso del RUN.
+     *
+     * @param evt
+     */
+    private void txtRunKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRunKeyTyped
+
+    /**
+     * Función que evita escribir caracteres numericos o simbolos, en el campo
+     * de nombres.
+     *
+     * @param evt
+     */
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombresKeyTyped
+
+    /**
+     * Función que evita escribir caracteres numericos o simbolos, en el campo
+     * de apellido paterno.
+     *
+     * @param evt
+     */
+    private void txtAppPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppPaternoKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAppPaternoKeyTyped
+
+    /**
+     * Función que evita escribir caracteres numericos o simbolos, en el campo
+     * de apellido materno.
+     *
+     * @param evt
+     */
+    private void txtAppMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppMaternoKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAppMaternoKeyTyped
+    /**
+     * Función que evita escribir caracteres diferentes a números, en el campos
+     * de ingreso del RUN.
+     *
+     * @param evt
+     */
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    /**
+     * Función que evita escribir caracteres numericos o simbolos, en el campo
+     * de cargo.
+     *
+     * @param evt
+     */
+    private void txtCargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCargoKeyTyped
+
+    /**
+     * Método que verifica que el nombre de usuario o run ingresado, no se
      * encuentren ya registrados.
      *
      * @return
      */
-    public boolean validar() {
+    public boolean validateDuplicate() {
         String txtUser = this.txtUsername.getText();
         String txtRunPer = this.txtRun.getText();
         NegUsuario negU = new NegUsuario();
@@ -641,7 +777,34 @@ public class jdAddCuenta extends javax.swing.JDialog {
             return true;
         }
     }
-    
+
+    /**
+     * Método que establece los limites de caracteres por campos de texto en el
+     * formulario.
+     *
+     */
+    public void limits(){
+        this.txtUsername.setDocument(new jTextFieldCharLimits(20));
+        this.txtPass.setDocument(new jTextFieldCharLimits(20));
+        this.txtPass2.setDocument(new jTextFieldCharLimits(20));
+        this.txtCorreo.setDocument(new jTextFieldCharLimits(40));
+        this.txtRun.setDocument(new jTextFieldCharLimits(9));
+        this.txtNombres.setDocument(new jTextFieldCharLimits(40));
+        this.txtAppPaterno.setDocument(new jTextFieldCharLimits(20));
+        this.txtAppMaterno.setDocument(new jTextFieldCharLimits(20));
+        this.txtTelefono.setDocument(new jTextFieldCharLimits(9));
+        this.txtCargo.setDocument(new jTextFieldCharLimits(20));
+        Date fechaActual = new Date();
+        this.dpFechaContrato.setMaxSelectableDate(fechaActual);
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaT = "01/01/1975";
+            Date fechaMaxima = sdf.parse(fechaT);
+            this.dpFechaContrato.setMinSelectableDate(fechaMaxima);
+        }catch(ParseException ex){
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -670,17 +833,15 @@ public class jdAddCuenta extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                jdAddCuenta dialog = new jdAddCuenta(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            jdAddCuenta dialog = new jdAddCuenta(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
@@ -691,7 +852,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> ddlIdEmpresa;
     private javax.swing.JComboBox<String> ddlRegion;
     private javax.swing.JComboBox<String> ddlRol;
-    private org.jdesktop.swingx.JXDatePicker dpFechaContrato;
+    private com.toedter.calendar.JDateChooser dpFechaContrato;
     private javax.swing.JPanel jpAddPersona;
     private javax.swing.JPanel jpAddUsuario;
     private javax.swing.JPanel jpAdicional;
