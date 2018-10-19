@@ -20,26 +20,26 @@ public class NegPersona {
       sesion = HibernateUtil.getSessionFactory().openSession();
     }
     
-     /**
+    /**
      * Metodo que llama al stored procedure que ingresa una persona a la base de
      * datos.
-     * @param p persona
+     * @param p Persona 
      */
-    public void addPersona(Persona p){
-        try {
-            Transaction tx = sesion.beginTransaction();
-            Query q = sesion.createSQLQuery("call pkg_crud_persona.create_persona(?,?,?,?,?)")
-                    .setParameter(0, p.getRun())
-                    .setParameter(1, p.getNombres())
-                    .setParameter(2, p.getAppPaterno())
-                    .setParameter(3, p.getAppMaterno())
-                    .setParameter(4, p.getIdUser());
-            //System.out.print("QUERY: " + q.toString());
-            q.executeUpdate();
-            tx.commit();
-        } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
-        }
+    public void addPersona(Persona p) {
+            try {
+                Transaction tx = sesion.beginTransaction();
+                Query q = sesion.createSQLQuery("call pkg_crud_persona.create_persona(?,?,?,?,?)")
+                        .setParameter(0, p.getRun())
+                        .setParameter(1, p.getNombres())
+                        .setParameter(2, p.getAppPaterno())
+                        .setParameter(3, p.getAppMaterno())
+                        .setParameter(4, p.getIdUser());
+                q.executeUpdate();
+                tx.commit();
+            } catch (Exception ex) {
+                System.out.print("ERROR: " + ex.toString());
+
+            }
     }
     
     /**
@@ -50,7 +50,6 @@ public class NegPersona {
      */
     public int obtenerPersonaId() {
         try {
-            Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("SELECT ID_PERSONA\n"
                     + "  FROM ( SELECT a.*, MAX(ID_PERSONA) OVER (\n"
                     + "  ) AS max_pk\n"
@@ -62,5 +61,18 @@ public class NegPersona {
             System.out.print("ERROR: " + ex.toString());
         }
         return 0;
+    }
+    
+    /**
+     * Método que valida en la base de datos, si existe o no un RUN de persona
+     * registrado para evitar conflictos.
+     *
+     * @param run Run ingresado en la creacion de cuentas.
+     * @return 1 si existe el username, 0 si esta disponible.
+     */
+    public Object validateRun(String run) {
+        Query q = sesion.createSQLQuery("SELECT RUN FROM PERSONA WHERE RUN = ?")
+                .setParameter(0, run);
+        return q.uniqueResult();
     }
 }

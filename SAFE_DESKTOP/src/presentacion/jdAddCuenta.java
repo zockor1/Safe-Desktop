@@ -431,16 +431,16 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         if (!validateEmptys()) {
+            if (validar()) {
+                try {
+                    Usuario u = new Usuario();
+                    u.setUsername(this.txtUsername.getText());
+                    u.setClave(String.valueOf(this.txtPass.getPassword()));
+                    u.setEmail(this.txtCorreo.getText());
+                    u.setRol(this.ddlRol.getSelectedIndex());
 
-            try {
-                Usuario u = new Usuario();
-                u.setUsername(this.txtUsername.getText());
-                u.setClave(String.valueOf(this.txtPass.getPassword()));
-                u.setEmail(this.txtCorreo.getText());
-                u.setRol(this.ddlRol.getSelectedIndex());
-
-                NegUsuario user = new NegUsuario();
-                if (user.addUsuario(u)) {
+                    NegUsuario user = new NegUsuario();
+                    user.addUsuario(u);
                     Persona p = new Persona();
                     p.setRun(this.txtRun.getText());
                     p.setNombres(this.txtNombres.getText());
@@ -449,8 +449,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
                     p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
 
                     NegPersona per = new NegPersona();
-                    per.addPersona(p); // Se ingresa una persona del tipo (admin, ingeniero, tecnico, supervisor o medico) 
-
+                    per.addPersona(p);
                     switch (this.ddlRol.getSelectedIndex()) {
                         case 3:
                             Cliente cl = new Cliente();
@@ -476,12 +475,13 @@ public class jdAddCuenta extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
                             break;
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El nombre de usuario ya se encuentra registrado", "", JOptionPane.ERROR_MESSAGE);
+                } catch (HeadlessException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
                 }
-            } catch (HeadlessException e) {
-                JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado: " + e.toString());
+            } else {
+                   
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
@@ -620,6 +620,28 @@ public class jdAddCuenta extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_ddlRegionItemStateChanged
 
+    /**
+     * Método que verifica que el nobmre de usuario o run ingresado, no se
+     * encuentren ya registrados.
+     *
+     * @return
+     */
+    public boolean validar() {
+        String txtUser = this.txtUsername.getText();
+        String txtRunPer = this.txtRun.getText();
+        NegUsuario negU = new NegUsuario();
+        NegPersona negP = new NegPersona();
+        if (negU.validateUsername(txtUser) != null) {
+            JOptionPane.showMessageDialog(null, "Ya existe registrado ese nombre de usuario, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (negP.validateRun(txtRunPer) != null) {
+            JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de persona, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

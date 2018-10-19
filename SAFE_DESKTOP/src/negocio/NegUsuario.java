@@ -28,28 +28,20 @@ public class NegUsuario {
      * datos.
      *
      * @param u usuario
-     * @return true si se completo el registro, false, en caso contrario.
      */
-    public boolean addUsuario(Usuario u) {
-        if (validateUsername(u.getUsername()) == null) {
-            try {
-                Transaction tx = sesion.beginTransaction();
-                Query q = sesion.createSQLQuery("call pkg_crud_usuario.create_usuario(?,?,?,?)")
-                        .setParameter(0, u.getUsername())
-                        .setParameter(1, u.getClave())
-                        .setParameter(2, u.getEmail())
-                        .setParameter(3, u.getRol());
-                q.executeUpdate();
-                tx.commit();
-                return true;
-            } catch (Exception ex) {
-                System.out.print("ERROR: " + ex.toString());
-            }
-
-        } else {
-            return false;
+    public void addUsuario(Usuario u) {
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_usuario.create_usuario(?,?,?,?)")
+                    .setParameter(0, u.getUsername())
+                    .setParameter(1, u.getClave())
+                    .setParameter(2, u.getEmail())
+                    .setParameter(3, u.getRol());
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
         }
-        return false;
     }
 
     /**
