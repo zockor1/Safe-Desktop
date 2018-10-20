@@ -1,6 +1,7 @@
 package negocio;
 
 //Importaciones
+import java.util.List;
 import modelo.Persona;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -40,6 +41,17 @@ public class NegPersona {
                 System.out.print("ERROR: " + ex.toString());
 
             }
+    }
+    
+     /**
+     * Método que retorna una lista de las personas registradas en la base de 
+     * datos.
+     * @return Lista de persona.
+     * @throws Exception general.
+     */
+    public List<Persona> getAllPersona() throws Exception {
+        List<Persona> list = sesion.createCriteria(Persona.class).list();
+        return list;
     }
     
     /**

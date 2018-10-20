@@ -5,6 +5,10 @@
  */
 package presentacion;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Persona;
+import negocio.NegPersona;
 import rojerusan.RSPanelsSlider;
 
 /**
@@ -20,6 +24,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     public jfPrincipal() {
         this.setUndecorated(true);
         initComponents();
+        addJTableCuentas();
         // Variables para adapatar la pantalla inicial al centro y 
         // con tamaño 950x600 sin importar la resolucion del monitor
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -221,25 +226,21 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         tblCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nombre", "Rol", "Acciones"
+                "ID USUARIO", "NOMBRE PERSONA", "RUN", "ROL", "ACCIONES"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tblCuentas);
-        if (tblCuentas.getColumnModel().getColumnCount() > 0) {
-            tblCuentas.getColumnModel().getColumn(2).setHeaderValue("Estado");
-        }
 
         jpCuentas.add(jScrollPane3);
         jScrollPane3.setBounds(0, 166, 710, 192);
@@ -416,6 +417,54 @@ public class jfPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
+    /**
+     * Método que realiza el llenado de la tabla de cuentas con la información
+     * de las personas.
+     */
+    public void addJTableCuentas(){
+        DefaultTableModel model = (DefaultTableModel)this.tblCuentas.getModel();
+        NegPersona negPer = new NegPersona();
+        try {
+          List<Persona> list = negPer.getAllPersona();  
+          Object rowData[] = new Object[5];
+            for (int i = 0; i < list.size(); i++) {
+                rowData[0] = list.get(i).getUsuario().getIdUsuario();
+                rowData[1] = list.get(i).getNombres() +" "+ list.get(i).getAppPaterno();
+                rowData[2] = list.get(i).getRun();
+              switch (list.get(i).getUsuario().getRol()) {
+                  case 1:
+                      rowData[3] = "Administrador";
+                      break;
+                  case 2:
+                      rowData[3] = "Supervisor";
+                      break;
+                  case 3:
+                      rowData[3] = "Cliente";
+                      break;
+                  case 4:
+                      rowData[3] = "Trabajador";
+                      break;
+                  case 5:
+                      rowData[3] = "Ingeniero";
+                      break;
+                  case 6:
+                      rowData[3] = "Técnico";
+                      break;
+                  case 7:
+                      rowData[3] = "Médico";
+                      break;
+                  default:
+                      rowData[3] = "Otro";
+                      break;
+              }
+              rowData[4] = "ACCIONES";
+              model.addRow(rowData);
+            }
+        } catch(Exception ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
