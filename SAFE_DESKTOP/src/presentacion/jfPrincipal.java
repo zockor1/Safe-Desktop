@@ -6,6 +6,7 @@
 package presentacion;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Persona;
 import negocio.NegPersona;
@@ -30,10 +31,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 950, 500); 
-        this.setLocationRelativeTo(this);
-        
-        
-        
+        this.setLocationRelativeTo(this); 
     }
 
     /**
@@ -63,12 +61,13 @@ public class jfPrincipal extends javax.swing.JFrame {
         tblContratos = new javax.swing.JTable();
         jpCuentas = new javax.swing.JPanel();
         lblCuentas = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblCuentas = new javax.swing.JTable();
-        btnAgregarCuenta = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         piSearchIcon = new org.edisoncor.gui.panel.PanelImage();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblCuentas = new org.jdesktop.swingx.JXTable();
+        btnAgregarCuenta = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jpEmpresas = new javax.swing.JPanel();
         lblEmpresas = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -224,41 +223,16 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(lblCuentas);
         lblCuentas.setBounds(230, 10, 280, 17);
 
-        tblCuentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID USUARIO", "NOMBRE PERSONA", "RUN", "ROL", "ACCIONES"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tblCuentas);
-
-        jpCuentas.add(jScrollPane3);
-        jScrollPane3.setBounds(0, 166, 710, 192);
-
-        btnAgregarCuenta.setText("AGREGAR +");
-        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCuentaActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        jpCuentas.add(btnAgregarCuenta);
-        btnAgregarCuenta.setBounds(0, 132, 110, 23);
+        jpCuentas.add(btnEliminar);
+        btnEliminar.setBounds(240, 132, 110, 23);
         jpCuentas.add(txtSearch);
-        txtSearch.setBounds(546, 132, 155, 20);
-
-        jLabel1.setText("<-- PAGINADOR -->");
-        jpCuentas.add(jLabel1);
-        jLabel1.setBounds(279, 389, 130, 14);
+        txtSearch.setBounds(546, 132, 200, 20);
 
         piSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/search_icon.png"))); // NOI18N
         piSearchIcon.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -276,6 +250,56 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         jpCuentas.add(piSearchIcon);
         piSearchIcon.setBounds(520, 132, 20, 20);
+
+        tblCuentas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID USUARIO", "NOMBRE PERSONA", "RUN", "ROL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCuentas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tblCuentas);
+        if (tblCuentas.getColumnModel().getColumnCount() > 0) {
+            tblCuentas.getColumnModel().getColumn(0).setResizable(false);
+            tblCuentas.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tblCuentas.getColumnModel().getColumn(1).setResizable(false);
+            tblCuentas.getColumnModel().getColumn(1).setPreferredWidth(15);
+            tblCuentas.getColumnModel().getColumn(2).setResizable(false);
+            tblCuentas.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tblCuentas.getColumnModel().getColumn(3).setResizable(false);
+            tblCuentas.getColumnModel().getColumn(3).setPreferredWidth(10);
+        }
+
+        jpCuentas.add(jScrollPane5);
+        jScrollPane5.setBounds(2, 160, 750, 280);
+
+        btnAgregarCuenta.setText("AGREGAR");
+        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCuentaActionPerformed(evt);
+            }
+        });
+        jpCuentas.add(btnAgregarCuenta);
+        btnAgregarCuenta.setBounds(0, 132, 110, 23);
+
+        btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jpCuentas.add(btnModificar);
+        btnModificar.setBounds(120, 132, 110, 23);
 
         rSPanelsSlider1.add(jpCuentas, "card3");
 
@@ -351,7 +375,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             .addGroup(jpPrincipalLayout.createSequentialGroup()
                 .addComponent(jpMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
         );
         jpPrincipalLayout.setVerticalGroup(
             jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +387,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(jpPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,10 +436,33 @@ public class jfPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
-         jdAddCuenta ventana = new jdAddCuenta(this, true);
+        jdAddCuenta ventana = new jdAddCuenta(this, true);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
+
+    /**
+     * Método que recibe la id del item de la tabl cuentaa y abre la ventana de
+     * modificaciones de datos en base a esa id.
+     *
+     * @param evt
+     */
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        try {
+            int column = 0;
+            int row = this.tblCuentas.getSelectedRow();
+            int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
+            jdUpCuenta ventana = new jdUpCuenta(this, true, value);
+            ventana.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
+        }
+        //System.out.println("ID: " + value);
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * Método que realiza el llenado de la tabla de cuentas con la información
@@ -457,13 +504,13 @@ public class jfPrincipal extends javax.swing.JFrame {
                       rowData[3] = "Otro";
                       break;
               }
-              rowData[4] = "ACCIONES";
               model.addRow(rowData);
             }
         } catch(Exception ex) {
             System.out.println("ERROR: " + ex.toString());
         }
     }
+   
     
     /**
      * @param args the command line arguments
@@ -504,13 +551,14 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarCuenta;
     private javax.swing.JButton btnAgregarEmpresa;
     private javax.swing.JButton btnCuentas;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEmpresa;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel jpCuentas;
     private javax.swing.JPanel jpEmpresas;
     private javax.swing.JPanel jpInicio;
@@ -528,7 +576,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private org.edisoncor.gui.panel.PanelImage piSearchIcon;
     private rojerusan.RSPanelsSlider rSPanelsSlider1;
     private javax.swing.JTable tblContratos;
-    private javax.swing.JTable tblCuentas;
+    private org.jdesktop.swingx.JXTable tblCuentas;
     private javax.swing.JTable tblEmpresas;
     private javax.swing.JTable tblInfo;
     private javax.swing.JTextField txtSearch;

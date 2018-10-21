@@ -33,7 +33,7 @@ import presentacion.validaciones.validadorRunChileno;
  * @author Ignacio Antillanca
  * @version 1.3
  */
-public class jdAddCuenta extends javax.swing.JDialog {
+public class jdUpCuenta extends javax.swing.JDialog {
 
     //Variables
     List<Comuna> listComuna;
@@ -45,16 +45,22 @@ public class jdAddCuenta extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
+     * @param id
      */
-    public jdAddCuenta(java.awt.Frame parent, boolean modal) {
+    public jdUpCuenta(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
+        cargaDeCampos(id);
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600);
         this.setLocationRelativeTo(this);
         this.panelAdicionalDisable();
+    }
+    
+    public void cargaDeCampos(int id){
+        //Cargar los datos en base a la consulta y el id ingresado...
     }
 
     /**
@@ -66,10 +72,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlAddCuenta = new javax.swing.JPanel();
-        pnlAddCuentaBanner = new javax.swing.JPanel();
+        pnlUpCuenta = new javax.swing.JPanel();
+        pnlUpCuentaBanner = new javax.swing.JPanel();
         lblTituloCuenta = new javax.swing.JLabel();
-        jpAddUsuario = new javax.swing.JPanel();
+        jpUpUsuario = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
         lblPass2 = new javax.swing.JLabel();
@@ -80,7 +86,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
         ddlRol = new javax.swing.JComboBox<>();
         txtPass = new javax.swing.JPasswordField();
         txtPass2 = new javax.swing.JPasswordField();
-        jpAddPersona = new javax.swing.JPanel();
+        jpUpPersona = new javax.swing.JPanel();
         lblRun = new javax.swing.JLabel();
         lblNombres = new javax.swing.JLabel();
         lblAppPaterno = new javax.swing.JLabel();
@@ -89,7 +95,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
         txtNombres = new javax.swing.JTextField();
         txtAppPaterno = new javax.swing.JTextField();
         txtAppMaterno = new javax.swing.JTextField();
-        btnAgregarCuenta = new javax.swing.JButton();
+        btnModificarCuenta = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jpAdicional = new javax.swing.JPanel();
         lblTelefono = new javax.swing.JLabel();
@@ -112,34 +118,34 @@ public class jdAddCuenta extends javax.swing.JDialog {
             }
         });
 
-        pnlAddCuenta.setBackground(new java.awt.Color(255, 255, 255));
-        pnlAddCuenta.setPreferredSize(new java.awt.Dimension(800, 600));
+        pnlUpCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUpCuenta.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        pnlAddCuentaBanner.setBackground(new java.awt.Color(17, 48, 142));
+        pnlUpCuentaBanner.setBackground(new java.awt.Color(17, 48, 142));
 
         lblTituloCuenta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTituloCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloCuenta.setText("REGISTRO DE NUEVA CUENTA DE USUARIO");
+        lblTituloCuenta.setText("MODIFICACION DE CUENTA DE USUARIO");
 
-        javax.swing.GroupLayout pnlAddCuentaBannerLayout = new javax.swing.GroupLayout(pnlAddCuentaBanner);
-        pnlAddCuentaBanner.setLayout(pnlAddCuentaBannerLayout);
-        pnlAddCuentaBannerLayout.setHorizontalGroup(
-            pnlAddCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCuentaBannerLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlUpCuentaBannerLayout = new javax.swing.GroupLayout(pnlUpCuentaBanner);
+        pnlUpCuentaBanner.setLayout(pnlUpCuentaBannerLayout);
+        pnlUpCuentaBannerLayout.setHorizontalGroup(
+            pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpCuentaBannerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(225, 225, 225))
         );
-        pnlAddCuentaBannerLayout.setVerticalGroup(
-            pnlAddCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddCuentaBannerLayout.createSequentialGroup()
+        pnlUpCuentaBannerLayout.setVerticalGroup(
+            pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpCuentaBannerLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblTituloCuenta)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jpAddUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        jpAddUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Usuario"));
+        jpUpUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        jpUpUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Usuario"));
 
         lblUsername.setText("Nombre de Usuario");
 
@@ -158,57 +164,57 @@ public class jdAddCuenta extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jpAddUsuarioLayout = new javax.swing.GroupLayout(jpAddUsuario);
-        jpAddUsuario.setLayout(jpAddUsuarioLayout);
-        jpAddUsuarioLayout.setHorizontalGroup(
-            jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpAddUsuarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpUpUsuarioLayout = new javax.swing.GroupLayout(jpUpUsuario);
+        jpUpUsuario.setLayout(jpUpUsuarioLayout);
+        jpUpUsuarioLayout.setHorizontalGroup(
+            jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUpUsuarioLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsername)
                     .addComponent(lblPass)
                     .addComponent(lblPass2))
                 .addGap(18, 18, 18)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(txtPass)
                     .addComponent(txtPass2))
                 .addGap(114, 114, 114)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRol)
                     .addComponent(lblCorreo))
                 .addGap(33, 33, 33)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                     .addComponent(ddlRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
-        jpAddUsuarioLayout.setVerticalGroup(
-            jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpAddUsuarioLayout.createSequentialGroup()
+        jpUpUsuarioLayout.setVerticalGroup(
+            jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUpUsuarioLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(lblCorreo)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPass)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPass2)
                         .addComponent(txtPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpAddUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(ddlRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblRol)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpAddPersona.setBackground(new java.awt.Color(255, 255, 255));
-        jpAddPersona.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Persona"));
+        jpUpPersona.setBackground(new java.awt.Color(255, 255, 255));
+        jpUpPersona.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Persona"));
 
         lblRun.setText("Run");
 
@@ -242,57 +248,57 @@ public class jdAddCuenta extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jpAddPersonaLayout = new javax.swing.GroupLayout(jpAddPersona);
-        jpAddPersona.setLayout(jpAddPersonaLayout);
-        jpAddPersonaLayout.setHorizontalGroup(
-            jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpAddPersonaLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpUpPersonaLayout = new javax.swing.GroupLayout(jpUpPersona);
+        jpUpPersona.setLayout(jpUpPersonaLayout);
+        jpUpPersonaLayout.setHorizontalGroup(
+            jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUpPersonaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jpAddPersonaLayout.createSequentialGroup()
+                .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpUpPersonaLayout.createSequentialGroup()
                         .addComponent(lblRun)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpAddPersonaLayout.createSequentialGroup()
-                        .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpUpPersonaLayout.createSequentialGroup()
+                        .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAppPaterno)
                             .addComponent(lblNombres))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtAppPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpAddPersonaLayout.createSequentialGroup()
+                    .addGroup(jpUpPersonaLayout.createSequentialGroup()
                         .addComponent(lblAppMaterno)
                         .addGap(18, 18, 18)
                         .addComponent(txtAppMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
-        jpAddPersonaLayout.setVerticalGroup(
-            jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpAddPersonaLayout.createSequentialGroup()
+        jpUpPersonaLayout.setVerticalGroup(
+            jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpUpPersonaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRun)
                     .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombres)
                     .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAppPaterno)
                     .addComponent(txtAppPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jpAddPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAppMaterno)
                     .addComponent(txtAppMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnAgregarCuenta.setText("AGREGAR");
-        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarCuenta.setText("MODIFICAR");
+        btnModificarCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCuentaActionPerformed(evt);
+                btnModificarCuentaActionPerformed(evt);
             }
         });
 
@@ -397,41 +403,41 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlAddCuentaLayout = new javax.swing.GroupLayout(pnlAddCuenta);
-        pnlAddCuenta.setLayout(pnlAddCuentaLayout);
-        pnlAddCuentaLayout.setHorizontalGroup(
-            pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlAddCuentaBanner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlAddCuentaLayout.createSequentialGroup()
-                .addGroup(pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAddCuentaLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlUpCuentaLayout = new javax.swing.GroupLayout(pnlUpCuenta);
+        pnlUpCuenta.setLayout(pnlUpCuentaLayout);
+        pnlUpCuentaLayout.setHorizontalGroup(
+            pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlUpCuentaBanner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlUpCuentaLayout.createSequentialGroup()
+                .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUpCuentaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jpAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlAddCuentaLayout.createSequentialGroup()
-                                .addComponent(jpAddPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpUpUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlUpCuentaLayout.createSequentialGroup()
+                                .addComponent(jpUpPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jpAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(pnlAddCuentaLayout.createSequentialGroup()
+                    .addGroup(pnlUpCuentaLayout.createSequentialGroup()
                         .addGap(252, 252, 252)
-                        .addComponent(btnAgregarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlAddCuentaLayout.setVerticalGroup(
-            pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddCuentaLayout.createSequentialGroup()
-                .addComponent(pnlAddCuentaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlUpCuentaLayout.setVerticalGroup(
+            pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpCuentaLayout.createSequentialGroup()
+                .addComponent(pnlUpCuentaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpUpUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpAddPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpUpPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlAddCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarCuenta)
+                .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificarCuenta)
                     .addComponent(btnCancelar))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
@@ -440,11 +446,11 @@ public class jdAddCuenta extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlAddCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+            .addComponent(pnlUpCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlAddCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addComponent(pnlUpCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
         );
 
         pack();
@@ -476,7 +482,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      *
      * @param evt
      */
-    private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
+    private void btnModificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCuentaActionPerformed
         if (!validateEmptys()) {
             if (validateDuplicate()) {
                 try {
@@ -542,7 +548,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_btnAgregarCuentaActionPerformed
+    }//GEN-LAST:event_btnModificarCuentaActionPerformed
 
     /**
      * Método que valida que los campos del formulario de usuario no esten
@@ -805,58 +811,17 @@ public class jdAddCuenta extends javax.swing.JDialog {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jdAddCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jdAddCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jdAddCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jdAddCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            jdAddCuenta dialog = new jdAddCuenta(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarCuenta;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnModificarCuenta;
     private javax.swing.JComboBox<String> ddlComuna;
     private javax.swing.JComboBox<String> ddlIdEmpresa;
     private javax.swing.JComboBox<String> ddlRegion;
     private javax.swing.JComboBox<String> ddlRol;
     private com.toedter.calendar.JDateChooser dpFechaContrato;
-    private javax.swing.JPanel jpAddPersona;
-    private javax.swing.JPanel jpAddUsuario;
     private javax.swing.JPanel jpAdicional;
+    private javax.swing.JPanel jpUpPersona;
+    private javax.swing.JPanel jpUpUsuario;
     private javax.swing.JLabel lblAppMaterno;
     private javax.swing.JLabel lblAppPaterno;
     private javax.swing.JLabel lblCargo;
@@ -873,8 +838,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTituloCuenta;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JPanel pnlAddCuenta;
-    private javax.swing.JPanel pnlAddCuentaBanner;
+    private javax.swing.JPanel pnlUpCuenta;
+    private javax.swing.JPanel pnlUpCuentaBanner;
     private javax.swing.JTextField txtAppMaterno;
     private javax.swing.JTextField txtAppPaterno;
     private javax.swing.JTextField txtCargo;
