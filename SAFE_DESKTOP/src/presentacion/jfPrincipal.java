@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentacion;
 
 import java.util.List;
@@ -14,7 +9,7 @@ import rojerusan.RSPanelsSlider;
 
 /**
  *
- * @author Zockor
+ * @author Igncio Antillanca
  */
 public class jfPrincipal extends javax.swing.JFrame {
     
@@ -456,8 +451,37 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column = 0;
             int row = this.tblCuentas.getSelectedRow();
             int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
-            jdUpCuenta ventana = new jdUpCuenta(this, true, value);
+            
+            int column2 = 3;
+            int value2;
+            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
+            switch (rol) {
+                case "Administrador":
+                    value2 = 1;
+                    break;
+                case "Supervisor":
+                    value2 = 2;
+                    break;
+                case "Cliente":
+                    value2 = 3;
+                    break;
+                case "Trabajador":
+                    value2 = 4;
+                    break;
+                case "Ingeniero":
+                    value2 = 5;
+                    break;
+                case "Técnico":
+                    value2 = 6;
+                    break;
+                default:
+                    value2 = 7;
+                    break;
+            }
+            jdUpCuenta ventana = new jdUpCuenta(this, true);
+            ventana.cargaDeCampos(value, value2);
             ventana.setVisible(true);
+            //System.out.println("ID USER: " + value + " ID ROL: " + value2);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }

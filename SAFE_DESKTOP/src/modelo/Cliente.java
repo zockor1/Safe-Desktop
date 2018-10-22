@@ -83,6 +83,11 @@ public class Cliente  implements java.io.Serializable {
     public void setComuna(Comuna comuna) {
         this.comuna = comuna;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", comunaId=" + comunaId + ", idPersona=" + idPersona + ", telefono=" + telefono + ", persona=" + persona + ", comuna=" + comuna + ", empresas=" + empresas + '}';
+    }
 }
 
 

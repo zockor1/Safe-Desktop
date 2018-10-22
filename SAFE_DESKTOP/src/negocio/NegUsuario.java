@@ -2,7 +2,6 @@ package negocio;
 
 //Importaciones
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;

@@ -9,7 +9,7 @@ import java.util.Date;
 public class Trabajador  implements java.io.Serializable {
 
 
-     private TrabajadorId id;
+     private int idTrabajador;
      private String telefono;
      private Date fechaContrato;
      private String cargo;
@@ -29,12 +29,12 @@ public class Trabajador  implements java.io.Serializable {
         this.idEmpresa = idEmp;
     }
    
-    public TrabajadorId getId() {
-        return this.id;
+    public int getIdTrabajador() {
+        return this.idTrabajador;
     }
     
-    public void setId(TrabajadorId id) {
-        this.id = id;
+    public void setIdTrabajador(int idTrabajador) {
+        this.idTrabajador = idTrabajador;
     }
     
     public String getTelefono() {
@@ -90,6 +90,13 @@ public class Trabajador  implements java.io.Serializable {
     public void setIdEmpresa(int idEmp){
         this.idEmpresa = idEmp;
     }
+
+    @Override
+    public String toString() {
+        return "Trabajador{" + "idTrabajador=" + idTrabajador + ", telefono=" + telefono + ", fechaContrato=" + fechaContrato + ", cargo=" + cargo + ", idPersona=" + idPersona + ", idEmpresa=" + idEmpresa + ", empresa=" + empresa + ", persona=" + persona + '}';
+    }
+    
+    
 }
 
 

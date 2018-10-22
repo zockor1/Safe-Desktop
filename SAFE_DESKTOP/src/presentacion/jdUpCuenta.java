@@ -45,12 +45,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
-     * @param id
      */
-    public jdUpCuenta(java.awt.Frame parent, boolean modal, int id) {
+    public jdUpCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cargaDeCampos(id);
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -59,8 +57,105 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.panelAdicionalDisable();
     }
     
-    public void cargaDeCampos(int id){
-        //Cargar los datos en base a la consulta y el id ingresado...
+    /**
+     * Método que realiza la llamada al metodo correspondiente, para cagar la 
+     * informacion a mostrar.
+     * @param idUsu ID de usuario seleccionado en la tabla cuentas
+     * @param idRol ID de rol seleccionado en la tabla cuentas
+     */
+    public void cargaDeCampos(int idUsu, int idRol){
+        switch (idRol) {
+            case 3:
+                cargaDeCliente(idUsu);
+                break;
+            case 4:
+                cargaDeTrabajador(idUsu);
+                break;
+            default:
+                cargaDeUsuario(idUsu);
+                break;
+        }
+    }
+    
+    /**
+     * Método que recibe la informacion entregada por la base de datos en base
+     * al id de un usuario del tipo cliente, seteando los datos en los
+     * respectivos campos del formulario.
+     *
+     * @param idUsu ID de usuario seleccionado en la tabla cuenta.
+     */
+    public void cargaDeCliente(int idUsu) {
+        NegCliente negC = new NegCliente();
+        Cliente cliente = negC.obtenerCliente(idUsu);
+        //Llenado campos de usuario
+        this.txtUsername.setText(cliente.getPersona().getUsuario().getUsername());
+        this.txtPass.setText("");
+        this.txtPass2.setText("");
+        this.txtCorreo.setText(cliente.getPersona().getUsuario().getEmail());
+        this.ddlRol.setSelectedIndex(cliente.getPersona().getUsuario().getRol());
+        //Llenado campos de persona
+        this.txtRun.setText(cliente.getPersona().getRun());
+        this.txtNombres.setText(cliente.getPersona().getNombres());
+        this.txtAppPaterno.setText(cliente.getPersona().getAppPaterno());
+        this.txtAppMaterno.setText(cliente.getPersona().getAppMaterno());
+        //Llenado campos de cliente
+        this.txtTelefono.setText(cliente.getTelefono());
+        DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
+        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
+        cModelR.setSelectedItem(cliente.getComuna().getRegion().getNombre());
+        cModelC.setSelectedItem(cliente.getComuna().getNombre());
+    }
+    
+    /**
+     * Método que recibe la informacion entregada por la base de datos en base
+     * al id de un usuario del tipo trabajador, seteando los datos en los
+     * respectivos campos del formulario.
+     * @param idUsu ID de usuario seleccionado en la tabla cuenta.
+     */
+    public void cargaDeTrabajador(int idUsu) {
+        NegTrabajador negT = new NegTrabajador();
+        Trabajador trabajador = negT.obtenerTrabajador(idUsu);
+        //Llenado campos de usuario
+        this.txtUsername.setText(trabajador.getPersona().getUsuario().getUsername());
+        this.txtPass.setText("");
+        this.txtPass2.setText("");
+        this.txtCorreo.setText(trabajador.getPersona().getUsuario().getEmail());
+        this.ddlRol.setSelectedIndex(trabajador.getPersona().getUsuario().getRol());
+        //Llenado campos de persona
+        this.txtRun.setText(trabajador.getPersona().getRun());
+        this.txtNombres.setText(trabajador.getPersona().getNombres());
+        this.txtAppPaterno.setText(trabajador.getPersona().getAppPaterno());
+        this.txtAppMaterno.setText(trabajador.getPersona().getAppMaterno());
+        //Llenado campos de trabajador
+        this.txtTelefono.setText(trabajador.getTelefono());
+        this.dpFechaContrato.setDate(trabajador.getFechaContrato());
+        this.txtCargo.setText(trabajador.getCargo());
+        DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
+        cModelE.setSelectedItem(trabajador.getIdEmpresa());
+    }
+    
+    /**
+     * Método que recibe la informacion entregada por la base de datos en base
+     * al id de un usuario, seteando los datos en los respectivos campos del
+     * formulario.
+     *
+     * @param idUsu ID de usuario seleccionado en la tabla cuenta.
+     */
+    public void cargaDeUsuario(int idUsu) {
+        NegPersona negP = new NegPersona();
+        Persona pr = negP.obtenerPersona(idUsu);
+        //Llenado campos de usuario
+        this.txtUsername.setText(pr.getUsuario().getUsername());
+        this.txtPass.setText("");
+        this.txtPass2.setText("");
+        this.txtCorreo.setText(pr.getUsuario().getEmail());
+        this.ddlRol.setSelectedIndex(pr.getUsuario().getRol());
+        //Llenado campos de persona
+        this.txtRun.setText(pr.getRun());
+        this.txtNombres.setText(pr.getNombres());
+        this.txtAppPaterno.setText(pr.getAppPaterno());
+        this.txtAppMaterno.setText(pr.getAppMaterno());
+        
     }
 
     /**
@@ -328,14 +423,11 @@ public class jdUpCuenta extends javax.swing.JDialog {
             }
         });
 
-        ddlRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ddlRegion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ddlRegionItemStateChanged(evt);
             }
         });
-
-        ddlComuna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtCargo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -344,8 +436,6 @@ public class jdUpCuenta extends javax.swing.JDialog {
         });
 
         lblIdEmp.setText("Empresa");
-
-        ddlIdEmpresa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jpAdicionalLayout = new javax.swing.GroupLayout(jpAdicional);
         jpAdicional.setLayout(jpAdicionalLayout);
@@ -629,9 +719,6 @@ public class jdUpCuenta extends javax.swing.JDialog {
         DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
         DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
 
-        cModelR.removeAllElements();
-        cModelC.removeAllElements();
-        cModelE.removeAllElements();
 
         cModelR.addElement("Región...");
         cModelC.addElement("Comuna...");
@@ -676,11 +763,9 @@ public class jdUpCuenta extends javax.swing.JDialog {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, "Error con la actualizacion de comunas.");
                 }
-                for (Comuna c : listComuna) {
-                    if (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex()) {
-                        cModelC.addElement(c.getNombre());
-                    }
-                }
+                listComuna.stream().filter((c) -> (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex())).forEachOrdered((c) -> {
+                    cModelC.addElement(c.getNombre());
+                });
             }
         }
     }//GEN-LAST:event_ddlRegionItemStateChanged

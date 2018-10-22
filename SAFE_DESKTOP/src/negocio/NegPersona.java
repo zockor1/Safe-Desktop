@@ -87,4 +87,29 @@ public class NegPersona {
                 .setParameter(0, run);
         return q.uniqueResult();
     }
+    
+    /**
+     * Método que devuelve el la informacion de la persona selecionado en la
+     * tabla a traves de la is de usuario.
+     *
+     * @param idUser
+     * @return
+     */
+    public Persona obtenerPersona(int idUser) {
+        try {
+            Query q = sesion.createSQLQuery("SELECT pr.ID_PERSONA\n"
+                    + "FROM PERSONA pr\n"
+                    + "INNER JOIN USUARIO usu\n"
+                    + "ON pr.USUARIO_ID_USUARIO = usu.ID_USUARIO\n"
+                    + "WHERE usu.ID_USUARIO = ?")
+                    .setParameter(0, idUser);
+            Object result = q.uniqueResult();
+            int id = ((Number) result).intValue();
+            Persona p = (Persona) sesion.get(Persona.class, id);
+            return p;
+        } catch (Exception ex) {
+            System.out.println("ERROR controller: " + ex.toString());
+        }
+        return null;
+    }
 }

@@ -4,14 +4,10 @@
 <!-- Generated 26-09-2018 15:18:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="modelo.Trabajador" table="TRABAJADOR" schema="DBA_SAFE" optimistic-lock="version">
-        <composite-id name="id" class="modelo.TrabajadorId">
-            <key-property name="idTrabajador" type="big_decimal">
-                <column name="ID_TRABAJADOR" precision="22" scale="0" />
-            </key-property>
-            <key-property name="empresaIdEmpresa" type="big_decimal">
-                <column name="EMPRESA_ID_EMPRESA" precision="22" scale="0" />
-            </key-property>
-        </composite-id>
+        <id name="idTrabajador" type="int">
+            <column name="ID_TRABAJADOR" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
         <many-to-one name="empresa" class="modelo.Empresa" update="false" insert="false" fetch="select">
             <column name="EMPRESA_ID_EMPRESA" precision="22" scale="0" not-null="true" />
         </many-to-one>
