@@ -87,6 +87,11 @@ public class jdUpCuenta extends javax.swing.JDialog {
     public void cargaDeCliente(int idUsu) {
         NegCliente negC = new NegCliente();
         Cliente cliente = negC.obtenerCliente(idUsu);
+        //Llenado ID usu
+        this.lblIdUsu.setText(String.valueOf(idUsu));
+        this.lblIdPer.setText(String.valueOf(cliente.getPersona().getIdPersona()));
+        this.lblIdCli.setText(String.valueOf(cliente.getIdCliente()));
+        
         //Llenado campos de usuario
         this.txtUsername.setText(cliente.getPersona().getUsuario().getUsername());
         this.txtPass.setText("");
@@ -115,6 +120,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
     public void cargaDeTrabajador(int idUsu) {
         NegTrabajador negT = new NegTrabajador();
         Trabajador trabajador = negT.obtenerTrabajador(idUsu);
+        //Llenado ID usu
+        this.lblIdUsu.setText(String.valueOf(idUsu));
+        this.lblIdPer.setText(String.valueOf(trabajador.getPersona().getIdPersona()));
+        this.lblIdTra.setText(String.valueOf(trabajador.getIdTrabajador()));
         //Llenado campos de usuario
         this.txtUsername.setText(trabajador.getPersona().getUsuario().getUsername());
         this.txtPass.setText("");
@@ -131,7 +140,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.dpFechaContrato.setDate(trabajador.getFechaContrato());
         this.txtCargo.setText(trabajador.getCargo());
         DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
-        cModelE.setSelectedItem(trabajador.getIdEmpresa());
+        cModelE.setSelectedItem(trabajador.getEmpresa().getNombreFantasia());
     }
     
     /**
@@ -144,6 +153,9 @@ public class jdUpCuenta extends javax.swing.JDialog {
     public void cargaDeUsuario(int idUsu) {
         NegPersona negP = new NegPersona();
         Persona pr = negP.obtenerPersona(idUsu);
+        //Llenado ID usu
+        this.lblIdUsu.setText(String.valueOf(idUsu));
+        this.lblIdPer.setText(String.valueOf(pr.getIdPersona()));
         //Llenado campos de usuario
         this.txtUsername.setText(pr.getUsuario().getUsername());
         this.txtPass.setText("");
@@ -170,6 +182,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
         pnlUpCuenta = new javax.swing.JPanel();
         pnlUpCuentaBanner = new javax.swing.JPanel();
         lblTituloCuenta = new javax.swing.JLabel();
+        lblIdUsu = new javax.swing.JLabel();
+        lblIdPer = new javax.swing.JLabel();
+        lblIdCli = new javax.swing.JLabel();
+        lblIdTra = new javax.swing.JLabel();
         jpUpUsuario = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
@@ -222,21 +238,51 @@ public class jdUpCuenta extends javax.swing.JDialog {
         lblTituloCuenta.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloCuenta.setText("MODIFICACION DE CUENTA DE USUARIO");
 
+        lblIdUsu.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdUsu.setText("ID Usu: ");
+
+        lblIdPer.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdPer.setText("ID Per:");
+
+        lblIdCli.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdCli.setText("ID Cli:");
+
+        lblIdTra.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdTra.setText("ID Tra:");
+
         javax.swing.GroupLayout pnlUpCuentaBannerLayout = new javax.swing.GroupLayout(pnlUpCuentaBanner);
         pnlUpCuentaBanner.setLayout(pnlUpCuentaBannerLayout);
         pnlUpCuentaBannerLayout.setHorizontalGroup(
             pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpCuentaBannerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(225, 225, 225))
+            .addGroup(pnlUpCuentaBannerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIdUsu)
+                    .addComponent(lblIdPer))
+                .addGap(18, 18, 18)
+                .addGroup(pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUpCuentaBannerLayout.createSequentialGroup()
+                        .addComponent(lblIdCli)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(225, 225, 225))
+                    .addGroup(pnlUpCuentaBannerLayout.createSequentialGroup()
+                        .addComponent(lblIdTra)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlUpCuentaBannerLayout.setVerticalGroup(
             pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpCuentaBannerLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(lblTituloCuenta)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTituloCuenta)
+                    .addComponent(lblIdUsu)
+                    .addComponent(lblIdCli))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdPer)
+                    .addComponent(lblIdTra))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jpUpUsuario.setBackground(new java.awt.Color(255, 255, 255));
@@ -529,7 +575,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
                 .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnModificarCuenta)
                     .addComponent(btnCancelar))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -577,6 +623,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
             if (validateDuplicate()) {
                 try {
                     Usuario u = new Usuario();
+                    u.setIdUsuario(Integer.parseInt(this.lblIdUsu.getText()));
                     u.setUsername(this.txtUsername.getText());
                     if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
                         u.setClave(String.valueOf(this.txtPass.getPassword()));
@@ -585,39 +632,42 @@ public class jdUpCuenta extends javax.swing.JDialog {
                             u.setRol(this.ddlRol.getSelectedIndex());
                             if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
                                 NegUsuario user = new NegUsuario();
-                                user.addUsuario(u);
+                                user.upUsuario(u);
                                 Persona p = new Persona();
+                                p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
                                 p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
                                 p.setNombres(this.txtNombres.getText());
                                 p.setAppPaterno(this.txtAppPaterno.getText());
                                 p.setAppMaterno(this.txtAppMaterno.getText());
-                                p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+                                p.setIdUser(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
 
                                 NegPersona per = new NegPersona();
-                                per.addPersona(p);
+                                per.upPersona(p);
                                 switch (this.ddlRol.getSelectedIndex()) {
                                     case 3:
                                         Cliente cl = new Cliente();
+                                        cl.setIdCliente(Integer.parseInt(this.lblIdCli.getText()));
                                         cl.setTelefono(this.txtTelefono.getText());
                                         cl.setComunaId(this.ddlComuna.getSelectedIndex());
-                                        cl.setIdPersona(per.obtenerPersonaId());
+                                        cl.setIdPersona(p.getIdPersona());
                                         NegCliente neg = new NegCliente();
-                                        neg.addCliente(cl);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                                        neg.upCliente(cl);
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente modificada correctamente");
                                         break;
                                     case 4:
                                         Trabajador tr = new Trabajador();
+                                        tr.setIdTrabajador(Integer.parseInt(this.lblIdTra.getText()));
                                         tr.setTelefono(this.txtTelefono.getText());
                                         tr.setCargo(this.txtCargo.getText());
                                         tr.setFechaContrato(this.dpFechaContrato.getDate());
-                                        tr.setIdPersona(per.obtenerPersonaId());
+                                        tr.setIdPersona(p.getIdPersona());
                                         tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
                                         NegTrabajador negT = new NegTrabajador();
-                                        negT.addTrabajador(tr);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                                        negT.upTrabajador(tr);
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador modificada correctamente");
                                         break;
                                     default:
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Usuario modificada correctamente");
                                         break;
                                 }
                             } else {
@@ -632,6 +682,8 @@ public class jdUpCuenta extends javax.swing.JDialog {
                     }
                 } catch (HeadlessException e) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado", "", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    System.out.println("ERROR EN LA MODIFICACION" + ex.toString());
                 }
             }
         } else {
@@ -861,7 +913,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
         if (negU.validateUsername(txtUser) != null) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese nombre de usuario, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (negP.validateRun(txtRunPer) != null) {
+        } else if (negP.validateRun(txtRunPer) != false) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de persona, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
@@ -913,7 +965,11 @@ public class jdUpCuenta extends javax.swing.JDialog {
     private javax.swing.JLabel lblComuna;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblFechaContra;
+    private javax.swing.JLabel lblIdCli;
     private javax.swing.JLabel lblIdEmp;
+    private javax.swing.JLabel lblIdPer;
+    private javax.swing.JLabel lblIdTra;
+    private javax.swing.JLabel lblIdUsu;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblPass2;

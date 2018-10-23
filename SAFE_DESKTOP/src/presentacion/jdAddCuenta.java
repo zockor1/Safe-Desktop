@@ -770,7 +770,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
         if (negU.validateUsername(txtUser) != null) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese nombre de usuario, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (negP.validateRun(txtRunPer) != null) {
+        } else if (negP.validateRun(txtRunPer) != false) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de persona, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {

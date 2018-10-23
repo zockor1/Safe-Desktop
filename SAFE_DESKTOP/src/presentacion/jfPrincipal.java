@@ -444,15 +444,17 @@ public class jfPrincipal extends javax.swing.JFrame {
      * Método que recibe la id del item de la tabl cuentaa y abre la ventana de
      * modificaciones de datos en base a esa id.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida (Press)
      */
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
             int column = 0;
             int row = this.tblCuentas.getSelectedRow();
+            //Valor del ID de usuario
             int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
             
             int column2 = 3;
+            //Valor del ID de rol
             int value2;
             String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
             switch (rol) {

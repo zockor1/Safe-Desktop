@@ -9,23 +9,25 @@ import org.hibernate.Transaction;
 /**
  *
  * @author Ignacio Antillanca
+ * @version 1.0
  */
 public class NegCliente {
 
     //Variables
     Session sesion;
-    
-    //Constructor
-    public NegCliente(){
-      sesion = HibernateUtil.getSessionFactory().openSession();
+
+    //Constructor por defecto
+    public NegCliente() {
+        sesion = HibernateUtil.getSessionFactory().openSession();
     }
-    
-     /**
+
+    /**
      * Metodo que llama al stored procedure que ingresa un cliente a la base de
      * datos.
-     * @param c cliente
+     *
+     * @param c Cliente a ingresar
      */
-    public void addCliente(Cliente c){
+    public void addCliente(Cliente c) {
         try {
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_cliente.create_cliente(?,?,?)")
@@ -40,9 +42,32 @@ public class NegCliente {
     }
 
     /**
-     *  Método que devuelve el la informacion del cliente selecionado en la tabla
+     * Metodo que que llama al stored procedure que modifica un cliente de la
+     * base de datos.
+     *
+     * @param c Cliente a actualizar
+     * @throws Exception general
+     */
+    public void upCliente(Cliente c) throws Exception {
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_cliente.update_cliente(?,?,?,?)")
+                    .setParameter(0, c.getIdCliente())
+                    .setParameter(1, c.getTelefono())
+                    .setParameter(2, c.getIdPersona())
+                    .setParameter(3, c.getComunaId());
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
+        }
+    }
+
+    /**
+     * Método que devuelve el la informacion del cliente selecionado en la tabla
      * a traves de la is de usuario.
-     * @param idUser
+     *
+     * @param idUser ID del usuario a encontrar
      * @return
      */
     public Cliente obtenerCliente(int idUser) {

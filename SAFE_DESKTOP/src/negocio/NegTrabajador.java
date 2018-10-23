@@ -13,18 +13,19 @@ public class NegTrabajador {
 
     //Variables
     Session sesion;
-    
-    //Constructor
-    public NegTrabajador(){
-      sesion = HibernateUtil.getSessionFactory().openSession();
+
+    //Constructor por defecto
+    public NegTrabajador() {
+        sesion = HibernateUtil.getSessionFactory().openSession();
     }
-    
-     /**
+
+    /**
      * Metodo que llama al stored procedure que ingresa una persona a la base de
      * datos.
-     * @param t trabajador
+     *
+     * @param t trabajador a ingresar
      */
-    public void addTrabajador(Trabajador t){
+    public void addTrabajador(Trabajador t) {
         try {
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_trabajador.create_trabajador(?,?,?,?,?)")
@@ -39,11 +40,36 @@ public class NegTrabajador {
             System.out.print("ERROR: " + ex.toString());
         }
     }
-    
-      /**
-     *  Método que devuelve el la informacion del cliente selecionado en la tabla
-     * a traves de la is de usuario.
-     * @param idUser
+
+    /**
+     * Metodo que que llama al stored procedure que modifica un trabajador de la
+     * base de datos.
+     *
+     * @param t Trabajador a actualizar
+     * @throws Exception general
+     */
+    public void upTrabajador(Trabajador t) throws Exception {
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_trabajador.update_trabajador(?,?,?,?,?,?)")
+                    .setParameter(0, t.getIdTrabajador())
+                    .setParameter(1, t.getTelefono())
+                    .setParameter(2, t.getFechaContrato())
+                    .setParameter(3, t.getCargo())
+                    .setParameter(4, t.getIdPersona())
+                    .setParameter(5, t.getIdEmpresa());
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
+        }
+    }
+
+    /**
+     * Método que devuelve el la informacion del trabajador selecionado en la
+     * tabla a traves de la is de usuario.
+     *
+     * @param idUser ID de usuario del trabajador a encontrar
      * @return
      */
     public Trabajador obtenerTrabajador(int idUser) {

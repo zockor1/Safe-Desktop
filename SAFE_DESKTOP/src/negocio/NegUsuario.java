@@ -11,22 +11,21 @@ import org.hibernate.Transaction;
  * @author Ignacio Antillanca 13-10-2018
  * @version 1.0
  */
-
 public class NegUsuario {
-    
+
     //Variables
     Session sesion;
-    
+
     //Constructor por defecto.
     public NegUsuario() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
-    
+
     /**
      * Metodo que llama al stored procedure que ingresa un usuario a la base de
      * datos.
      *
-     * @param u usuario
+     * @param u Usuario a ingresar
      */
     public void addUsuario(Usuario u) {
         try {
@@ -46,7 +45,8 @@ public class NegUsuario {
     /**
      * Metodo que que llama al stored procedure que modifica un usuario de la
      * base de datos.
-     * @param u usuario
+     *
+     * @param u Usuario a actualizar
      * @throws Exception general
      */
     public void upUsuario(Usuario u) throws Exception {
@@ -68,7 +68,8 @@ public class NegUsuario {
     /**
      * Metodo que que llama al stored procedure que elimina un usuario de la
      * base de datos.
-     * @param u usuario
+     *
+     * @param u Usuario a eliminar
      * @throws Exception general
      */
     public void delUsuario(Usuario u) throws Exception {
@@ -86,6 +87,7 @@ public class NegUsuario {
     /**
      * Metodo que llama al stored procedure que devuelve una lista de los
      * usuarios registrados en la base de datos.
+     *
      * @return List de contratos, caso contrario, null
      * @throws Exception general
      */
@@ -96,12 +98,12 @@ public class NegUsuario {
                     .addEntity(Usuario.class)
                     .list();
             return result;
-        } catch(Exception ex) {
-           System.out.print("ERROR: " + ex.toString()); 
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
         }
         return null;
     }
-    
+
     /**
      * Metodo que devuelve el id del usuario registrado en la creacion de cuenta
      * y se anexa a los datos de persona.
@@ -123,13 +125,13 @@ public class NegUsuario {
         }
         return 0;
     }
-    
+
     /**
      * Método que valida en la base de datos, si existe o no un nombre de
      * usuario para evitar conflictos.
      *
      * @param username nombre de usuario a validar en la BD
-     * @return 1 si existe el username, 0 si esta disponible.
+     * @return Object si existe el username, null si esta disponible.
      */
     public Object validateUsername(String username) {
         Query q = sesion.createSQLQuery("SELECT USERNAME FROM USUARIO WHERE USERNAME = ?")

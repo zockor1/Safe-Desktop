@@ -12,53 +12,79 @@ import org.hibernate.Transaction;
  * @version 1.0
  */
 public class NegPersona {
-    
+
     //Variables
     Session sesion;
-    
-    //Constructor
-    public NegPersona(){
-      sesion = HibernateUtil.getSessionFactory().openSession();
+
+    //Constructor por defecto
+    public NegPersona() {
+        sesion = HibernateUtil.getSessionFactory().openSession();
     }
-    
+
     /**
      * Metodo que llama al stored procedure que ingresa una persona a la base de
      * datos.
-     * @param p Persona 
+     *
+     * @param p Persona a ingresar
      */
     public void addPersona(Persona p) {
-            try {
-                Transaction tx = sesion.beginTransaction();
-                Query q = sesion.createSQLQuery("call pkg_crud_persona.create_persona(?,?,?,?,?)")
-                        .setParameter(0, p.getRun())
-                        .setParameter(1, p.getNombres())
-                        .setParameter(2, p.getAppPaterno())
-                        .setParameter(3, p.getAppMaterno())
-                        .setParameter(4, p.getIdUser());
-                q.executeUpdate();
-                tx.commit();
-            } catch (Exception ex) {
-                System.out.print("ERROR: " + ex.toString());
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_persona.create_persona(?,?,?,?,?)")
+                    .setParameter(0, p.getRun())
+                    .setParameter(1, p.getNombres())
+                    .setParameter(2, p.getAppPaterno())
+                    .setParameter(3, p.getAppMaterno())
+                    .setParameter(4, p.getIdUser());
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
 
-            }
+        }
     }
-    
-     /**
-     * Método que retorna una lista de las personas registradas en la base de 
+
+    /**
+     * Metodo que que llama al stored procedure que modifica una Persona de la
+     * base de datos.
+     *
+     * @param p Persona a modificar
+     * @throws Exception general
+     */
+    public void upPersona(Persona p) throws Exception {
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_persona.update_persona(?,?,?,?,?,?)")
+                    .setParameter(0, p.getIdPersona())
+                    .setParameter(1, p.getRun())
+                    .setParameter(2, p.getNombres())
+                    .setParameter(3, p.getAppPaterno())
+                    .setParameter(4, p.getAppMaterno())
+                    .setParameter(5, p.getIdUser());
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            System.out.print("ERROR: " + ex.toString());
+        }
+    }
+
+    /**
+     * Método que retorna una lista de las personas registradas en la base de
      * datos.
-     * @return Lista de persona.
+     *
+     * @return list Lista de persona.
      * @throws Exception general.
      */
     public List<Persona> getAllPersona() throws Exception {
         List<Persona> list = sesion.createCriteria(Persona.class).list();
         return list;
     }
-    
+
     /**
      * Metodo que devuelve el id de persona registrado en la creacion de cuenta
      * y se anexa a los datos de cliente o trabajador.
      *
-     * @return result
+     * @return result ID de persona
      */
     public int obtenerPersonaId() {
         try {
@@ -74,25 +100,30 @@ public class NegPersona {
         }
         return 0;
     }
-    
+
     /**
      * Método que valida en la base de datos, si existe o no un RUN de persona
      * registrado para evitar conflictos.
      *
      * @param run Run ingresado en la creacion de cuentas.
-     * @return 1 si existe el username, 0 si esta disponible.
+     * @return False si existe el username, True si esta disponible.
      */
-    public Object validateRun(String run) {
+    public boolean validateRun(String run) {
         Query q = sesion.createSQLQuery("SELECT RUN FROM PERSONA WHERE RUN = ?")
                 .setParameter(0, run);
-        return q.uniqueResult();
+        String result = String.valueOf(q);
+        if (result.equals("")) {
+            return true;
+        } else {
+            return result.equals(run);
+        }
     }
-    
+
     /**
      * Método que devuelve el la informacion de la persona selecionado en la
      * tabla a traves de la is de usuario.
      *
-     * @param idUser
+     * @param idUser ID de persona a encontrar
      * @return
      */
     public Persona obtenerPersona(int idUser) {
