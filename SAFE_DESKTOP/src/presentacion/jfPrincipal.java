@@ -3,7 +3,9 @@ package presentacion;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Empresa;
 import modelo.Persona;
+import negocio.NegEmpresa;
 import negocio.NegPersona;
 import rojerusan.RSPanelsSlider;
 
@@ -21,6 +23,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         addJTableCuentas();
+        addJTableEmpresas();
         // Variables para adapatar la pantalla inicial al centro y 
         // con tamaño 950x600 sin importar la resolucion del monitor
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -63,14 +66,17 @@ public class jfPrincipal extends javax.swing.JFrame {
         tblCuentas = new org.jdesktop.swingx.JXTable();
         btnAgregarCuenta = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnVer = new javax.swing.JButton();
         jpEmpresas = new javax.swing.JPanel();
         lblEmpresas = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblEmpresas = new javax.swing.JTable();
         btnAgregarEmpresa = new javax.swing.JButton();
         piIconSearch1 = new org.edisoncor.gui.panel.PanelImage();
         txtSearch2 = new javax.swing.JTextField();
-        lblPag = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblEmpresa = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(0, 590));
@@ -218,6 +224,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(lblCuentas);
         lblCuentas.setBounds(230, 10, 280, 17);
 
+        btnEliminar.setBackground(new java.awt.Color(17, 48, 142));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +286,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(jScrollPane5);
         jScrollPane5.setBounds(2, 160, 750, 280);
 
+        btnAgregarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnAgregarCuenta.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarCuenta.setText("AGREGAR");
         btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,6 +297,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(btnAgregarCuenta);
         btnAgregarCuenta.setBounds(0, 132, 110, 23);
 
+        btnModificar.setBackground(new java.awt.Color(17, 48, 142));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +307,12 @@ public class jfPrincipal extends javax.swing.JFrame {
         });
         jpCuentas.add(btnModificar);
         btnModificar.setBounds(120, 132, 110, 23);
+
+        btnVer.setBackground(new java.awt.Color(17, 48, 142));
+        btnVer.setForeground(new java.awt.Color(255, 255, 255));
+        btnVer.setText("VER");
+        jpCuentas.add(btnVer);
+        btnVer.setBounds(360, 132, 110, 23);
 
         rSPanelsSlider1.add(jpCuentas, "card3");
 
@@ -307,29 +325,9 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.add(lblEmpresas);
         lblEmpresas.setBounds(240, 10, 260, 17);
 
-        tblEmpresas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nombre Empresa", "Fecha Termino", "Acciones"
-            }
-        ));
-        jScrollPane4.setViewportView(tblEmpresas);
-
-        jpEmpresas.add(jScrollPane4);
-        jScrollPane4.setBounds(0, 162, 710, 200);
-
-        btnAgregarEmpresa.setText("AGREGAR +");
+        btnAgregarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnAgregarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarEmpresa.setText("AGREGAR");
         btnAgregarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarEmpresaActionPerformed(evt);
@@ -355,11 +353,46 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.add(piIconSearch1);
         piIconSearch1.setBounds(520, 132, 20, 20);
         jpEmpresas.add(txtSearch2);
-        txtSearch2.setBounds(546, 132, 155, 20);
+        txtSearch2.setBounds(546, 132, 200, 20);
 
-        lblPag.setText("<-- PAGINADOR -->");
-        jpEmpresas.add(lblPag);
-        lblPag.setBounds(290, 400, 120, 14);
+        jButton1.setBackground(new java.awt.Color(17, 48, 142));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("MODIFICAR");
+        jpEmpresas.add(jButton1);
+        jButton1.setBounds(120, 132, 110, 23);
+
+        jButton2.setBackground(new java.awt.Color(17, 48, 142));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("ELIMINAR");
+        jpEmpresas.add(jButton2);
+        jButton2.setBounds(240, 132, 110, 23);
+
+        jButton3.setBackground(new java.awt.Color(17, 42, 148));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("VER");
+        jpEmpresas.add(jButton3);
+        jButton3.setBounds(360, 132, 110, 23);
+
+        tblEmpresa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID EMPRESA", "NOMBRE EMPRESA", "NOMBRE CLIENTE", "FECHA INICIO", "FECHA TERMINO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblEmpresa);
+
+        jpEmpresas.add(jScrollPane3);
+        jScrollPane3.setBounds(0, 160, 750, 280);
 
         rSPanelsSlider1.add(jpEmpresas, "card4");
 
@@ -536,6 +569,30 @@ public class jfPrincipal extends javax.swing.JFrame {
             System.out.println("ERROR: " + ex.toString());
         }
     }
+    
+    /**
+     * Método que realiza el llenado de la tabla de empresas con la información
+     * de empresas y su contrato.
+     */
+    public void addJTableEmpresas() {
+        DefaultTableModel model = (DefaultTableModel) this.tblEmpresa.getModel();
+        NegEmpresa negEmp = new NegEmpresa();
+        try {
+            List<Empresa> list = negEmp.getAllEmpresa();
+            Object rowData[] = new Object[6];
+            for (int i = 0; i < list.size(); i++) {
+                rowData[0] = list.get(i).getIdEmpresa();
+                rowData[1] = list.get(i).getNombreFantasia();
+                rowData[2] = list.get(i).getCliente().getPersona().getNombres() + list.get(i).getCliente().getPersona().getAppPaterno();
+                rowData[3] = list.get(i).getContrato().getFechaInicio();
+                rowData[4] = list.get(i).getContrato().getFechaTermino();
+
+                model.addRow(rowData);
+            }
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+    }
    
     
     /**
@@ -581,9 +638,13 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEmpresa;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnVer;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel jpCuentas;
     private javax.swing.JPanel jpEmpresas;
@@ -595,7 +656,6 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblEmpresas;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblInicio;
-    private javax.swing.JLabel lblPag;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
     private org.edisoncor.gui.panel.PanelImage piIconSearch1;
     private org.edisoncor.gui.panel.PanelImage piLogout;
@@ -603,7 +663,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private rojerusan.RSPanelsSlider rSPanelsSlider1;
     private javax.swing.JTable tblContratos;
     private org.jdesktop.swingx.JXTable tblCuentas;
-    private javax.swing.JTable tblEmpresas;
+    private org.jdesktop.swingx.JXTable tblEmpresa;
     private javax.swing.JTable tblInfo;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSearch2;

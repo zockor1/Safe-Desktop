@@ -1,8 +1,19 @@
 package presentacion;
 
+import java.awt.event.ItemEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Comuna;
 import modelo.Contrato;
+import modelo.Empresa;
+import modelo.Region;
+import negocio.NegCliente;
+import negocio.NegComuna;
 import negocio.NegContrato;
+import negocio.NegEmpresa;
+import negocio.NegRegion;
 
 /**
  *
@@ -10,6 +21,10 @@ import negocio.NegContrato;
  */
 public class jdAddEmpresa extends javax.swing.JDialog {
 
+        //Variables
+    List<Comuna> listComuna;
+    List<Region> listRegion;
+    List<Cliente> listCliente;
     /**
      * Creates new form jdAddEmpresa
      * @param parent
@@ -42,11 +57,26 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         lblFechaTermino = new javax.swing.JLabel();
         dpFechaInicio = new org.jdesktop.swingx.JXDatePicker();
         jpAddEmpresa = new javax.swing.JPanel();
+        lblRut = new javax.swing.JLabel();
+        txtRut = new javax.swing.JTextField();
+        lblNombFantasia = new javax.swing.JLabel();
+        txtNombreFantasia = new javax.swing.JTextField();
+        lblCliente = new javax.swing.JLabel();
+        ddlCliente = new javax.swing.JComboBox<>();
+        lblRegion = new javax.swing.JLabel();
+        ddlRegion = new javax.swing.JComboBox<>();
+        lblComuna = new javax.swing.JLabel();
+        ddlComuna = new javax.swing.JComboBox<>();
         btnAgregarEmpresa = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pnlAddEmpresa.setBackground(new java.awt.Color(255, 255, 255));
         pnlAddEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -86,11 +116,11 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         jpAddContratoLayout.setHorizontalGroup(
             jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpAddContratoLayout.createSequentialGroup()
-                .addGap(171, 171, 171)
+                .addGap(33, 33, 33)
                 .addComponent(lblFechaInicio)
-                .addGap(18, 18, 18)
+                .addGap(85, 85, 85)
                 .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(106, 106, 106)
                 .addComponent(lblFechaTermino)
                 .addGap(18, 18, 18)
                 .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,15 +141,72 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         jpAddEmpresa.setBackground(new java.awt.Color(255, 255, 255));
         jpAddEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Empresa"));
 
+        lblRut.setText("Rut");
+
+        lblNombFantasia.setText("Nombre fantasía");
+
+        lblCliente.setText("Cliente");
+
+        lblRegion.setText("Region");
+
+        ddlRegion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ddlRegionItemStateChanged(evt);
+            }
+        });
+
+        lblComuna.setText("Comuna");
+
         javax.swing.GroupLayout jpAddEmpresaLayout = new javax.swing.GroupLayout(jpAddEmpresa);
         jpAddEmpresa.setLayout(jpAddEmpresaLayout);
         jpAddEmpresaLayout.setHorizontalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRut)
+                    .addComponent(lblNombFantasia)
+                    .addComponent(lblCliente))
+                .addGap(76, 76, 76)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtNombreFantasia)
+                    .addComponent(txtRut)
+                    .addComponent(ddlCliente, 0, 123, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRegion)
+                    .addComponent(lblComuna))
+                .addGap(44, 44, 44)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpAddEmpresaLayout.setVerticalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRut)
+                    .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRegion)
+                    .addComponent(ddlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblComuna)
+                            .addComponent(ddlComuna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombreFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNombFantasia))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCliente)
+                    .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
 
         btnAgregarEmpresa.setText("AGREGAR");
@@ -130,6 +217,11 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         });
 
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlAddEmpresaLayout = new javax.swing.GroupLayout(pnlAddEmpresa);
         pnlAddEmpresa.setLayout(pnlAddEmpresaLayout);
@@ -145,9 +237,9 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                         .addComponent(pnlAddEmpresaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(185, 185, 185))
             .addGroup(pnlAddEmpresaLayout.createSequentialGroup()
-                .addGap(261, 261, 261)
+                .addGap(257, 257, 257)
                 .addComponent(btnAgregarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addGap(65, 65, 65)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -160,11 +252,11 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                 .addComponent(jpAddContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpAddEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarEmpresa)
                     .addComponent(btnCancelar))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,35 +272,129 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+  
     /**
-     * @param evt 
+     * Método que recibe la informacion ingresada en el formulario de registro
+     * de empresa y la envia al controlador.
+     * 
+     * @param evt
      */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
-        Contrato c = new Contrato();
-        c.setFechaInicio(this.dpFechaInicio.getDate());
-        c.setFechaTermino(this.dpFechaTermino.getDate());
-        NegContrato contrato = new NegContrato();
+        
         try {
+            Contrato c = new Contrato();
+            c.setFechaInicio(this.dpFechaInicio.getDate());
+            c.setFechaTermino(this.dpFechaTermino.getDate());
+            NegContrato contrato = new NegContrato();
             contrato.addContrato(c);
-            JOptionPane.showMessageDialog(rootPane, "Contrato ingresado correctamente");   
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, "Ha ocurrdo un error inesperado");
+            
+            Empresa e = new Empresa();
+            e.setRut(this.txtRut.getText());
+            e.setNombreFantasia(this.txtNombreFantasia.getText());
+            e.setEstado('1');
+            e.setIdCliente(this.ddlCliente.getSelectedIndex());
+            e.setIdContrato(contrato.obtenerContratoId());
+            e.setIdComuna(this.ddlComuna.getSelectedIndex());
+            NegEmpresa negE = new NegEmpresa();
+            negE.addEmpresa(e);
+            
+            JOptionPane.showMessageDialog(rootPane, "Contrato ingresado correctamente");            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado");
         }
         
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
+
+    /**
+     * Evento que cierra la ventana de ingreso de empresa (Cancelar)
+     * @param evt 
+     */
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        NegRegion negR = new NegRegion();
+        NegComuna negC = new NegComuna();
+        NegCliente negCli = new NegCliente();
+
+        DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
+        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
+        DefaultComboBoxModel cModelCli = (DefaultComboBoxModel) this.ddlCliente.getModel();
+
+        cModelR.removeAllElements();
+        cModelC.removeAllElements();
+        cModelCli.removeAllElements();
+
+        cModelR.addElement("Región...");
+        cModelC.addElement("Comuna...");
+        cModelCli.addElement("Cliente...");
+        try {
+            listRegion = negR.getAllRegion();
+            listComuna = negC.getAllComuna();
+            listCliente = negCli.getAllCliente();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error inesperado (combobox)");
+        }
+
+        for (Region r : listRegion) {
+            cModelR.addElement(r.getNombre());
+        }
+
+        for (Comuna c : listComuna) {
+            if (c.getRegion().getIdRegion() == 1) {
+                cModelC.addElement(c.getNombre());
+            }
+        }
+
+        for (Cliente e : listCliente) {
+            cModelCli.addElement(e.getPersona().getNombres());
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.ddlRegion.getSelectedIndex() > 0) {
+                NegComuna negC = new NegComuna();
+                DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
+                cModelC.removeAllElements();
+                cModelC.addElement("Comuna...");
+                try {
+                    listComuna = negC.getAllComuna();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Error con la actualizacion de comunas.");
+                }
+                for (Comuna c : listComuna) {
+                    if (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex()) {
+                        cModelC.addElement(c.getNombre());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_ddlRegionItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEmpresa;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox<String> ddlCliente;
+    private javax.swing.JComboBox<String> ddlComuna;
+    private javax.swing.JComboBox<String> ddlRegion;
     private org.jdesktop.swingx.JXDatePicker dpFechaInicio;
     private org.jdesktop.swingx.JXDatePicker dpFechaTermino;
     private javax.swing.JPanel jpAddContrato;
     private javax.swing.JPanel jpAddEmpresa;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblComuna;
     private javax.swing.JLabel lblFechaInicio;
     private javax.swing.JLabel lblFechaTermino;
+    private javax.swing.JLabel lblNombFantasia;
+    private javax.swing.JLabel lblRegion;
+    private javax.swing.JLabel lblRut;
     private javax.swing.JLabel lblTituloEmpresa;
     private javax.swing.JPanel pnlAddEmpresa;
     private javax.swing.JPanel pnlAddEmpresaBanner;
+    private javax.swing.JTextField txtNombreFantasia;
+    private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
 }

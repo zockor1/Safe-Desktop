@@ -1,6 +1,7 @@
 package negocio;
 
 //Importaciones
+import java.util.List;
 import modelo.Cliente;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -61,6 +62,20 @@ public class NegCliente {
         } catch (Exception ex) {
             System.out.print("ERROR: " + ex.toString());
         }
+    }
+    
+     /**
+     * @return Lista de clientes en la base de datos
+     * @throws Exception 
+     */
+    public List<Cliente> getAllCliente() throws Exception {       
+        try {
+         Query q = sesion.createQuery("from Cliente");
+         return q.list();   
+        } catch (Exception ex){
+          System.out.println("ERROR:" + ex.toString());  
+        }
+        return null;
     }
 
     /**

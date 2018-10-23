@@ -37,7 +37,7 @@ public class NegContrato {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR INGRESO CONTRATO: " + ex.toString());
         }
     }
 
@@ -98,6 +98,27 @@ public class NegContrato {
            System.out.print("ERROR: " + ex.toString()); 
         }
         return null;
+    }
+    
+    /**
+     * Metodo que devuelve el id de contrato registrado en la creacion de
+     * empresa y se anexa a los datos de la empresa a registrar.
+     *
+     * @return result ID de contrato
+     */
+    public int obtenerContratoId() {
+        try {
+            Query q = sesion.createSQLQuery("SELECT ID_CONTRATO\n"
+                    + "FROM ( SELECT a.*, MAX(ID_CONTRATO) OVER (\n"
+                    + ") AS max_pk\n"
+                    + "FROM CONTRATO A)\n"
+                    + "WHERE ID_CONTRATO = max_pk");
+            Object result = q.uniqueResult();
+            return ((Number) result).intValue();
+        } catch (NumberFormatException ex) {
+            System.out.print("ERROR ID CONTRATO: " + ex.toString());
+        }
+        return 0;
     }
    
 }

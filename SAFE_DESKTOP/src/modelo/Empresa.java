@@ -11,23 +11,27 @@ public class Empresa  implements java.io.Serializable {
 
 
      private int idEmpresa;
-     private Cliente cliente;
-     private Comuna comuna;
-     private Contrato contrato;
      private String rut;
      private String nombreFantasia;
      private char estado;
+     private int idCliente;
+     private int idContrato;
+     private int idComuna;
+     private Cliente cliente;
+     private Comuna comuna;
+     private Contrato contrato;
      private Set trabajadors = new HashSet(0);
 
     public Empresa() {
+        
     }
 
 	
-    public Empresa(int idEmpresa, Cliente cliente, Comuna comuna, Contrato contrato, String rut, String nombreFantasia, char estado) {
+    public Empresa(int idEmpresa, String rut, String nombreFantasia, char estado,int idCliente, int idContrato,int idComuna) {
         this.idEmpresa = idEmpresa;
-        this.cliente = cliente;
-        this.comuna = comuna;
-        this.contrato = contrato;
+        this.idCliente = idCliente;
+        this.idComuna = idComuna;
+        this.idContrato = idContrato;
         this.rut = rut;
         this.nombreFantasia = nombreFantasia;
         this.estado = estado;
@@ -99,6 +103,37 @@ public class Empresa  implements java.io.Serializable {
     public void setTrabajadors(Set trabajadors) {
         this.trabajadors = trabajadors;
     }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public int getIdContrato() {
+        return idContrato;
+    }
+
+    public int getIdComuna() {
+        return idComuna;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public void setIdContrato(int idContrato) {
+        this.idContrato = idContrato;
+    }
+
+    public void setIdComuna(int idComuna) {
+        this.idComuna = idComuna;
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{" + "idEmpresa=" + idEmpresa + ", rut=" + rut + ", nombreFantasia=" + nombreFantasia + ", estado=" + estado + ", idCliente=" + idCliente + ", idContrato=" + idContrato + ", idComuna=" + idComuna + ", cliente=" + cliente + ", comuna=" + comuna + ", contrato=" + contrato + ", trabajadors=" + trabajadors + '}';
+    }
+    
+    
 
 
 
