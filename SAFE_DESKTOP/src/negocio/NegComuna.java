@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Paquete
 package negocio;
 
+//Importaciones
 import java.util.List;
 import modelo.Comuna;
 import org.hibernate.Query;
@@ -13,25 +10,34 @@ import org.hibernate.Session;
 /**
  *
  * @author Ignacio Antillanca
+ * @version 1.0
  */
 public class NegComuna {
-    //Variables
+
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
-    
-    public NegComuna(){
+
+    /**
+     * Constructor por defecto de la clase NegComuna.
+     */
+    public NegComuna() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
-    
+
     /**
+     * Método que devuelve todas las comunas registras en la base de datos.
+     *
      * @return Lista de regiones en la base de datos
-     * @throws Exception 
+     * @throws Exception general.
      */
-    public List<Comuna> getAllComuna() throws Exception {       
+    public List<Comuna> getAllComuna() throws Exception {
         try {
-         Query q = sesion.createQuery("from Comuna");
-         return q.list();   
-        } catch (Exception ex){
-          System.out.println("ERROR:" + ex.toString());  
+            Query q = sesion.createQuery("from Comuna");
+            return q.list();
+        } catch (Exception ex) {
+            System.out.println("ERROR OBTENER COMUNAS:" + ex.toString());
         }
         return null;
     }

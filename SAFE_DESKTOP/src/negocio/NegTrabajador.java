@@ -1,3 +1,4 @@
+//Paquete
 package negocio;
 
 //Importaciones
@@ -8,19 +9,24 @@ import org.hibernate.Transaction;
 
 /**
  * @author Ignacio Antillanca
+ * @version 1.2
  */
 public class NegTrabajador {
 
-    //Variables
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
 
-    //Constructor por defecto
+    /**
+     * Constructor por defecto de la clase NegTrabajador.
+     */
     public NegTrabajador() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**
-     * Metodo que llama al stored procedure que ingresa una persona a la base de
+     * Método que llama al stored procedure que ingresa una persona a la base de
      * datos.
      *
      * @param t trabajador a ingresar
@@ -37,16 +43,16 @@ public class NegTrabajador {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR ADD TRABAJADOR: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que modifica un trabajador de la
+     * Método que que llama al stored procedure que modifica un trabajador de la
      * base de datos.
      *
-     * @param t Trabajador a actualizar
-     * @throws Exception general
+     * @param t Trabajador a actualizar.
+     * @throws Exception general.
      */
     public void upTrabajador(Trabajador t) throws Exception {
         try {
@@ -61,16 +67,16 @@ public class NegTrabajador {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR UP TRABAJADOR: " + ex.toString());
         }
     }
 
     /**
      * Método que devuelve el la informacion del trabajador selecionado en la
-     * tabla a traves de la is de usuario.
+     * tabla a traves de la id de usuario.
      *
-     * @param idUser ID de usuario del trabajador a encontrar
-     * @return
+     * @param idUser ID de usuario del trabajador a encontrar.
+     * @return Trabajador encontrado o null.
      */
     public Trabajador obtenerTrabajador(int idUser) {
         try {
@@ -87,7 +93,7 @@ public class NegTrabajador {
             Trabajador tr = (Trabajador) sesion.get(Trabajador.class, id);
             return tr;
         } catch (Exception ex) {
-            System.out.println("ERROR controller: " + ex.toString());
+            System.out.println("ERROR OBTENER TRABAJADOR: " + ex.toString());
         }
         return null;
     }

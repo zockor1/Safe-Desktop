@@ -1,18 +1,30 @@
+//Paquete
 package presentacion.validaciones;
 
+//Importaciones
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 /**
- * @author Ignacio Antillanca 
- * Documento plano que permite establecer los limites
- * a cada campo de texto en los formularios.
+ * Documento plano que permite establecer los limites a cada campo de texto en
+ * los formularios.
+ *
+ * @author Ignacio Antillanca
+ * @version 1.0
  */
 public class jTextFieldCharLimits extends PlainDocument {
 
+    /**
+     * Variables utilizadas.
+     */
     private final int limit;
 
+    /**
+     * Constructor con parametros de la clase jTextFieldCharLimits.
+     *
+     * @param limitation Número entero maximo a establecer.
+     */
     public jTextFieldCharLimits(int limitation) {
         this.limit = limitation;
     }

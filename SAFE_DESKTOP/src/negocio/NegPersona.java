@@ -1,3 +1,4 @@
+//Paquete
 package negocio;
 
 //Importaciones
@@ -13,16 +14,20 @@ import org.hibernate.Transaction;
  */
 public class NegPersona {
 
-    //Variables
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
 
-    //Constructor por defecto
+    /**
+     * Constructor por defecto de la clase NegPersona.
+     */
     public NegPersona() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**
-     * Metodo que llama al stored procedure que ingresa una persona a la base de
+     * Método que llama al stored procedure que ingresa una Persona a la base de
      * datos.
      *
      * @param p Persona a ingresar
@@ -39,13 +44,12 @@ public class NegPersona {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
-
+            System.out.print("ERROR ADD PERSONA: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que modifica una Persona de la
+     * Método que que llama al stored procedure que modifica una Persona de la
      * base de datos.
      *
      * @param p Persona a modificar
@@ -64,7 +68,7 @@ public class NegPersona {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR UP PERSONA: " + ex.toString());
         }
     }
 
@@ -72,7 +76,7 @@ public class NegPersona {
      * Método que retorna una lista de las personas registradas en la base de
      * datos.
      *
-     * @return list Lista de persona.
+     * @return list Lista de personas.
      * @throws Exception general.
      */
     public List<Persona> getAllPersona() throws Exception {
@@ -81,7 +85,7 @@ public class NegPersona {
     }
 
     /**
-     * Metodo que devuelve el id de persona registrado en la creacion de cuenta
+     * Método que devuelve el id de persona registrado en la creacion de cuenta
      * y se anexa a los datos de cliente o trabajador.
      *
      * @return result ID de persona
@@ -96,7 +100,7 @@ public class NegPersona {
             Object result = q.uniqueResult();
             return ((Number) result).intValue();
         } catch (NumberFormatException ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR OBTENER ID PERSONA: " + ex.toString());
         }
         return 0;
     }
@@ -120,11 +124,11 @@ public class NegPersona {
     }
 
     /**
-     * Método que devuelve el la informacion de la persona selecionado en la
-     * tabla a traves de la is de usuario.
+     * Método que devuelve la informacion de la persona selecionada en la tabla
+     * a traves de la id de usuario.
      *
      * @param idUser ID de persona a encontrar
-     * @return
+     * @return Persona encontrada o null
      */
     public Persona obtenerPersona(int idUser) {
         try {

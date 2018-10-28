@@ -1,19 +1,31 @@
+//Paquete
 package presentacion.validaciones;
 
+//Importaciones
 /**
- *
  * @author Ignacio Antillanca
+ * @version 1.0
  */
 public class validadorRunChileno {
 
+    /**
+     * Variables utilizadas.
+     */
     String rut;
-    
-    public validadorRunChileno(String run){
+
+    /**
+     * Constructor con parametros de la clase validadorRunChileno.
+     *
+     * @param run Texto ingresado a validar.
+     */
+    public validadorRunChileno(String run) {
         this.rut = run;
     }
+
     /**
-     * Método que verifica el formato y veracidad de un RUN ingresado, con el 
+     * Método que verifica el formato y veracidad de un RUN ingresado, con el
      * formato de Chile.
+     *
      * @return true en caso de que el run sea correcto, false en caso contrario.
      */
     public boolean validateRun() {

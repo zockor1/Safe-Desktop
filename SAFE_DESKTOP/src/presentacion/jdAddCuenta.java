@@ -1,3 +1,4 @@
+//Paquete
 package presentacion;
 
 //Importaciones
@@ -35,7 +36,9 @@ import presentacion.validaciones.validadorRunChileno;
  */
 public class jdAddCuenta extends javax.swing.JDialog {
 
-    //Variables
+    /**
+     * Variables utilizadas.
+     */
     List<Comuna> listComuna;
     List<Region> listRegion;
     List<Empresa> listEmpresa;
@@ -43,7 +46,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
     /**
      * Constructor que inicializa el modal del registro de cuentas.
      *
-     * @param parent
+     * @param parent ventana jfPrincipal.
      * @param modal
      */
     public jdAddCuenta(java.awt.Frame parent, boolean modal) {
@@ -474,7 +477,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Método que obtiene los datos ingresados en el formulario de cuenta de
      * usuario nueva y los envia a su respectivo controller.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         if (!validateEmptys()) {
@@ -575,9 +579,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
     /**
      * Accion del boton "CANCELAR" del modal de registro de cuenta. Termina el
-     * proceso, cerrando la ventana emergente
+     * proceso cerrando la ventana emergente.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
@@ -585,9 +590,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
     /**
      * Método que modifica el formulario de registro de cuenta en el caso que el
-     * tipo de cuenta sea cliente o trabajador
+     * tipo de cuenta sea cliente o trabajador.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void ddlRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlRolActionPerformed
         switch (this.ddlRol.getSelectedIndex()) {
@@ -612,7 +618,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Método que realiza la carga de los jcombobox al momento de mostrar la
      * ventana.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         NegRegion negR = new NegRegion();
@@ -656,7 +663,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
     /**
      * Metodo que filtra las comunas en base a la region seleccionada.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ItemEvent)
      */
     private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -683,7 +691,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Función que evita escribir caracteres diferentes a números, en el campos
      * de ingreso del RUN.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtRunKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunKeyTyped
         char c = evt.getKeyChar();
@@ -696,7 +705,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Función que evita escribir caracteres numericos o simbolos, en el campo
      * de nombres.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
         char c = evt.getKeyChar();
@@ -709,7 +719,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Función que evita escribir caracteres numericos o simbolos, en el campo
      * de apellido paterno.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtAppPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppPaternoKeyTyped
         char c = evt.getKeyChar();
@@ -722,7 +733,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Función que evita escribir caracteres numericos o simbolos, en el campo
      * de apellido materno.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtAppMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppMaternoKeyTyped
         char c = evt.getKeyChar();
@@ -731,10 +743,11 @@ public class jdAddCuenta extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtAppMaternoKeyTyped
     /**
-     * Función que evita escribir caracteres diferentes a números, en el campos
-     * de ingreso del RUN.
+     * Función que evita escribir caracteres diferentes a números, en el campo
+     * de ingreso de Teléfono.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         char c = evt.getKeyChar();
@@ -747,7 +760,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Función que evita escribir caracteres numericos o simbolos, en el campo
      * de cargo.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
      */
     private void txtCargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCargoKeyTyped
         char c = evt.getKeyChar();
@@ -760,7 +774,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * Método que verifica que el nombre de usuario o run ingresado, no se
      * encuentren ya registrados.
      *
-     * @return
+     * @return true o false, si algún campo ya se encuentra registrado.
      */
     public boolean validateDuplicate() {
         String txtUser = this.txtUsername.getText();
@@ -783,7 +797,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      * formulario.
      *
      */
-    public void limits(){
+    public void limits() {
         this.txtUsername.setDocument(new jTextFieldCharLimits(20));
         this.txtPass.setDocument(new jTextFieldCharLimits(20));
         this.txtPass2.setDocument(new jTextFieldCharLimits(20));
@@ -796,12 +810,12 @@ public class jdAddCuenta extends javax.swing.JDialog {
         this.txtCargo.setDocument(new jTextFieldCharLimits(20));
         Date fechaActual = new Date();
         this.dpFechaContrato.setMaxSelectableDate(fechaActual);
-        try{
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String fechaT = "01/01/1975";
             Date fechaMaxima = sdf.parse(fechaT);
             this.dpFechaContrato.setMinSelectableDate(fechaMaxima);
-        }catch(ParseException ex){
+        } catch (ParseException ex) {
         }
     }
 

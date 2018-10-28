@@ -1,6 +1,12 @@
+//Paquete
 package presentacion;
 
+//Importaciones
+import com.sun.glass.events.KeyEvent;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.event.ItemEvent;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -14,28 +20,35 @@ import negocio.NegComuna;
 import negocio.NegContrato;
 import negocio.NegEmpresa;
 import negocio.NegRegion;
+import presentacion.validaciones.jTextFieldCharLimits;
+import presentacion.validaciones.validadorRunChileno;
 
 /**
- *
  * @author Ignacio Antilanca
+ * @version 1.2
  */
 public class jdAddEmpresa extends javax.swing.JDialog {
 
-        //Variables
+    /**
+     * Variables utilizadas.
+     */
     List<Comuna> listComuna;
     List<Region> listRegion;
     List<Cliente> listCliente;
+
     /**
-     * Creates new form jdAddEmpresa
-     * @param parent
+     * Constructor que inicializa la ventana de ingreso de empresa.
+     *
+     * @param parent ventana jfPrincipal.
      * @param modal
      */
     public jdAddEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600); 
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600);
         this.setLocationRelativeTo(this);
     }
 
@@ -52,10 +65,10 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         pnlAddEmpresaBanner = new javax.swing.JPanel();
         lblTituloEmpresa = new javax.swing.JLabel();
         jpAddContrato = new javax.swing.JPanel();
-        dpFechaTermino = new org.jdesktop.swingx.JXDatePicker();
         lblFechaInicio = new javax.swing.JLabel();
         lblFechaTermino = new javax.swing.JLabel();
-        dpFechaInicio = new org.jdesktop.swingx.JXDatePicker();
+        dpFechaInicio = new com.toedter.calendar.JDateChooser();
+        dpFechaTermino = new com.toedter.calendar.JDateChooser();
         jpAddEmpresa = new javax.swing.JPanel();
         lblRut = new javax.swing.JLabel();
         txtRut = new javax.swing.JTextField();
@@ -109,7 +122,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         lblFechaInicio.setText("Fecha de Inicio");
 
-        lblFechaTermino.setText("Fecha de Inicio");
+        lblFechaTermino.setText("Fecha de Termino");
 
         javax.swing.GroupLayout jpAddContratoLayout = new javax.swing.GroupLayout(jpAddContrato);
         jpAddContrato.setLayout(jpAddContratoLayout);
@@ -118,24 +131,24 @@ public class jdAddEmpresa extends javax.swing.JDialog {
             .addGroup(jpAddContratoLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(lblFechaInicio)
-                .addGap(85, 85, 85)
-                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(84, 84, 84)
+                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109)
                 .addComponent(lblFechaTermino)
                 .addGap(18, 18, 18)
-                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpAddContratoLayout.setVerticalGroup(
             jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpAddContratoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(26, 26, 26)
+                .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaInicio)
+                    .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFechaTermino)
-                    .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(lblFechaInicio))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jpAddEmpresa.setBackground(new java.awt.Color(255, 255, 255));
@@ -143,7 +156,19 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         lblRut.setText("Rut");
 
+        txtRut.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRutKeyTyped(evt);
+            }
+        });
+
         lblNombFantasia.setText("Nombre fantasía");
+
+        txtNombreFantasia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreFantasiaKeyTyped(evt);
+            }
+        });
 
         lblCliente.setText("Cliente");
 
@@ -256,7 +281,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                 .addGroup(pnlAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarEmpresa)
                     .addComponent(btnCancelar))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,47 +297,105 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
+
     /**
      * Método que recibe la informacion ingresada en el formulario de registro
      * de empresa y la envia al controlador.
-     * 
-     * @param evt
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
-        
+
         try {
-            Contrato c = new Contrato();
-            c.setFechaInicio(this.dpFechaInicio.getDate());
-            c.setFechaTermino(this.dpFechaTermino.getDate());
-            NegContrato contrato = new NegContrato();
-            contrato.addContrato(c);
-            
-            Empresa e = new Empresa();
-            e.setRut(this.txtRut.getText());
-            e.setNombreFantasia(this.txtNombreFantasia.getText());
-            e.setEstado('1');
-            e.setIdCliente(this.ddlCliente.getSelectedIndex());
-            e.setIdContrato(contrato.obtenerContratoId());
-            e.setIdComuna(this.ddlComuna.getSelectedIndex());
-            NegEmpresa negE = new NegEmpresa();
-            negE.addEmpresa(e);
-            
-            JOptionPane.showMessageDialog(rootPane, "Contrato ingresado correctamente");            
+            if (!validateEmptys()) {
+                Contrato c = new Contrato();
+                c.setFechaInicio(this.dpFechaInicio.getDate());
+                c.setFechaTermino(this.dpFechaTermino.getDate());
+                NegContrato contrato = new NegContrato();
+                contrato.addContrato(c);
+
+                Empresa e = new Empresa();
+                if (new validadorRunChileno(this.txtRut.getText()).validateRun() == true) {
+                    e.setRut(this.txtRut.getText());
+                    e.setNombreFantasia(this.txtNombreFantasia.getText());
+                    e.setEstado('1');
+                    e.setIdCliente(this.ddlCliente.getSelectedIndex());//cambiar por ID de cliente.
+                    e.setIdContrato(contrato.obtenerContratoId());
+                    e.setIdComuna(this.ddlComuna.getSelectedIndex());
+                    NegEmpresa negE = new NegEmpresa();
+                    negE.addEmpresa(e);
+
+                    JOptionPane.showMessageDialog(rootPane, "Empresa ingresada correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado");
+            JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado" + ex.toString());
         }
-        
+
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
     /**
+     * Método que valida que los campos del formulario de registro de empresa no
+     * se encuentren vacios.
+     *
+     * @return campo true/false.
+     */
+    private boolean validateEmptys() {
+        boolean campo = this.dpFechaInicio.getDate() == null;
+        campo |= this.dpFechaTermino.getDate() == null;
+        campo |= this.txtRut.getText().isEmpty();
+        campo |= this.txtNombreFantasia.getText().isEmpty();
+        campo |= this.ddlCliente.getSelectedIndex() == 0;
+        campo |= this.ddlRegion.getSelectedIndex() == 0;
+        campo |= this.ddlComuna.getSelectedIndex() == 0;
+        return campo;
+    }
+
+    /**
+     * Método que establece los limites de caracteres por campo de texto en el
+     * formulario de registro de empresa.
+     *
+     */
+    public void limits() {
+        Date fechaInicio = new Date();
+        this.dpFechaInicio.setMinSelectableDate(fechaInicio);
+        Date fechaTermino = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaTermino);
+        calendar.add(Calendar.DAY_OF_YEAR, 365);
+        this.dpFechaTermino.setMinSelectableDate(calendar.getTime());
+        this.txtRut.setDocument(new jTextFieldCharLimits(9));
+        this.txtNombreFantasia.setDocument(new jTextFieldCharLimits(30));
+
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) this.dpFechaInicio.getDateEditor();
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) this.dpFechaTermino.getDateEditor();
+        editor.setEditable(false);
+        editor2.setEditable(false);
+    }
+
+    /**
      * Evento que cierra la ventana de ingreso de empresa (Cancelar)
-     * @param evt 
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Evento que carga al momento de abrir la ventana y permite la carga de los
+     * combobox a utilizar (Clientes, Regiones, Comúnas).
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (WindowEvent)
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         NegRegion negR = new NegRegion();
         NegComuna negC = new NegComuna();
@@ -352,8 +435,15 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    /**
+     * Evento que realiza la recargar del combobox de comuna, dependiente la
+     * region selecionada.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ItemEvent)
+     */
     private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
-         if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (this.ddlRegion.getSelectedIndex() > 0) {
                 NegComuna negC = new NegComuna();
                 DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
@@ -373,6 +463,34 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_ddlRegionItemStateChanged
 
+    /**
+     * Evento que evita escribir caracteres diferentes a números, en el campo de
+     * RUT.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRutKeyTyped
+
+    /**
+     * Evento que impde escribir caracters o numeros en el campo de nombre de
+     * fantisia de la empresa.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtNombreFantasiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFantasiaKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreFantasiaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEmpresa;
@@ -380,8 +498,8 @@ public class jdAddEmpresa extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> ddlCliente;
     private javax.swing.JComboBox<String> ddlComuna;
     private javax.swing.JComboBox<String> ddlRegion;
-    private org.jdesktop.swingx.JXDatePicker dpFechaInicio;
-    private org.jdesktop.swingx.JXDatePicker dpFechaTermino;
+    private com.toedter.calendar.JDateChooser dpFechaInicio;
+    private com.toedter.calendar.JDateChooser dpFechaTermino;
     private javax.swing.JPanel jpAddContrato;
     private javax.swing.JPanel jpAddEmpresa;
     private javax.swing.JLabel lblCliente;

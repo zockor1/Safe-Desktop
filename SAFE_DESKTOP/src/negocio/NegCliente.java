@@ -1,3 +1,4 @@
+//Paquete
 package negocio;
 
 //Importaciones
@@ -8,22 +9,25 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
  * @author Ignacio Antillanca
  * @version 1.0
  */
 public class NegCliente {
 
-    //Variables
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
 
-    //Constructor por defecto
+    /**
+     * Constructor por defecto de la clase NegCliente.
+     */
     public NegCliente() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**
-     * Metodo que llama al stored procedure que ingresa un cliente a la base de
+     * Método que llama al stored procedure que ingresa un cliente a la base de
      * datos.
      *
      * @param c Cliente a ingresar
@@ -38,12 +42,12 @@ public class NegCliente {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR REGISTRO CLIENTE: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que modifica un cliente de la
+     * Método que que llama al stored procedure que modifica un cliente de la
      * base de datos.
      *
      * @param c Cliente a actualizar
@@ -60,30 +64,32 @@ public class NegCliente {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR UP CLIENTE: " + ex.toString());
         }
     }
-    
-     /**
+
+    /**
+     * Método que obtiene todos los clientes registrado en la base de datos.
+     *
      * @return Lista de clientes en la base de datos
-     * @throws Exception 
+     * @throws Exception
      */
-    public List<Cliente> getAllCliente() throws Exception {       
+    public List<Cliente> getAllCliente() throws Exception {
         try {
-         Query q = sesion.createQuery("from Cliente");
-         return q.list();   
-        } catch (Exception ex){
-          System.out.println("ERROR:" + ex.toString());  
+            Query q = sesion.createQuery("from Cliente");
+            return q.list();
+        } catch (Exception ex) {
+            System.out.println("ERROR OBTENER CLIENTES:" + ex.toString());
         }
         return null;
     }
 
     /**
      * Método que devuelve el la informacion del cliente selecionado en la tabla
-     * a traves de la is de usuario.
+     * a traves de la id de usuario.
      *
      * @param idUser ID del usuario a encontrar
-     * @return
+     * @return Objeto Cliente.
      */
     public Cliente obtenerCliente(int idUser) {
         try {
@@ -100,7 +106,7 @@ public class NegCliente {
             Cliente cli = (Cliente) sesion.get(Cliente.class, id);
             return cli;
         } catch (Exception ex) {
-            System.out.println("ERROR: " + ex.toString());
+            System.out.println("ERROR OBTENER CLIENTE POR ID: " + ex.toString());
         }
         return null;
     }

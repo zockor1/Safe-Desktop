@@ -1,5 +1,7 @@
+//Paquete
 package presentacion;
 
+//Importaciones
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -10,14 +12,14 @@ import negocio.NegPersona;
 import rojerusan.RSPanelsSlider;
 
 /**
- *
  * @author Igncio Antillanca
+ * @version 1.1
  */
 public class jfPrincipal extends javax.swing.JFrame {
     
 
     /**
-     * Creates new form jfPrincipal
+     * Constructor por defecto de jfPrincipal.
      */
     public jfPrincipal() {
         this.setUndecorated(true);
@@ -59,22 +61,22 @@ public class jfPrincipal extends javax.swing.JFrame {
         tblContratos = new javax.swing.JTable();
         jpCuentas = new javax.swing.JPanel();
         lblCuentas = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
+        btnEliminarCuenta = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
         piSearchIcon = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCuentas = new org.jdesktop.swingx.JXTable();
         btnAgregarCuenta = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnVer = new javax.swing.JButton();
+        btnModificarCuenta = new javax.swing.JButton();
+        btnVerCuenta = new javax.swing.JButton();
         jpEmpresas = new javax.swing.JPanel();
         lblEmpresas = new javax.swing.JLabel();
         btnAgregarEmpresa = new javax.swing.JButton();
         piIconSearch1 = new org.edisoncor.gui.panel.PanelImage();
         txtSearch2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnModificarEmpresa = new javax.swing.JButton();
+        btnEliminarEmpresa = new javax.swing.JButton();
+        btnVerEmpresa = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmpresa = new org.jdesktop.swingx.JXTable();
 
@@ -224,16 +226,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(lblCuentas);
         lblCuentas.setBounds(230, 10, 280, 17);
 
-        btnEliminar.setBackground(new java.awt.Color(17, 48, 142));
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-        jpCuentas.add(btnEliminar);
-        btnEliminar.setBounds(240, 132, 110, 23);
+        btnEliminarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnEliminarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarCuenta.setText("ELIMINAR");
+        jpCuentas.add(btnEliminarCuenta);
+        btnEliminarCuenta.setBounds(240, 132, 110, 23);
         jpCuentas.add(txtSearch);
         txtSearch.setBounds(546, 132, 200, 20);
 
@@ -297,22 +294,22 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.add(btnAgregarCuenta);
         btnAgregarCuenta.setBounds(0, 132, 110, 23);
 
-        btnModificar.setBackground(new java.awt.Color(17, 48, 142));
-        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificar.setText("MODIFICAR");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnModificarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarCuenta.setText("MODIFICAR");
+        btnModificarCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
+                btnModificarCuentaActionPerformed(evt);
             }
         });
-        jpCuentas.add(btnModificar);
-        btnModificar.setBounds(120, 132, 110, 23);
+        jpCuentas.add(btnModificarCuenta);
+        btnModificarCuenta.setBounds(120, 132, 110, 23);
 
-        btnVer.setBackground(new java.awt.Color(17, 48, 142));
-        btnVer.setForeground(new java.awt.Color(255, 255, 255));
-        btnVer.setText("VER");
-        jpCuentas.add(btnVer);
-        btnVer.setBounds(360, 132, 110, 23);
+        btnVerCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnVerCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerCuenta.setText("VER");
+        jpCuentas.add(btnVerCuenta);
+        btnVerCuenta.setBounds(360, 132, 110, 23);
 
         rSPanelsSlider1.add(jpCuentas, "card3");
 
@@ -355,23 +352,23 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.add(txtSearch2);
         txtSearch2.setBounds(546, 132, 200, 20);
 
-        jButton1.setBackground(new java.awt.Color(17, 48, 142));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("MODIFICAR");
-        jpEmpresas.add(jButton1);
-        jButton1.setBounds(120, 132, 110, 23);
+        btnModificarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnModificarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarEmpresa.setText("MODIFICAR");
+        jpEmpresas.add(btnModificarEmpresa);
+        btnModificarEmpresa.setBounds(120, 132, 110, 23);
 
-        jButton2.setBackground(new java.awt.Color(17, 48, 142));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("ELIMINAR");
-        jpEmpresas.add(jButton2);
-        jButton2.setBounds(240, 132, 110, 23);
+        btnEliminarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnEliminarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarEmpresa.setText("ELIMINAR");
+        jpEmpresas.add(btnEliminarEmpresa);
+        btnEliminarEmpresa.setBounds(240, 132, 110, 23);
 
-        jButton3.setBackground(new java.awt.Color(17, 42, 148));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("VER");
-        jpEmpresas.add(jButton3);
-        jButton3.setBounds(360, 132, 110, 23);
+        btnVerEmpresa.setBackground(new java.awt.Color(17, 42, 148));
+        btnVerEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerEmpresa.setText("VER");
+        jpEmpresas.add(btnVerEmpresa);
+        btnVerEmpresa.setBounds(360, 132, 110, 23);
 
         tblEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -425,6 +422,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que mueve hacia vista de GESTION DE CUENTAS y oculta las otras por
+     * el PanelSlider.
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
     private void btnCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasActionPerformed
         if (!this.btnCuentas.isSelected()) {
             this.btnInicio.setSelected(false);
@@ -435,6 +437,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCuentasActionPerformed
 
+    /**
+     * Método que mueve hacia vista de INICIO y oculta las otras por
+     * el PanelSlider.
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         if (!this.btnInicio.isSelected()) {
             this.btnInicio.setSelected(true);
@@ -445,6 +452,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    /**
+     * Método que mueve hacia vista de GESTION DE EMPRESA y oculta las otras por
+     * el PanelSlider.
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
         if (!this.btnEmpresa.isSelected()) {
             this.btnInicio.setSelected(false);
@@ -455,31 +467,42 @@ public class jfPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
+    /**
+     * Método de evento que cierra el proceso de login al posicionar el mouse
+     * sobre la imagen.
+     * @param evt evento que indica que se realizo una accion definida (MouseEvent)
+     */
     private void piLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piLogoutMouseClicked
         System.exit(0);
     }//GEN-LAST:event_piLogoutMouseClicked
 
+    /**
+     * Método que invoca el modal de jdAddEmpresa y lo hace visible.
+     * 
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
         jdAddEmpresa ventana = new jdAddEmpresa(this, true);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
+    /**
+     * Método que invoca el modal de jdAddCuenta y lo hace visible.
+     * 
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         jdAddCuenta ventana = new jdAddCuenta(this, true);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
     /**
-     * Método que recibe la id del item de la tabl cuentaa y abre la ventana de
+     * Método que recibe la id del item de la tabla cuenta y abre la ventana de
      * modificaciones de datos en base a esa id.
      *
-     * @param evt evento que indica que se realizo una accion definida (Press)
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
      */
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnModificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCuentaActionPerformed
         try {
             int column = 0;
             int row = this.tblCuentas.getSelectedRow();
@@ -521,7 +544,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }
         //System.out.println("ID: " + value);
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }//GEN-LAST:event_btnModificarCuentaActionPerformed
 
     /**
      * Método que realiza el llenado de la tabla de cuentas con la información
@@ -634,14 +657,14 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarCuenta;
     private javax.swing.JButton btnAgregarEmpresa;
     private javax.swing.JButton btnCuentas;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarCuenta;
+    private javax.swing.JButton btnEliminarEmpresa;
     private javax.swing.JButton btnEmpresa;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnVer;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnModificarCuenta;
+    private javax.swing.JButton btnModificarEmpresa;
+    private javax.swing.JButton btnVerCuenta;
+    private javax.swing.JButton btnVerEmpresa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

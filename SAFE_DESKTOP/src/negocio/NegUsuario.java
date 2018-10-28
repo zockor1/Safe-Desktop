@@ -1,3 +1,4 @@
+//Paquete
 package negocio;
 
 //Importaciones
@@ -13,16 +14,20 @@ import org.hibernate.Transaction;
  */
 public class NegUsuario {
 
-    //Variables
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
 
-    //Constructor por defecto.
+    /**
+     * Constructor por defecto de la clase NegUsuario.
+     */
     public NegUsuario() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**
-     * Metodo que llama al stored procedure que ingresa un usuario a la base de
+     * Método que llama al stored procedure que ingresa un usuario a la base de
      * datos.
      *
      * @param u Usuario a ingresar
@@ -38,16 +43,16 @@ public class NegUsuario {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR ADD USUARIO: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que modifica un usuario de la
+     * Método que que llama al stored procedure que modifica un usuario de la
      * base de datos.
      *
-     * @param u Usuario a actualizar
-     * @throws Exception general
+     * @param u Usuario a actualizar.
+     * @throws Exception general.
      */
     public void upUsuario(Usuario u) throws Exception {
         try {
@@ -61,12 +66,12 @@ public class NegUsuario {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR UP USUARIO: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que elimina un usuario de la
+     * Método que que llama al stored procedure que elimina un usuario de la
      * base de datos.
      *
      * @param u Usuario a eliminar
@@ -80,16 +85,16 @@ public class NegUsuario {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR DELETE USUARIO: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que llama al stored procedure que devuelve una lista de los
+     * Método que llama al stored procedure que devuelve una lista de los
      * usuarios registrados en la base de datos.
      *
-     * @return List de contratos, caso contrario, null
-     * @throws Exception general
+     * @return List de contratos, caso contrario, null.
+     * @throws Exception general.
      */
     public List<Usuario> getAllUsuario() throws Exception {
         try {
@@ -99,16 +104,16 @@ public class NegUsuario {
                     .list();
             return result;
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR OBTENER USUARIOS: " + ex.toString());
         }
         return null;
     }
 
     /**
-     * Metodo que devuelve el id del usuario registrado en la creacion de cuenta
+     * Método que devuelve el id del usuario registrado en la creacion de cuenta
      * y se anexa a los datos de persona.
      *
-     * @return result
+     * @return result = último ID registrado en USUARIO.
      */
     public int obtenerUser() {
         try {

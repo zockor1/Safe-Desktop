@@ -1,6 +1,7 @@
+//Paquete
 package negocio;
 
-// Importaciones
+//Importaciones
 import java.util.List;
 import modelo.Contrato;
 import org.hibernate.Query;
@@ -13,19 +14,24 @@ import org.hibernate.Transaction;
  */
 public class NegContrato {
 
-    //Variables.
+    /**
+     * Variables utilizadas.
+     */
     Session sesion;
 
-    //Constructor por defecto.
+    /**
+     * Constructor por defecto de la clase NegContrato.
+     */
     public NegContrato() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**
-     * Metodo que llama al stored procedure que ingresa un contrato a la base de
+     * Método que llama al stored procedure que ingresa un contrato a la base de
      * datos.
-     * @param c contrato
-     * @throws Exception general
+     *
+     * @param c Contrato a ingrsar.
+     * @throws Exception general.
      */
     public void addContrato(Contrato c) throws Exception {
         try {
@@ -42,10 +48,11 @@ public class NegContrato {
     }
 
     /**
-     * Metodo que que llama al stored procedure que modifica un contrato de la
+     * Método que que llama al stored procedure que modifica un contrato de la
      * base de datos.
-     * @param c contrato
-     * @throws Exception general
+     *
+     * @param c Contrato a modificar.
+     * @throws Exception general.
      */
     public void upContrato(Contrato c) throws Exception {
         try {
@@ -58,34 +65,35 @@ public class NegContrato {
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR UP CONTRATO: " + ex.toString());
         }
     }
 
     /**
-     * Metodo que que llama al stored procedure que elimina un contrato de la
+     * Método que que llama al stored procedure que elimina un contrato de la
      * base de datos.
-     * @param c contrato
-     * @throws Exception general
+     *
+     * @param c Contrato a eliminar.
+     * @throws Exception general.
      */
     public void delContrato(Contrato c) throws Exception {
         try {
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_contrato.delete_contrato(?)")
                     .setParameter(0, c.getIdContrato());
-            //System.out.print("QUERY: " + q.toString());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR DELETE CONTRATO: " + ex.toString());
         }
     }
 
     /**
      * Metodo que llama al stored procedure que devuelve una lista de los
      * contratos registrados en la base de datos.
+     *
      * @return List de contratos, caso contrario, null
-     * @throws Exception general
+     * @throws Exception general.
      */
     public List<Contrato> getAllContrato() throws Exception {
         try {
@@ -94,12 +102,12 @@ public class NegContrato {
                     .addEntity(Contrato.class)
                     .list();
             return result;
-        } catch(Exception ex) {
-           System.out.print("ERROR: " + ex.toString()); 
+        } catch (Exception ex) {
+            System.out.print("ERROR OBTENER CONTRATOS: " + ex.toString());
         }
         return null;
     }
-    
+
     /**
      * Metodo que devuelve el id de contrato registrado en la creacion de
      * empresa y se anexa a los datos de la empresa a registrar.
@@ -116,9 +124,9 @@ public class NegContrato {
             Object result = q.uniqueResult();
             return ((Number) result).intValue();
         } catch (NumberFormatException ex) {
-            System.out.print("ERROR ID CONTRATO: " + ex.toString());
+            System.out.print("ERROR OBTENER ID CONTRATO: " + ex.toString());
         }
         return 0;
     }
-   
+
 }

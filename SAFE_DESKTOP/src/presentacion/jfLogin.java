@@ -1,22 +1,23 @@
+//Paquete
 package presentacion;
 
+//Importaciones
 import negocio.NegLogin;
 
 /**
- *
  * @author Ignacio Antillanca
  * @version 18/09/2018 v1.0
  */
 public class jfLogin extends javax.swing.JFrame {
 
     /**
-     * Constructor de jFrame de login
+     * Constructor por defecto de jfLogin.
      */
     public jfLogin() {
         this.setUndecorated(true); // variable para ocultar herramientas de ventana
         initComponents();
         this.setLocationRelativeTo(null); // variable para posicionar la ventana al centro del monitor.
-    }// Cierre de constructor
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,20 +165,28 @@ public class jfLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*
-    Metodo de comportamiento para cerrar programa
-    */
+    /**
+     * Método de evento que cierra el proceso de login al posicionar el mouse
+     * sobre la imagen.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
     private void piCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piCloseMouseClicked
         System.exit(0);
     }//GEN-LAST:event_piCloseMouseClicked
 
-    /*
-    * Funcion ingreso al sistema
-    */
+    /**
+     * Método que envía las credenciales ingresadas al controlador para ser
+     * verificadas y otorgar el acceso o no, dependendieo la respuesta obtenida.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String password = new String(txtPass.getPassword());
         boolean permiso = NegLogin.Login(txtUser.getText(), password);
-        
+
         if (permiso) {
             this.dispose();
             jfPrincipal nueva = new jfPrincipal();
