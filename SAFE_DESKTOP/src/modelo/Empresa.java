@@ -52,90 +52,178 @@ public class Empresa implements java.io.Serializable {
         this.estado = estado;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdEmpresa() {
         return this.idEmpresa;
     }
 
+    /**
+     *
+     * @param idEmpresa
+     */
     public void setIdEmpresa(int idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
 
+    /**
+     *
+     * @return
+     */
     public Cliente getCliente() {
         return this.cliente;
     }
 
+    /**
+     *
+     * @param cliente
+     */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
+    /**
+     *
+     * @return
+     */
     public Comuna getComuna() {
         return this.comuna;
     }
 
+    /**
+     *
+     * @param comuna
+     */
     public void setComuna(Comuna comuna) {
         this.comuna = comuna;
     }
 
+    /**
+     *
+     * @return
+     */
     public Contrato getContrato() {
         return this.contrato;
     }
 
+    /**
+     *
+     * @param contrato
+     */
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRut() {
         return this.rut;
     }
 
+    /**
+     *
+     * @param rut
+     */
     public void setRut(String rut) {
         this.rut = rut;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreFantasia() {
         return this.nombreFantasia;
     }
 
+    /**
+     *
+     * @param nombreFantasia
+     */
     public void setNombreFantasia(String nombreFantasia) {
         this.nombreFantasia = nombreFantasia;
     }
 
+    /**
+     *
+     * @return
+     */
     public char getEstado() {
         return this.estado;
     }
 
+    /**
+     *
+     * @param estado
+     */
     public void setEstado(char estado) {
         this.estado = estado;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getTrabajadors() {
         return this.trabajadors;
     }
 
+    /**
+     *
+     * @param trabajadors
+     */
     public void setTrabajadors(Set trabajadors) {
         this.trabajadors = trabajadors;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdCliente() {
         return idCliente;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdContrato() {
         return idContrato;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdComuna() {
         return idComuna;
     }
 
+    /**
+     *
+     * @param idCliente
+     */
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
+    /**
+     *
+     * @param idContrato
+     */
     public void setIdContrato(int idContrato) {
         this.idContrato = idContrato;
     }
 
+    /**
+     *
+     * @param idComuna
+     */
     public void setIdComuna(int idComuna) {
         this.idComuna = idComuna;
     }

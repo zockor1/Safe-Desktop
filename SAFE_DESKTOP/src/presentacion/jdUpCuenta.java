@@ -44,7 +44,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
     List<Empresa> listEmpresa;
 
     /**
-     * Constructor que inicializa el modal del registro de cuentas.
+     * Constructor que inicializa el modal de modificación de cuentas.
      *
      * @param parent ventana jfPrincipal.
      * @param modal

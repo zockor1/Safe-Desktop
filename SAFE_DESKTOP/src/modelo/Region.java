@@ -34,26 +34,50 @@ public class Region implements java.io.Serializable {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdRegion() {
         return this.idRegion;
     }
 
+    /**
+     *
+     * @param idRegion
+     */
     public void setIdRegion(int idRegion) {
         this.idRegion = idRegion;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return this.nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getComunas() {
         return this.comunas;
     }
 
+    /**
+     *
+     * @param comunas
+     */
     public void setComunas(Set comunas) {
         this.comunas = comunas;
     }

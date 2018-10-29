@@ -355,6 +355,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnModificarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
         btnModificarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarEmpresa.setText("MODIFICAR");
+        btnModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarEmpresaActionPerformed(evt);
+            }
+        });
         jpEmpresas.add(btnModificarEmpresa);
         btnModificarEmpresa.setBounds(120, 132, 110, 23);
 
@@ -375,11 +380,11 @@ public class jfPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID EMPRESA", "NOMBRE EMPRESA", "NOMBRE CLIENTE", "FECHA INICIO", "FECHA TERMINO"
+                "ID EMPRESA", "NOMBRE EMPRESA", "NOMBRE CLIENTE", "ID CONTRATO", "FECHA INICIO", "FECHA TERMINO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -547,6 +552,30 @@ public class jfPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarCuentaActionPerformed
 
     /**
+     * Método que invoca el modal de modificacion de empresa y lo hace visible.
+     * 
+     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     */
+    private void btnModificarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpresaActionPerformed
+         try {
+            int row = this.tblEmpresa.getSelectedRow();
+            int column = 0;
+            //Valor del ID de Empresa
+            int idEmp = (Integer) this.tblEmpresa.getModel().getValueAt(row, column);
+            int column2 = 3;
+            //Valor del ID de Contrato
+            int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
+          
+            jdUpEmpresa ventana = new jdUpEmpresa(this, true);
+            ventana.cargaDeCampos(idEmp, idCon);
+            ventana.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
+        }
+        //System.out.println("ID: " + value);
+    }//GEN-LAST:event_btnModificarEmpresaActionPerformed
+
+    /**
      * Método que realiza el llenado de la tabla de cuentas con la información
      * de las personas.
      */
@@ -607,8 +636,9 @@ public class jfPrincipal extends javax.swing.JFrame {
                 rowData[0] = list.get(i).getIdEmpresa();
                 rowData[1] = list.get(i).getNombreFantasia();
                 rowData[2] = list.get(i).getCliente().getPersona().getNombres() + list.get(i).getCliente().getPersona().getAppPaterno();
-                rowData[3] = list.get(i).getContrato().getFechaInicio();
-                rowData[4] = list.get(i).getContrato().getFechaTermino();
+                rowData[3] = list.get(i).getContrato().getIdContrato();
+                rowData[4] = list.get(i).getContrato().getFechaInicio();
+                rowData[5] = list.get(i).getContrato().getFechaTermino();
 
                 model.addRow(rowData);
             }

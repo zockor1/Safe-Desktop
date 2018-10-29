@@ -36,34 +36,66 @@ public class Contrato implements java.io.Serializable {
         this.fechaTermino = fechaTermino;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdContrato() {
         return this.idContrato;
     }
 
+    /**
+     *
+     * @param idContrato
+     */
     public void setIdContrato(int idContrato) {
         this.idContrato = idContrato;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFechaInicio() {
         return this.fechaInicio;
     }
 
+    /**
+     *
+     * @param fechaInicio
+     */
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFechaTermino() {
         return this.fechaTermino;
     }
 
+    /**
+     *
+     * @param fechaTermino
+     */
     public void setFechaTermino(Date fechaTermino) {
         this.fechaTermino = fechaTermino;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getEmpresas() {
         return this.empresas;
     }
 
+    /**
+     *
+     * @param empresas
+     */
     public void setEmpresas(Set empresas) {
         this.empresas = empresas;
     }

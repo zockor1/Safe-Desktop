@@ -41,50 +41,98 @@ public class Usuario implements java.io.Serializable {
         this.rol = rol;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdUsuario() {
         return this.idUsuario;
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getClave() {
         return this.clave;
     }
 
+    /**
+     *
+     * @param clave
+     */
     public void setClave(String clave) {
         this.clave = clave;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRol() {
         return this.rol;
     }
 
+    /**
+     *
+     * @param rol
+     */
     public void setRol(int rol) {
         this.rol = rol;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getPersonas() {
         return this.personas;
     }
 
+    /**
+     *
+     * @param personas
+     */
     public void setPersonas(Set personas) {
         this.personas = personas;
     }

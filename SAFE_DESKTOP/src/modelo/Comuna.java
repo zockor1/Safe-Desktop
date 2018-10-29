@@ -39,42 +39,82 @@ public class Comuna implements java.io.Serializable {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdComuna() {
         return this.idComuna;
     }
 
+    /**
+     *
+     * @param idComuna
+     */
     public void setIdComuna(int idComuna) {
         this.idComuna = idComuna;
     }
 
+    /**
+     *
+     * @return
+     */
     public Region getRegion() {
         return this.region;
     }
 
+    /**
+     *
+     * @param region
+     */
     public void setRegion(Region region) {
         this.region = region;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return this.nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getClientes() {
         return this.clientes;
     }
 
+    /**
+     *
+     * @param clientes
+     */
     public void setClientes(Set clientes) {
         this.clientes = clientes;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getEmpresas() {
         return this.empresas;
     }
 
+    /**
+     *
+     * @param empresas
+     */
     public void setEmpresas(Set empresas) {
         this.empresas = empresas;
     }

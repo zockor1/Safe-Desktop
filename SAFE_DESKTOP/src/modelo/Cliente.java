@@ -42,58 +42,114 @@ public class Cliente implements java.io.Serializable {
         this.comunaId = com;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdCliente() {
         return this.idCliente;
     }
 
+    /**
+     *
+     * @param idCliente
+     */
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTelefono() {
         return this.telefono;
     }
 
+    /**
+     *
+     * @param telefono
+     */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdPersona() {
         return idPersona;
     }
 
+    /**
+     *
+     * @param idPersona
+     */
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getEmpresas() {
         return this.empresas;
     }
 
+    /**
+     *
+     * @param empresas
+     */
     public void setEmpresas(Set empresas) {
         this.empresas = empresas;
     }
 
+    /**
+     *
+     * @return
+     */
     public Persona getPersona() {
         return this.persona;
     }
 
+    /**
+     *
+     * @param persona
+     */
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getComunaId() {
         return this.comunaId;
     }
 
+    /**
+     *
+     * @param comunaId
+     */
     public void setComunaId(int comunaId) {
         this.comunaId = comunaId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Comuna getComuna() {
         return comuna;
     }
 
+    /**
+     *
+     * @param comuna
+     */
     public void setComuna(Comuna comuna) {
         this.comuna = comuna;
     }

@@ -44,66 +44,130 @@ public class Trabajador implements java.io.Serializable {
         this.idEmpresa = idEmp;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdTrabajador() {
         return this.idTrabajador;
     }
 
+    /**
+     *
+     * @param idTrabajador
+     */
     public void setIdTrabajador(int idTrabajador) {
         this.idTrabajador = idTrabajador;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTelefono() {
         return this.telefono;
     }
 
+    /**
+     *
+     * @param telefono
+     */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFechaContrato() {
         return this.fechaContrato;
     }
 
+    /**
+     *
+     * @param fechaContrato
+     */
     public void setFechaContrato(Date fechaContrato) {
         this.fechaContrato = fechaContrato;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCargo() {
         return this.cargo;
     }
 
+    /**
+     *
+     * @param cargo
+     */
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdPersona() {
         return this.idPersona;
     }
 
+    /**
+     *
+     * @param idPersona
+     */
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
 
+    /**
+     *
+     * @return
+     */
     public Empresa getEmpresa() {
         return this.empresa;
     }
 
+    /**
+     *
+     * @param empresa
+     */
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
 
+    /**
+     *
+     * @return
+     */
     public Persona getPersona() {
         return this.persona;
     }
 
+    /**
+     *
+     * @param persona
+     */
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdEmpresa() {
         return this.idEmpresa;
     }
 
+    /**
+     *
+     * @param idEmp
+     */
     public void setIdEmpresa(int idEmp) {
         this.idEmpresa = idEmp;
     }

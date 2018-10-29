@@ -52,6 +52,31 @@ public class NegEmpresa {
     }
 
     /**
+     * Método que devuelve la informacion de la persona selecionada en la tabla
+     * a traves de la id de usuario.
+     *
+     * @param idCon ID de Contrato a encontrar
+     * @return Empresa encontrada o null
+     */
+    public Empresa obtenerEmpresa(int idCon) {
+        try {
+            Query q = sesion.createSQLQuery("SELECT emp.ID_EMPRESA\n"
+                    + "FROM EMPRESA emp\n"
+                    + "INNER JOIN CONTRATO con\n"
+                    + "ON emp.CONTRATO_ID_CONTRATO = con.ID_CONTRATO\n"
+                    + "WHERE con.ID_CONTRATO = ?")
+                    .setParameter(0, idCon);
+            Object result = q.uniqueResult();
+            int id = ((Number) result).intValue();
+            Empresa e = (Empresa) sesion.get(Empresa.class, id);
+            return e;
+        } catch (Exception ex) {
+            System.out.println("ERROR OBTENER EMPRESA: " + ex.toString());
+        }
+        return null;
+    }
+    
+    /**
      * Método que devuelve las empresas registradas en la base de datos.
      *
      * @return Lista de empresas en la base de datos.
@@ -62,7 +87,7 @@ public class NegEmpresa {
             Query q = sesion.createQuery("from Empresa");
             return q.list();
         } catch (Exception ex) {
-            System.out.println("ERROR OBTENER EMPRESAS:" + ex.toString());
+            System.out.println("ERROR OBTENER LISTADO EMPRESAS:" + ex.toString());
         }
         return null;
     }

@@ -47,74 +47,146 @@ public class Persona implements java.io.Serializable {
         this.appMaterno = appMaterno;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdPersona() {
         return this.idPersona;
     }
 
+    /**
+     *
+     * @param idPersona
+     */
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
 
+    /**
+     *
+     * @return
+     */
     public Usuario getUsuario() {
         return this.usuario;
     }
 
+    /**
+     *
+     * @param usuario
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRun() {
         return this.run;
     }
 
+    /**
+     *
+     * @param run
+     */
     public void setRun(String run) {
         this.run = run;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombres() {
         return this.nombres;
     }
 
+    /**
+     *
+     * @param nombres
+     */
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAppPaterno() {
         return this.appPaterno;
     }
 
+    /**
+     *
+     * @param appPaterno
+     */
     public void setAppPaterno(String appPaterno) {
         this.appPaterno = appPaterno;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAppMaterno() {
         return this.appMaterno;
     }
 
+    /**
+     *
+     * @param appMaterno
+     */
     public void setAppMaterno(String appMaterno) {
         this.appMaterno = appMaterno;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdUser() {
         return this.idUser;
     }
 
+    /**
+     *
+     * @param idUser
+     */
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getClientes() {
         return this.clientes;
     }
 
+    /**
+     *
+     * @param clientes
+     */
     public void setClientes(Set clientes) {
         this.clientes = clientes;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set getTrabajadors() {
         return this.trabajadors;
     }
 
+    /**
+     *
+     * @param trabajadors
+     */
     public void setTrabajadors(Set trabajadors) {
         this.trabajadors = trabajadors;
     }
