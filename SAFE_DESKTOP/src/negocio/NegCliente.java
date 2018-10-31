@@ -34,11 +34,12 @@ public class NegCliente {
      */
     public void addCliente(Cliente c) {
         try {
+            NegPersona per = new NegPersona();
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_cliente.create_cliente(?,?,?)")
                     .setParameter(0, c.getTelefono())
-                    .setParameter(1, c.getIdPersona())
-                    .setParameter(2, c.getComunaId());
+                    .setParameter(1, per.obtenerPersonaId())
+                    .setParameter(2, c.getComuna().getIdComuna());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
@@ -59,8 +60,8 @@ public class NegCliente {
             Query q = sesion.createSQLQuery("call pkg_crud_cliente.update_cliente(?,?,?,?)")
                     .setParameter(0, c.getIdCliente())
                     .setParameter(1, c.getTelefono())
-                    .setParameter(2, c.getIdPersona())
-                    .setParameter(3, c.getComunaId());
+                    .setParameter(2, c.getPersona().getIdPersona())
+                    .setParameter(3, c.getComuna().getIdComuna());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {

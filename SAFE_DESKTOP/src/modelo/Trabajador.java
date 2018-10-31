@@ -16,8 +16,6 @@ public class Trabajador implements java.io.Serializable {
     private String telefono;
     private Date fechaContrato;
     private String cargo;
-    private int idPersona;
-    private int idEmpresa;
     private Empresa empresa;
     private Persona persona;
 
@@ -33,15 +31,11 @@ public class Trabajador implements java.io.Serializable {
      * @param telefono TELEFONO de Trabajador.
      * @param fechaContrato FECHA_CONTRATO de Trabajador.
      * @param cargo CARGO de Trabajador.
-     * @param idPersona PERSONA_ID_PERSONA de Trabajador.
-     * @param idEmp EMPRESA_ID_EMPRESA de Trabajador.
      */
-    public Trabajador(String telefono, Date fechaContrato, String cargo, int idPersona, int idEmp) {
+    public Trabajador(String telefono, Date fechaContrato, String cargo) {
         this.telefono = telefono;
         this.fechaContrato = fechaContrato;
         this.cargo = cargo;
-        this.idPersona = idPersona;
-        this.idEmpresa = idEmp;
     }
 
     /**
@@ -112,22 +106,6 @@ public class Trabajador implements java.io.Serializable {
      *
      * @return
      */
-    public int getIdPersona() {
-        return this.idPersona;
-    }
-
-    /**
-     *
-     * @param idPersona
-     */
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Empresa getEmpresa() {
         return this.empresa;
     }
@@ -157,30 +135,13 @@ public class Trabajador implements java.io.Serializable {
     }
 
     /**
-     *
-     * @return
-     */
-    public int getIdEmpresa() {
-        return this.idEmpresa;
-    }
-
-    /**
-     *
-     * @param idEmp
-     */
-    public void setIdEmpresa(int idEmp) {
-        this.idEmpresa = idEmp;
-    }
-
-    /**
      * Función toString de la clase Trabajador.
      *
      * @return los atributos del objeto en formato de texto.
      */
     @Override
     public String toString() {
-        return "Trabajador{" + "idTrabajador=" + idTrabajador + ", telefono=" + telefono + ", fechaContrato=" + fechaContrato + ", cargo=" + cargo + ", idPersona=" + idPersona + ", idEmpresa=" + idEmpresa + ", empresa=" + empresa + ", persona=" + persona + '}';
+        return "Trabajador{" + "idTrabajador=" + idTrabajador + ", telefono=" + telefono + ", fechaContrato=" + fechaContrato + ", cargo=" + cargo + ", empresa=" + empresa + ", persona=" + persona + '}';
     }
 
 }
-

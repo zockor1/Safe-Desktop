@@ -33,13 +33,14 @@ public class NegTrabajador {
      */
     public void addTrabajador(Trabajador t) {
         try {
+            NegPersona per = new NegPersona();
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_trabajador.create_trabajador(?,?,?,?,?)")
                     .setParameter(0, t.getTelefono())
                     .setParameter(1, t.getFechaContrato())
                     .setParameter(2, t.getCargo())
-                    .setParameter(3, t.getIdPersona())
-                    .setParameter(4, t.getIdEmpresa());
+                    .setParameter(3, per.obtenerPersonaId())
+                    .setParameter(4, t.getEmpresa().getIdEmpresa());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
@@ -62,8 +63,8 @@ public class NegTrabajador {
                     .setParameter(1, t.getTelefono())
                     .setParameter(2, t.getFechaContrato())
                     .setParameter(3, t.getCargo())
-                    .setParameter(4, t.getIdPersona())
-                    .setParameter(5, t.getIdEmpresa());
+                    .setParameter(4, t.getPersona().getIdPersona())
+                    .setParameter(5, t.getEmpresa().getIdEmpresa());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {

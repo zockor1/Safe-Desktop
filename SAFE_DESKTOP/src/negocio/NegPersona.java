@@ -34,13 +34,14 @@ public class NegPersona {
      */
     public void addPersona(Persona p) {
         try {
+            NegUsuario usu = new NegUsuario();
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_persona.create_persona(?,?,?,?,?)")
                     .setParameter(0, p.getRun())
                     .setParameter(1, p.getNombres())
                     .setParameter(2, p.getAppPaterno())
                     .setParameter(3, p.getAppMaterno())
-                    .setParameter(4, p.getIdUser());
+                    .setParameter(4, usu.obtenerUserId());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {
@@ -64,7 +65,7 @@ public class NegPersona {
                     .setParameter(2, p.getNombres())
                     .setParameter(3, p.getAppPaterno())
                     .setParameter(4, p.getAppMaterno())
-                    .setParameter(5, p.getIdUser());
+                    .setParameter(5, p.getUsuario().getIdUsuario());
             q.executeUpdate();
             tx.commit();
         } catch (Exception ex) {

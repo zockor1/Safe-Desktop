@@ -109,10 +109,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.txtAppMaterno.setText(cliente.getPersona().getAppMaterno());
         //Llenado campos de cliente
         this.txtTelefono.setText(cliente.getTelefono());
-        DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
-        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
-        cModelR.setSelectedItem(cliente.getComuna().getRegion().getNombre());
-        cModelC.setSelectedItem(cliente.getComuna().getNombre());
+        DefaultComboBoxModel modelRegion = (DefaultComboBoxModel) this.ddlRegion.getModel();
+        DefaultComboBoxModel modelComuna = (DefaultComboBoxModel) this.ddlComuna.getModel();
+        modelRegion.setSelectedItem(cliente.getComuna().getRegion().getNombre());
+        modelComuna.setSelectedItem(cliente.getComuna().getNombre());
     }
 
     /**
@@ -645,29 +645,39 @@ public class jdUpCuenta extends javax.swing.JDialog {
                                 p.setNombres(this.txtNombres.getText());
                                 p.setAppPaterno(this.txtAppPaterno.getText());
                                 p.setAppMaterno(this.txtAppMaterno.getText());
-                                p.setIdUser(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
+                                p.setUsuario(u);
+                                p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
 
                                 NegPersona per = new NegPersona();
                                 per.upPersona(p);
                                 switch (this.ddlRol.getSelectedIndex()) {
                                     case 3:
                                         Cliente cl = new Cliente();
+                                        Region reg = new Region();
+                                        Comuna com = new Comuna();
                                         cl.setIdCliente(Integer.parseInt(this.lblIdCli.getText()));
                                         cl.setTelefono(this.txtTelefono.getText());
-                                        cl.setComunaId(this.ddlComuna.getSelectedIndex());
-                                        cl.setIdPersona(p.getIdPersona());
+                                        cl.setComuna(com);
+                                        cl.getComuna().setRegion(reg);
+                                        com = (Comuna)this.ddlComuna.getModel().getSelectedItem();
+                                        cl.getComuna().setIdComuna(com.getIdComuna());
+                                        cl.setPersona(p);
+                                        cl.getPersona().setIdPersona(p.getIdPersona());
                                         NegCliente neg = new NegCliente();
                                         neg.upCliente(cl);
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente modificada correctamente");
                                         break;
                                     case 4:
                                         Trabajador tr = new Trabajador();
+                                        Empresa emp = new Empresa();
                                         tr.setIdTrabajador(Integer.parseInt(this.lblIdTra.getText()));
                                         tr.setTelefono(this.txtTelefono.getText());
                                         tr.setCargo(this.txtCargo.getText());
                                         tr.setFechaContrato(this.dpFechaContrato.getDate());
-                                        tr.setIdPersona(p.getIdPersona());
-                                        tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                                        tr.setPersona(p);
+                                        tr.getPersona().setIdPersona(p.getIdPersona());
+                                        tr.setEmpresa(emp);
+                                        tr.getEmpresa().setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
                                         NegTrabajador negT = new NegTrabajador();
                                         negT.upTrabajador(tr);
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador modificada correctamente");
@@ -777,11 +787,11 @@ public class jdUpCuenta extends javax.swing.JDialog {
         NegEmpresa negE = new NegEmpresa();
 
         DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
-        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
         DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
 
+
         cModelR.addElement("Región...");
-        cModelC.addElement("Comuna...");
+        this.ddlComuna.addItem("Comuna...");
         cModelE.addElement("Empresa...");
         try {
             listRegion = negR.getAllRegion();
@@ -796,9 +806,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
         }
 
         for (Comuna c : listComuna) {
-            if (c.getRegion().getIdRegion() == 1) {
-                cModelC.addElement(c.getNombre());
-            }
+            Comuna cm = new Comuna();
+            cm.setNombre(c.getNombre());
+            cm.setIdComuna(c.getIdComuna());
+            this.ddlComuna.addItem(cm);
         }
 
         for (Empresa e : listEmpresa) {
@@ -813,20 +824,25 @@ public class jdUpCuenta extends javax.swing.JDialog {
      * (ItemEvent)
      */
     private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+       if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (this.ddlRegion.getSelectedIndex() > 0) {
                 NegComuna negC = new NegComuna();
-                DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
-                cModelC.removeAllElements();
-                cModelC.addElement("Comuna...");
+                
+                this.ddlComuna.removeAllItems();
+                this.ddlComuna.addItem("Comuna...");
                 try {
                     listComuna = negC.getAllComuna();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, "Error con la actualizacion de comunas.");
                 }
-                listComuna.stream().filter((c) -> (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex())).forEachOrdered((c) -> {
-                    cModelC.addElement(c.getNombre());
-                });
+                for (Comuna c : listComuna) {
+                    if (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex()) {
+                        Comuna cm = new Comuna();
+                        cm.setNombre(c.getNombre());
+                        cm.setIdComuna(c.getIdComuna());
+                        this.ddlComuna.addItem(cm);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_ddlRegionItemStateChanged
@@ -966,9 +982,9 @@ public class jdUpCuenta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnModificarCuenta;
-    private javax.swing.JComboBox<String> ddlComuna;
+    private javax.swing.JComboBox<Object> ddlComuna;
     private javax.swing.JComboBox<String> ddlIdEmpresa;
-    private javax.swing.JComboBox<String> ddlRegion;
+    private javax.swing.JComboBox<Object> ddlRegion;
     private javax.swing.JComboBox<String> ddlRol;
     private com.toedter.calendar.JDateChooser dpFechaContrato;
     private javax.swing.JPanel jpAdicional;

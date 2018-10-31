@@ -19,9 +19,6 @@ public class Empresa implements java.io.Serializable {
     private String rut;
     private String nombreFantasia;
     private char estado;
-    private int idCliente;
-    private int idContrato;
-    private int idComuna;
     private Cliente cliente;
     private Comuna comuna;
     private Contrato contrato;
@@ -39,14 +36,8 @@ public class Empresa implements java.io.Serializable {
      * @param rut RUT de empresa.
      * @param nombreFantasia NOMBRE_FANTASIA de empresa.
      * @param estado ESTADO de empresa.
-     * @param idCliente CLIENTE_ID_CLIENTE de empresa.
-     * @param idContrato CONTRATO_ID_CONTRATO de empresa.
-     * @param idComuna COMUNA_ID_COMUNA de empresa.
      */
-    public Empresa(String rut, String nombreFantasia, char estado, int idCliente, int idContrato, int idComuna) {
-        this.idCliente = idCliente;
-        this.idComuna = idComuna;
-        this.idContrato = idContrato;
+    public Empresa(String rut, String nombreFantasia, char estado) {
         this.rut = rut;
         this.nombreFantasia = nombreFantasia;
         this.estado = estado;
@@ -181,61 +172,13 @@ public class Empresa implements java.io.Serializable {
     }
 
     /**
-     *
-     * @return
-     */
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getIdContrato() {
-        return idContrato;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getIdComuna() {
-        return idComuna;
-    }
-
-    /**
-     *
-     * @param idCliente
-     */
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    /**
-     *
-     * @param idContrato
-     */
-    public void setIdContrato(int idContrato) {
-        this.idContrato = idContrato;
-    }
-
-    /**
-     *
-     * @param idComuna
-     */
-    public void setIdComuna(int idComuna) {
-        this.idComuna = idComuna;
-    }
-
-    /**
      * Función toString de la clase Empresa.
      *
      * @return los atributos del objeto en formato de texto.
      */
     @Override
     public String toString() {
-        return "Empresa{" + "idEmpresa=" + idEmpresa + ", rut=" + rut + ", nombreFantasia=" + nombreFantasia + ", estado=" + estado + ", idCliente=" + idCliente + ", idContrato=" + idContrato + ", idComuna=" + idComuna + ", cliente=" + cliente + ", comuna=" + comuna + ", contrato=" + contrato + ", trabajadors=" + trabajadors + '}';
+        return "" + nombreFantasia;
     }
 
 }

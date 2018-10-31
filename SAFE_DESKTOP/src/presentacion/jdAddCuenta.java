@@ -499,27 +499,31 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                 p.setNombres(this.txtNombres.getText());
                                 p.setAppPaterno(this.txtAppPaterno.getText());
                                 p.setAppMaterno(this.txtAppMaterno.getText());
-                                p.setIdUser(user.obtenerUser()); //Se ingesa el id autogenerado de usuario a persona
+                                //p.setIdUser(user.obtenerUser());Se ingesa el id autogenerado de usuario a persona
 
                                 NegPersona per = new NegPersona();
                                 per.addPersona(p);
                                 switch (this.ddlRol.getSelectedIndex()) {
                                     case 3:
                                         Cliente cl = new Cliente();
+                                        Comuna com = new Comuna();
                                         cl.setTelefono(this.txtTelefono.getText());
-                                        cl.setComunaId(this.ddlComuna.getSelectedIndex());
-                                        cl.setIdPersona(per.obtenerPersonaId());
+                                        cl.setComuna(com);
+                                        com = (Comuna)this.ddlComuna.getModel().getSelectedItem();
+                                        cl.getComuna().setIdComuna(com.getIdComuna());
                                         NegCliente neg = new NegCliente();
                                         neg.addCliente(cl);
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
                                         break;
                                     case 4:
                                         Trabajador tr = new Trabajador();
+                                        Empresa emp = new Empresa();
                                         tr.setTelefono(this.txtTelefono.getText());
-                                        tr.setCargo(this.txtCargo.getText());
                                         tr.setFechaContrato(this.dpFechaContrato.getDate());
-                                        tr.setIdPersona(per.obtenerPersonaId());
-                                        tr.setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                                        tr.setCargo(this.txtCargo.getText());
+                                        tr.setEmpresa(emp);
+                                        emp = (Empresa) this.ddlIdEmpresa.getModel().getSelectedItem();
+                                        tr.getEmpresa().setIdEmpresa(emp.getIdEmpresa());
                                         NegTrabajador negT = new NegTrabajador();
                                         negT.addTrabajador(tr);
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
@@ -627,16 +631,14 @@ public class jdAddCuenta extends javax.swing.JDialog {
         NegEmpresa negE = new NegEmpresa();
 
         DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
-        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
-        DefaultComboBoxModel cModelE = (DefaultComboBoxModel) this.ddlIdEmpresa.getModel();
 
         cModelR.removeAllElements();
-        cModelC.removeAllElements();
-        cModelE.removeAllElements();
+        this.ddlComuna.removeAllItems();
+        this.ddlIdEmpresa.removeAllItems();
 
         cModelR.addElement("Región...");
-        cModelC.addElement("Comuna...");
-        cModelE.addElement("Empresa...");
+        this.ddlComuna.addItem("Comuna...");
+        this.ddlIdEmpresa.addItem("Empresa...");
         try {
             listRegion = negR.getAllRegion();
             listComuna = negC.getAllComuna();
@@ -650,13 +652,17 @@ public class jdAddCuenta extends javax.swing.JDialog {
         }
 
         for (Comuna c : listComuna) {
-            if (c.getRegion().getIdRegion() == 1) {
-                cModelC.addElement(c.getNombre());
-            }
+            Comuna cm = new Comuna();
+            cm.setNombre(c.getNombre());
+            cm.setIdComuna(c.getIdComuna());
+            this.ddlComuna.addItem(cm);
         }
 
         for (Empresa e : listEmpresa) {
-            cModelE.addElement(e.getNombreFantasia());
+            Empresa em = new Empresa();
+            em.setIdEmpresa(e.getIdEmpresa());
+            em.setNombreFantasia(e.getNombreFantasia());
+            this.ddlIdEmpresa.addItem(em);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -670,9 +676,9 @@ public class jdAddCuenta extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (this.ddlRegion.getSelectedIndex() > 0) {
                 NegComuna negC = new NegComuna();
-                DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlComuna.getModel();
-                cModelC.removeAllElements();
-                cModelC.addElement("Comuna...");
+                
+                this.ddlComuna.removeAllItems();
+                this.ddlComuna.addItem("Comuna...");
                 try {
                     listComuna = negC.getAllComuna();
                 } catch (Exception ex) {
@@ -680,7 +686,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 }
                 for (Comuna c : listComuna) {
                     if (c.getRegion().getIdRegion() == this.ddlRegion.getSelectedIndex()) {
-                        cModelC.addElement(c.getNombre());
+                        Comuna cm = new Comuna();
+                        cm.setNombre(c.getNombre());
+                        cm.setIdComuna(c.getIdComuna());
+                        this.ddlComuna.addItem(cm);
                     }
                 }
             }
@@ -822,8 +831,8 @@ public class jdAddCuenta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCuenta;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JComboBox<String> ddlComuna;
-    private javax.swing.JComboBox<String> ddlIdEmpresa;
+    private javax.swing.JComboBox<Object> ddlComuna;
+    private javax.swing.JComboBox<Object> ddlIdEmpresa;
     private javax.swing.JComboBox<String> ddlRegion;
     private javax.swing.JComboBox<String> ddlRol;
     private com.toedter.calendar.JDateChooser dpFechaContrato;

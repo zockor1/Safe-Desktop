@@ -21,7 +21,6 @@ public class Persona implements java.io.Serializable {
     private String nombres;
     private String appPaterno;
     private String appMaterno;
-    private int idUser;
     private Set clientes = new HashSet(0);
     private Set trabajadors = new HashSet(0);
 
@@ -38,9 +37,8 @@ public class Persona implements java.io.Serializable {
      * @param nombres NOMBRES de Persona.
      * @param appPaterno APP_PATERNO de Persona.
      * @param appMaterno APP_MATERNO de Persona.
-     * @param idUser USUARIO_ID_USUARIO de Persona.
      */
-    public Persona(String run, String nombres, String appPaterno, String appMaterno, int idUser) {
+    public Persona(String run, String nombres, String appPaterno, String appMaterno) {
         this.run = run;
         this.nombres = nombres;
         this.appPaterno = appPaterno;
@@ -147,22 +145,6 @@ public class Persona implements java.io.Serializable {
      *
      * @return
      */
-    public int getIdUser() {
-        return this.idUser;
-    }
-
-    /**
-     *
-     * @param idUser
-     */
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Set getClientes() {
         return this.clientes;
     }
@@ -193,12 +175,12 @@ public class Persona implements java.io.Serializable {
 
     /**
      * Función toString de la clase Persona.
-     * 
+     *
      * @return los atributos del objeto en formato de texto.
      */
     @Override
     public String toString() {
-        return "Persona{" + "idPersona=" + idPersona + ", usuario=" + usuario + ", run=" + run + ", nombres=" + nombres + ", appPaterno=" + appPaterno + ", appMaterno=" + appMaterno + ", idUser=" + idUser + ", clientes=" + clientes + ", trabajadors=" + trabajadors + '}';
+        return "Persona{" + "idPersona=" + idPersona + ", usuario=" + usuario + ", run=" + run + ", nombres=" + nombres + ", appPaterno=" + appPaterno + ", appMaterno=" + appMaterno + ", clientes=" + clientes + ", trabajadors=" + trabajadors + '}';
     }
 
 }

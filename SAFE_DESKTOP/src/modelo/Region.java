@@ -3,6 +3,7 @@ package modelo;
 
 //Importaciones
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -91,7 +92,6 @@ public class Region implements java.io.Serializable {
     public String toString() {
         return "Region{" + "idRegion=" + idRegion + ", nombre=" + nombre + ", comunas=" + comunas + '}';
     }
-
 }
 
 

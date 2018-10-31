@@ -16,8 +16,6 @@ public class Cliente implements java.io.Serializable {
      * de datos una vez ingresados.
      */
     private int idCliente;
-    private int comunaId;
-    private int idPersona;
     private String telefono;
     private Persona persona;
     private Comuna comuna;
@@ -33,13 +31,13 @@ public class Cliente implements java.io.Serializable {
      * Constructor con parámetros de la clase Cliente.
      *
      * @param telefono TELEFONO de Cliente.
-     * @param idPer PERSONA_ID_PERSONA de Cliente.
-     * @param com COMUNA_ID_COMUNA de Cliente.
+     * @param per
+     * @param com
      */
-    public Cliente(String telefono, int idPer, int com) {
+    public Cliente(String telefono, Persona per, Comuna com) {
         this.telefono = telefono;
-        this.idPersona = idPer;
-        this.comunaId = com;
+        this.persona = per;
+        this.comuna = com;
     }
 
     /**
@@ -78,22 +76,6 @@ public class Cliente implements java.io.Serializable {
      *
      * @return
      */
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    /**
-     *
-     * @param idPersona
-     */
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Set getEmpresas() {
         return this.empresas;
     }
@@ -126,22 +108,6 @@ public class Cliente implements java.io.Serializable {
      *
      * @return
      */
-    public int getComunaId() {
-        return this.comunaId;
-    }
-
-    /**
-     *
-     * @param comunaId
-     */
-    public void setComunaId(int comunaId) {
-        this.comunaId = comunaId;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Comuna getComuna() {
         return comuna;
     }
@@ -161,8 +127,9 @@ public class Cliente implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", comunaId=" + comunaId + ", idPersona=" + idPersona + ", telefono=" + telefono + ", persona=" + persona + ", comuna=" + comuna + ", empresas=" + empresas + '}';
+        return "" + persona.getNombres() + " " + persona.getAppPaterno() + " " + persona.getAppMaterno();
     }
+    
 }
 
 

@@ -3,6 +3,7 @@ package modelo;
 
 //Importaciones
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -126,7 +127,7 @@ public class Comuna implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        return "Comuna{" + "idComuna=" + idComuna + ", region=" + region + ", nombre=" + nombre + ", clientes=" + clientes + ", empresas=" + empresas + '}';
+        return "" + nombre ;
     }
 
 }

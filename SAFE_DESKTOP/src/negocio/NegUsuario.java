@@ -115,7 +115,7 @@ public class NegUsuario {
      *
      * @return result = último ID registrado en USUARIO.
      */
-    public int obtenerUser() {
+    public int obtenerUserId() {
         try {
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("SELECT ID_USUARIO\n"
@@ -126,7 +126,7 @@ public class NegUsuario {
             tx.commit();
             return ((Number) result).intValue();
         } catch (NumberFormatException ex) {
-            System.out.print("ERROR: " + ex.toString());
+            System.out.print("ERROR OBTENER USER ID: " + ex.toString());
         }
         return 0;
     }
