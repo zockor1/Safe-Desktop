@@ -308,6 +308,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnVerCuenta.setBackground(new java.awt.Color(17, 48, 142));
         btnVerCuenta.setForeground(new java.awt.Color(255, 255, 255));
         btnVerCuenta.setText("VER");
+        btnVerCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerCuentaActionPerformed(evt);
+            }
+        });
         jpCuentas.add(btnVerCuenta);
         btnVerCuenta.setBounds(360, 132, 110, 23);
 
@@ -372,6 +377,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnVerEmpresa.setBackground(new java.awt.Color(17, 42, 148));
         btnVerEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnVerEmpresa.setText("VER");
+        btnVerEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEmpresaActionPerformed(evt);
+            }
+        });
         jpEmpresas.add(btnVerEmpresa);
         btnVerEmpresa.setBounds(360, 132, 110, 23);
 
@@ -576,6 +586,75 @@ public class jfPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarEmpresaActionPerformed
 
     /**
+     * Método que invoca el modal de ver cuentas y lo hace visible
+     * @param evt 
+     */
+    private void btnVerCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCuentaActionPerformed
+        try {
+            int column = 0;
+            int row = this.tblCuentas.getSelectedRow();
+            //Valor del ID de usuario
+            int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
+            
+            int column2 = 3;
+            //Valor del ID de rol
+            int value2;
+            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
+            switch (rol) {
+                case "Administrador":
+                    value2 = 1;
+                    break;
+                case "Supervisor":
+                    value2 = 2;
+                    break;
+                case "Cliente":
+                    value2 = 3;
+                    break;
+                case "Trabajador":
+                    value2 = 4;
+                    break;
+                case "Ingeniero":
+                    value2 = 5;
+                    break;
+                case "Técnico":
+                    value2 = 6;
+                    break;
+                default:
+                    value2 = 7;
+                    break;
+            }
+            jdVerCuenta ventana = new jdVerCuenta(this, true);
+            ventana.cargaDeCampos(value, value2);
+            ventana.setVisible(true);
+            //System.out.println("ID USER: " + value + " ID ROL: " + value2);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerCuentaActionPerformed
+
+    /**
+     * Método que invoca el modal de ver cuentas y lo hace visible
+     * @param evt 
+     */
+    private void btnVerEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEmpresaActionPerformed
+         try {
+            int row = this.tblEmpresa.getSelectedRow();
+            int column = 0;
+            //Valor del ID de Empresa
+            int idEmp = (Integer) this.tblEmpresa.getModel().getValueAt(row, column);
+            int column2 = 3;
+            //Valor del ID de Contrato
+            int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
+          
+            jdVerEmpresa ventana = new jdVerEmpresa(this, true);
+            ventana.cargaDeCampos(idEmp, idCon);
+            ventana.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerEmpresaActionPerformed
+
+    /**
      * Método que realiza el llenado de la tabla de cuentas con la información
      * de las personas.
      */
@@ -646,6 +725,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             System.out.println("ERROR: " + ex.toString());
         }
     }
+    
    
     
     /**

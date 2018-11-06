@@ -1,22 +1,56 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Paquete
 package presentacion;
 
+//Importaciones
+
+import modelo.Empresa;
+import negocio.NegEmpresa;
+
+
 /**
- *
- * @author Zockor
+ * @author Ignacio Antillanca
+ * @version 1.0
  */
 public class jdVerEmpresa extends javax.swing.JDialog {
 
     /**
      * Creates new form jdVerEmpresa
+     * @param parent
+     * @param modal
      */
     public jdVerEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 650);
+        this.setLocationRelativeTo(this);
+    }
+    
+     /**
+     * Método que realiza la llamada al metodo correspondiente, para cagar la
+     * informacion y modificarla.
+     *
+     * @param id1 ID de Empresa
+     * @param id2 ID de Contrato
+     */
+    public void cargaDeCampos(int id1, int id2) {
+        NegEmpresa negE = new NegEmpresa();
+        Empresa emp = negE.obtenerEmpresa(id2);
+        //Lleando ID empresa, contrato
+        this.lblIdContratoText.setText(String.valueOf(emp.getContrato().getIdContrato()));
+        this.lblIdEmpresaText.setText(String.valueOf(emp.getIdEmpresa()));
+        //Llenado informacion contrato
+        this.lblFechaIniText.setText(String.valueOf(emp.getContrato().getFechaInicio()));
+        this.lblFechaTerText.setText(String.valueOf(emp.getContrato().getFechaTermino()));
+        //Llenado informacion empresa
+        this.lblRutText.setText(emp.getRut());
+        this.lblNombreFanText.setText(emp.getNombreFantasia());
+        this.lblClienteText.setText(emp.getCliente().getPersona().getNombres() +" "+ emp.getCliente().getPersona().getAppPaterno() + 
+                " " + emp.getCliente().getPersona().getAppMaterno());
+        this.lblRegionText.setText(emp.getComuna().getRegion().getNombre());
+        this.lblComunaText.setText(emp.getComuna().getNombre());
+
     }
 
     /**
@@ -28,23 +62,276 @@ public class jdVerEmpresa extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpVerEmpresa = new javax.swing.JPanel();
+        pnlVerCuentaBanner = new javax.swing.JPanel();
+        lblTituloCuenta = new javax.swing.JLabel();
+        jpVerContrato = new javax.swing.JPanel();
+        lblFechaInicio = new javax.swing.JLabel();
+        lblFechaTermino = new javax.swing.JLabel();
+        lblFechaIniText = new javax.swing.JLabel();
+        lblFechaTerText = new javax.swing.JLabel();
+        lblIdContrato = new javax.swing.JLabel();
+        lblIdContratoText = new javax.swing.JLabel();
+        jpEmpresaVer = new javax.swing.JPanel();
+        lblRut = new javax.swing.JLabel();
+        lblNombFantasia = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        lblRegion = new javax.swing.JLabel();
+        lblComuna = new javax.swing.JLabel();
+        lblRutText = new javax.swing.JLabel();
+        lblNombreFanText = new javax.swing.JLabel();
+        lblClienteText = new javax.swing.JLabel();
+        lblRegionText = new javax.swing.JLabel();
+        lblComunaText = new javax.swing.JLabel();
+        lblIdEmpresa = new javax.swing.JLabel();
+        lblIdEmpresaText = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jpVerEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        jpVerEmpresa.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        pnlVerCuentaBanner.setBackground(new java.awt.Color(17, 48, 142));
+
+        lblTituloCuenta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTituloCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloCuenta.setText("Información de Empresa");
+
+        javax.swing.GroupLayout pnlVerCuentaBannerLayout = new javax.swing.GroupLayout(pnlVerCuentaBanner);
+        pnlVerCuentaBanner.setLayout(pnlVerCuentaBannerLayout);
+        pnlVerCuentaBannerLayout.setHorizontalGroup(
+            pnlVerCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVerCuentaBannerLayout.createSequentialGroup()
+                .addContainerGap(335, Short.MAX_VALUE)
+                .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(308, 308, 308))
+        );
+        pnlVerCuentaBannerLayout.setVerticalGroup(
+            pnlVerCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerCuentaBannerLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblTituloCuenta)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        jpVerContrato.setBackground(new java.awt.Color(255, 255, 255));
+        jpVerContrato.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Contrato"));
+
+        lblFechaInicio.setText("Fecha de Inicio");
+
+        lblFechaTermino.setText("Fecha de Termino");
+
+        lblIdContrato.setText("ID Contrato");
+
+        javax.swing.GroupLayout jpVerContratoLayout = new javax.swing.GroupLayout(jpVerContrato);
+        jpVerContrato.setLayout(jpVerContratoLayout);
+        jpVerContratoLayout.setHorizontalGroup(
+            jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpVerContratoLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(lblIdContrato)
+                .addGap(49, 49, 49)
+                .addComponent(lblIdContratoText, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpVerContratoLayout.createSequentialGroup()
+                        .addComponent(lblFechaInicio)
+                        .addGap(69, 69, 69)
+                        .addComponent(lblFechaIniText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpVerContratoLayout.createSequentialGroup()
+                        .addComponent(lblFechaTermino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFechaTerText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpVerContratoLayout.setVerticalGroup(
+            jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpVerContratoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFechaInicio)
+                        .addComponent(lblIdContrato)
+                        .addComponent(lblIdContratoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFechaIniText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblFechaTermino)
+                    .addComponent(lblFechaTerText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        jpEmpresaVer.setBackground(new java.awt.Color(255, 255, 255));
+        jpEmpresaVer.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Empresa"));
+
+        lblRut.setText("Rut");
+
+        lblNombFantasia.setText("Nombre fantasía");
+
+        lblCliente.setText("Cliente");
+
+        lblRegion.setText("Region");
+
+        lblComuna.setText("Comuna");
+
+        lblIdEmpresa.setText("ID Empresa");
+
+        javax.swing.GroupLayout jpEmpresaVerLayout = new javax.swing.GroupLayout(jpEmpresaVer);
+        jpEmpresaVer.setLayout(jpEmpresaVerLayout);
+        jpEmpresaVerLayout.setHorizontalGroup(
+            jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRut)
+                    .addComponent(lblNombFantasia)
+                    .addComponent(lblIdEmpresa))
+                .addGap(66, 66, 66)
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNombreFanText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(lblRutText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(lblIdEmpresaText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRegion)
+                    .addComponent(lblComuna)
+                    .addComponent(lblCliente))
+                .addGap(73, 73, 73)
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblComunaText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRegionText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(106, Short.MAX_VALUE))
+        );
+        jpEmpresaVerLayout.setVerticalGroup(
+            jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCliente)
+                            .addComponent(lblIdEmpresa)
+                            .addComponent(lblIdEmpresaText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblRegion)
+                                .addComponent(lblRut))
+                            .addComponent(lblRegionText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblComuna)
+                                .addComponent(lblNombFantasia))
+                            .addComponent(lblComunaText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                        .addComponent(lblRutText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(lblNombreFanText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
+        );
+
+        btnVolver.setText("VOLVER");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpVerEmpresaLayout = new javax.swing.GroupLayout(jpVerEmpresa);
+        jpVerEmpresa.setLayout(jpVerEmpresaLayout);
+        jpVerEmpresaLayout.setHorizontalGroup(
+            jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlVerCuentaBanner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpVerEmpresaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpVerContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jpVerEmpresaLayout.createSequentialGroup()
+                .addGap(362, 362, 362)
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpVerEmpresaLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jpEmpresaVer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jpVerEmpresaLayout.setVerticalGroup(
+            jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpVerEmpresaLayout.createSequentialGroup()
+                .addComponent(pnlVerCuentaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jpVerContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addComponent(btnVolver)
+                .addGap(177, 177, 177))
+            .addGroup(jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpVerEmpresaLayout.createSequentialGroup()
+                    .addGap(208, 208, 208)
+                    .addComponent(jpEmpresaVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(212, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que realiza la opción de cerrar el modal de ver empresas
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
+     */
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JPanel jpEmpresaVer;
+    private javax.swing.JPanel jpVerContrato;
+    private javax.swing.JPanel jpVerEmpresa;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblClienteText;
+    private javax.swing.JLabel lblComuna;
+    private javax.swing.JLabel lblComunaText;
+    private javax.swing.JLabel lblFechaIniText;
+    private javax.swing.JLabel lblFechaInicio;
+    private javax.swing.JLabel lblFechaTerText;
+    private javax.swing.JLabel lblFechaTermino;
+    private javax.swing.JLabel lblIdContrato;
+    private javax.swing.JLabel lblIdContratoText;
+    private javax.swing.JLabel lblIdEmpresa;
+    private javax.swing.JLabel lblIdEmpresaText;
+    private javax.swing.JLabel lblNombFantasia;
+    private javax.swing.JLabel lblNombreFanText;
+    private javax.swing.JLabel lblRegion;
+    private javax.swing.JLabel lblRegionText;
+    private javax.swing.JLabel lblRut;
+    private javax.swing.JLabel lblRutText;
+    private javax.swing.JLabel lblTituloCuenta;
+    private javax.swing.JPanel pnlVerCuentaBanner;
     // End of variables declaration//GEN-END:variables
 }

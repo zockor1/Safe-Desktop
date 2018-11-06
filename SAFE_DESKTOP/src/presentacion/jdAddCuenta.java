@@ -529,6 +529,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
                                         break;
                                     default:
+                                        
                                         JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
                                         break;
                                 }
@@ -579,6 +580,28 @@ public class jdAddCuenta extends javax.swing.JDialog {
             campo |= this.ddlIdEmpresa.getSelectedIndex() == 0;
         }
         return campo;
+    }
+    
+    /**
+     * Método que limpia los campos una vez se ejecuta un ingreso correcto.
+     * 
+     */
+    private void limpiarCampos(){
+        this.txtUsername.setText("");
+        this.txtPass.setText("");
+        this.txtPass2.setText("");
+        this.txtCorreo.setText("");
+        this.ddlRol.setSelectedIndex(0);
+        this.txtRun.setText("");
+        this.txtNombres.setText("");
+        this.txtAppPaterno.setText("");
+        this.txtAppMaterno.setText("");
+        this.txtTelefono.setText("");
+        this.ddlRegion.setSelectedIndex(0);
+        this.ddlComuna.setSelectedIndex(0);
+        //this.dpFechaContrato.setDate(date);
+        this.txtCargo.setText("");
+        this.ddlIdEmpresa.setSelectedIndex(0);    
     }
 
     /**

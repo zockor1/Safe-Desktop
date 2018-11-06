@@ -287,7 +287,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
                 .addGroup(pnlUpCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIdPer)
                     .addComponent(lblIdTra))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpUpUsuario.setBackground(new java.awt.Color(255, 255, 255));
@@ -570,7 +570,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
             pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpCuentaLayout.createSequentialGroup()
                 .addComponent(pnlUpCuentaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addComponent(jpUpUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlUpCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
