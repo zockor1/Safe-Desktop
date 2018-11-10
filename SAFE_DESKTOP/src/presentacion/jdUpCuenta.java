@@ -51,6 +51,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     public jdUpCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -302,6 +303,12 @@ public class jdUpCuenta extends javax.swing.JDialog {
         lblCorreo.setText("Correo electronico");
 
         lblRol.setText("Rol");
+
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
+            }
+        });
 
         ddlRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Administrador", "Supervisor", "Cliente", "Trabajador", "Ingeniero", "Tecnico", "Medico" }));
         ddlRol.addActionListener(new java.awt.event.ActionListener() {
@@ -631,71 +638,79 @@ public class jdUpCuenta extends javax.swing.JDialog {
                     Usuario u = new Usuario();
                     u.setIdUsuario(Integer.parseInt(this.lblIdUsu.getText()));
                     u.setUsername(this.txtUsername.getText());
-                    if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
-                        u.setClave(String.valueOf(this.txtPass.getPassword()));
-                        if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
-                            u.setEmail(this.txtCorreo.getText());
-                            u.setRol(this.ddlRol.getSelectedIndex());
-                            if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
-                                NegUsuario user = new NegUsuario();
-                                user.upUsuario(u);
-                                Persona p = new Persona();
-                                p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
-                                p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
-                                p.setNombres(this.txtNombres.getText());
-                                p.setAppPaterno(this.txtAppPaterno.getText());
-                                p.setAppMaterno(this.txtAppMaterno.getText());
-                                p.setUsuario(u);
-                                p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
+                    if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
+                        if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
+                            u.setClave(String.valueOf(this.txtPass.getPassword()));
+                            if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
+                                u.setEmail(this.txtCorreo.getText());
+                                u.setRol(this.ddlRol.getSelectedIndex());
+                                if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
+                                    NegUsuario user = new NegUsuario();
+                                    user.upUsuario(u);
+                                    Persona p = new Persona();
+                                    p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
+                                    p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                    p.setNombres(this.txtNombres.getText());
+                                    p.setAppPaterno(this.txtAppPaterno.getText());
+                                    p.setAppMaterno(this.txtAppMaterno.getText());
+                                    p.setUsuario(u);
+                                    p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
 
-                                NegPersona per = new NegPersona();
-                                per.upPersona(p);
-                                switch (this.ddlRol.getSelectedIndex()) {
-                                    case 3:
-                                        Cliente cl = new Cliente();
-                                        Region reg = new Region();
-                                        Comuna com = new Comuna();
-                                        cl.setIdCliente(Integer.parseInt(this.lblIdCli.getText()));
-                                        cl.setTelefono(this.txtTelefono.getText());
-                                        cl.setComuna(com);
-                                        cl.getComuna().setRegion(reg);
-                                        com = (Comuna)this.ddlComuna.getModel().getSelectedItem();
-                                        cl.getComuna().setIdComuna(com.getIdComuna());
-                                        cl.setPersona(p);
-                                        cl.getPersona().setIdPersona(p.getIdPersona());
-                                        NegCliente neg = new NegCliente();
-                                        neg.upCliente(cl);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente modificada correctamente");
-                                        break;
-                                    case 4:
-                                        Trabajador tr = new Trabajador();
-                                        Empresa emp = new Empresa();
-                                        tr.setIdTrabajador(Integer.parseInt(this.lblIdTra.getText()));
-                                        tr.setTelefono(this.txtTelefono.getText());
-                                        tr.setCargo(this.txtCargo.getText());
-                                        tr.setFechaContrato(this.dpFechaContrato.getDate());
-                                        tr.setPersona(p);
-                                        tr.getPersona().setIdPersona(p.getIdPersona());
-                                        tr.setEmpresa(emp);
-                                        tr.getEmpresa().setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
-                                        NegTrabajador negT = new NegTrabajador();
-                                        negT.upTrabajador(tr);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador modificada correctamente");
-                                        break;
-                                    default:
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Usuario modificada correctamente");
-                                        break;
+                                    NegPersona per = new NegPersona();
+                                    per.upPersona(p);
+                                    switch (this.ddlRol.getSelectedIndex()) {
+                                        case 3:
+                                            Cliente cl = new Cliente();
+                                            Region reg = new Region();
+                                            Comuna com = new Comuna();
+                                            cl.setIdCliente(Integer.parseInt(this.lblIdCli.getText()));
+                                            cl.setTelefono(this.txtTelefono.getText());
+                                            cl.setComuna(com);
+                                            cl.getComuna().setRegion(reg);
+                                            com = (Comuna) this.ddlComuna.getModel().getSelectedItem();
+                                            cl.getComuna().setIdComuna(com.getIdComuna());
+                                            cl.setPersona(p);
+                                            cl.getPersona().setIdPersona(p.getIdPersona());
+                                            NegCliente neg = new NegCliente();
+                                            neg.upCliente(cl);
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente modificada correctamente");
+                                            this.dispose();
+                                            break;
+                                        case 4:
+                                            Trabajador tr = new Trabajador();
+                                            Empresa emp = new Empresa();
+                                            tr.setIdTrabajador(Integer.parseInt(this.lblIdTra.getText()));
+                                            tr.setTelefono(this.txtTelefono.getText());
+                                            tr.setCargo(this.txtCargo.getText());
+                                            tr.setFechaContrato(this.dpFechaContrato.getDate());
+                                            tr.setPersona(p);
+                                            tr.getPersona().setIdPersona(p.getIdPersona());
+                                            tr.setEmpresa(emp);
+                                            tr.getEmpresa().setIdEmpresa(this.ddlIdEmpresa.getSelectedIndex());
+                                            NegTrabajador negT = new NegTrabajador();
+                                            negT.upTrabajador(tr);
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador modificada correctamente");
+                                            this.dispose();
+                                            break;
+                                        default:
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Usuario modificada correctamente");
+                                            this.dispose();
+                                            break;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "El RUN ingresado no es valido.", "", JOptionPane.ERROR_MESSAGE);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "El RUN ingresado no es valido.", "", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "El formato del correo es incorrecto", "", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "El formato del correo es incorrecto", "", JOptionPane.ERROR_MESSAGE);
-                        }
 
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener mínimo 6 caracteres", "", JOptionPane.ERROR_MESSAGE);
                     }
+
                 } catch (HeadlessException e) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado", "", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
@@ -856,7 +871,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     private void txtRunKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE) || (int)c == 75 || (int)c == 107)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRunKeyTyped
@@ -870,7 +885,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombresKeyTyped
@@ -884,7 +899,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     private void txtAppPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppPaternoKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAppPaternoKeyTyped
@@ -898,7 +913,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     private void txtAppMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppMaternoKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAppMaternoKeyTyped
@@ -929,6 +944,20 @@ public class jdUpCuenta extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_txtCargoKeyTyped
+
+    /**
+     * Función que evita escribir caracteres especiales o letra Ñ-ñ en el campo
+     * de nombre de usuario.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        char c = evt.getKeyChar();
+        if (!(((int) c >= 65 && (int) c <= 90) || ((int) c >= 97 && (int) c <= 122) || Character.isDigit(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUsernameKeyTyped
 
     /**
      * Método que verifica que el nombre de usuario o run ingresado, no se

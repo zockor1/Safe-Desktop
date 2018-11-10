@@ -47,7 +47,9 @@ public class validadorRunChileno {
             }
 
         } catch (java.lang.NumberFormatException e) {
+            System.out.print("Error formato RUN: " + e.toString());
         } catch (Exception e) {
+            System.out.println("Error validacion RUN: " + e.toString());
         }
         return validacion;
     }

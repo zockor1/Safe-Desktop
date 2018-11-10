@@ -155,11 +155,11 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="lblFechaInicio" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="dpFechaInicio" min="-2" pref="127" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <Component id="dpFechaInicio" min="-2" pref="170" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                       <Component id="lblFechaTermino" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="dpFechaTermino" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="dpFechaTermino" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -219,22 +219,29 @@
                           <Component id="lblCliente" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txtNombreFantasia" max="32767" attributes="0"/>
-                          <Component id="txtRut" max="32767" attributes="0"/>
-                          <Component id="ddlCliente" pref="123" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblRegion" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblComuna" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="ddlCliente" min="-2" pref="200" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="txtNombreFantasia" max="32767" attributes="0"/>
+                                  <Component id="txtRut" pref="123" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblRegion" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblComuna" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="ddlRegion" max="32767" attributes="0"/>
+                                  <Component id="ddlComuna" pref="119" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ddlRegion" max="32767" attributes="0"/>
-                          <Component id="ddlComuna" pref="119" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

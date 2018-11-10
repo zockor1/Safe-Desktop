@@ -51,6 +51,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     public jdAddCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -153,6 +154,12 @@ public class jdAddCuenta extends javax.swing.JDialog {
         lblCorreo.setText("Correo electronico");
 
         lblRol.setText("Rol");
+
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyTyped(evt);
+            }
+        });
 
         ddlRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Administrador", "Supervisor", "Cliente", "Trabajador", "Ingeniero", "Tecnico", "Medico" }));
         ddlRol.addActionListener(new java.awt.event.ActionListener() {
@@ -486,63 +493,70 @@ public class jdAddCuenta extends javax.swing.JDialog {
                 try {
                     Usuario u = new Usuario();
                     u.setUsername(this.txtUsername.getText());
-                    if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
-                        u.setClave(String.valueOf(this.txtPass.getPassword()));
-                        if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
-                            u.setEmail(this.txtCorreo.getText());
-                            u.setRol(this.ddlRol.getSelectedIndex());
-                            if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
-                                NegUsuario user = new NegUsuario();
-                                user.addUsuario(u);
-                                Persona p = new Persona();
-                                p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
-                                p.setNombres(this.txtNombres.getText());
-                                p.setAppPaterno(this.txtAppPaterno.getText());
-                                p.setAppMaterno(this.txtAppMaterno.getText());
-                                //p.setIdUser(user.obtenerUser());Se ingesa el id autogenerado de usuario a persona
+                    if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
+                        if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
+                            u.setClave(String.valueOf(this.txtPass.getPassword()));
+                            if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
+                                u.setEmail(this.txtCorreo.getText());
+                                u.setRol(this.ddlRol.getSelectedIndex());
+                                if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
+                                    NegUsuario user = new NegUsuario();
+                                    user.addUsuario(u);
+                                    Persona p = new Persona();
+                                    p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                    p.setNombres(this.txtNombres.getText());
+                                    p.setAppPaterno(this.txtAppPaterno.getText());
+                                    p.setAppMaterno(this.txtAppMaterno.getText());
+                                    //p.setIdUser(user.obtenerUser());Se ingesa el id autogenerado de usuario a persona
 
-                                NegPersona per = new NegPersona();
-                                per.addPersona(p);
-                                switch (this.ddlRol.getSelectedIndex()) {
-                                    case 3:
-                                        Cliente cl = new Cliente();
-                                        Comuna com = new Comuna();
-                                        cl.setTelefono(this.txtTelefono.getText());
-                                        cl.setComuna(com);
-                                        com = (Comuna)this.ddlComuna.getModel().getSelectedItem();
-                                        cl.getComuna().setIdComuna(com.getIdComuna());
-                                        NegCliente neg = new NegCliente();
-                                        neg.addCliente(cl);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
-                                        break;
-                                    case 4:
-                                        Trabajador tr = new Trabajador();
-                                        Empresa emp = new Empresa();
-                                        tr.setTelefono(this.txtTelefono.getText());
-                                        tr.setFechaContrato(this.dpFechaContrato.getDate());
-                                        tr.setCargo(this.txtCargo.getText());
-                                        tr.setEmpresa(emp);
-                                        emp = (Empresa) this.ddlIdEmpresa.getModel().getSelectedItem();
-                                        tr.getEmpresa().setIdEmpresa(emp.getIdEmpresa());
-                                        NegTrabajador negT = new NegTrabajador();
-                                        negT.addTrabajador(tr);
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
-                                        break;
-                                    default:
-                                        
-                                        JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
-                                        break;
+                                    NegPersona per = new NegPersona();
+                                    per.addPersona(p);
+                                    switch (this.ddlRol.getSelectedIndex()) {
+                                        case 3:
+                                            Cliente cl = new Cliente();
+                                            Comuna com = new Comuna();
+                                            cl.setTelefono(this.txtTelefono.getText());
+                                            cl.setComuna(com);
+                                            com = (Comuna) this.ddlComuna.getModel().getSelectedItem();
+                                            cl.getComuna().setIdComuna(com.getIdComuna());
+                                            NegCliente neg = new NegCliente();
+                                            neg.addCliente(cl);
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Cliente registrada correctamente");
+                                            this.dispose();
+                                            break;
+                                        case 4:
+                                            Trabajador tr = new Trabajador();
+                                            Empresa emp = new Empresa();
+                                            tr.setTelefono(this.txtTelefono.getText());
+                                            tr.setFechaContrato(this.dpFechaContrato.getDate());
+                                            tr.setCargo(this.txtCargo.getText());
+                                            tr.setEmpresa(emp);
+                                            emp = (Empresa) this.ddlIdEmpresa.getModel().getSelectedItem();
+                                            tr.getEmpresa().setIdEmpresa(emp.getIdEmpresa());
+                                            NegTrabajador negT = new NegTrabajador();
+                                            negT.addTrabajador(tr);
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
+                                            this.dispose();
+                                            break;
+                                        default:
+                                            JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
+                                            this.dispose();
+                                            break;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "El RUN ingresado no es valido.", "", JOptionPane.ERROR_MESSAGE);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "El RUN ingresado no es valido.", "", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "El formato del correo es incorrecto", "", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "El formato del correo es incorrecto", "", JOptionPane.ERROR_MESSAGE);
-                        }
 
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener mínimo 6 caracteres", "", JOptionPane.ERROR_MESSAGE);
                     }
+
                 } catch (HeadlessException e) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado", "", JOptionPane.ERROR_MESSAGE);
                 }
@@ -580,28 +594,6 @@ public class jdAddCuenta extends javax.swing.JDialog {
             campo |= this.ddlIdEmpresa.getSelectedIndex() == 0;
         }
         return campo;
-    }
-    
-    /**
-     * Método que limpia los campos una vez se ejecuta un ingreso correcto.
-     * 
-     */
-    private void limpiarCampos(){
-        this.txtUsername.setText("");
-        this.txtPass.setText("");
-        this.txtPass2.setText("");
-        this.txtCorreo.setText("");
-        this.ddlRol.setSelectedIndex(0);
-        this.txtRun.setText("");
-        this.txtNombres.setText("");
-        this.txtAppPaterno.setText("");
-        this.txtAppMaterno.setText("");
-        this.txtTelefono.setText("");
-        this.ddlRegion.setSelectedIndex(0);
-        this.ddlComuna.setSelectedIndex(0);
-        //this.dpFechaContrato.setDate(date);
-        this.txtCargo.setText("");
-        this.ddlIdEmpresa.setSelectedIndex(0);    
     }
 
     /**
@@ -728,7 +720,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void txtRunKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE) || (int)c == 75 || (int)c == 107)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRunKeyTyped
@@ -742,7 +734,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombresKeyTyped
@@ -756,7 +748,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void txtAppPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppPaternoKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAppPaternoKeyTyped
@@ -770,7 +762,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
      */
     private void txtAppMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppMaternoKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == 39)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAppMaternoKeyTyped
@@ -801,6 +793,20 @@ public class jdAddCuenta extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_txtCargoKeyTyped
+
+    /**
+     * Función que evita escribir caracteres especiales o letra Ñ-ñ en el campo
+     * de nombre de usuario.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
+        char c = evt.getKeyChar();
+        if (!(((int) c >= 65 && (int) c <= 90) || ((int) c >= 97 && (int) c <= 122) || Character.isDigit(c) || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUsernameKeyTyped
 
     /**
      * Método que verifica que el nombre de usuario o run ingresado, no se

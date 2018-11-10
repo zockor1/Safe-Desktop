@@ -5,6 +5,7 @@ package presentacion;
 import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.event.ItemEvent;
+import java.beans.PropertyChangeEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ import presentacion.validaciones.validadorRunChileno;
 
 /**
  * @author Ignacio Antilanca
- * @version 1.2
+ * @version 1.3
  */
 public class jdAddEmpresa extends javax.swing.JDialog {
 
@@ -44,8 +45,22 @@ public class jdAddEmpresa extends javax.swing.JDialog {
      */
     public jdAddEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         limits();
+        //Se agrega listener para que cambie la fecha de termino automaticamente
+        //al elegir una fecha de inicio y se cumpla el contrato anual.
+        this.dpFechaInicio.getDateEditor().addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if (this.dpFechaInicio.getDate() == null) {
+            } else {
+                Date fecha = this.dpFechaInicio.getDate();
+                int dias = 365;
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(fecha);
+                calendar.add(Calendar.DAY_OF_YEAR, dias);
+                dpFechaTermino.setDate(calendar.getTime());
+            }
+        });
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600);
@@ -132,11 +147,11 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(lblFechaInicio)
                 .addGap(84, 84, 84)
-                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addComponent(lblFechaTermino)
                 .addGap(18, 18, 18)
-                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpAddContratoLayout.setVerticalGroup(
@@ -193,19 +208,23 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                     .addComponent(lblNombFantasia)
                     .addComponent(lblCliente))
                 .addGap(76, 76, 76)
-                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtNombreFantasia)
-                    .addComponent(txtRut)
-                    .addComponent(ddlCliente, 0, 123, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRegion)
-                    .addComponent(lblComuna))
-                .addGap(44, 44, 44)
-                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNombreFantasia)
+                            .addComponent(txtRut, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRegion)
+                            .addComponent(lblComuna))
+                        .addGap(44, 44, 44)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jpAddEmpresaLayout.setVerticalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,6 +351,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                     negE.addEmpresa(e);
 
                     JOptionPane.showMessageDialog(rootPane, "Empresa ingresada correctamente");
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
                 }
@@ -370,13 +390,10 @@ public class jdAddEmpresa extends javax.swing.JDialog {
     public void limits() {
         Date fechaInicio = new Date();
         this.dpFechaInicio.setMinSelectableDate(fechaInicio);
-        Date fechaTermino = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechaTermino);
-        calendar.add(Calendar.DAY_OF_YEAR, 365);
-        this.dpFechaTermino.setMinSelectableDate(calendar.getTime());
+
         this.txtRut.setDocument(new jTextFieldCharLimits(9));
         this.txtNombreFantasia.setDocument(new jTextFieldCharLimits(30));
+        this.dpFechaTermino.setEnabled(false);
 
         JTextFieldDateEditor editor = (JTextFieldDateEditor) this.dpFechaInicio.getDateEditor();
         JTextFieldDateEditor editor2 = (JTextFieldDateEditor) this.dpFechaTermino.getDateEditor();
@@ -453,7 +470,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (this.ddlRegion.getSelectedIndex() > 0) {
                 NegComuna negC = new NegComuna();
-                
+
                 this.ddlComuna.removeAllItems();
                 this.ddlComuna.addItem("Comuna...");
                 try {
@@ -482,14 +499,14 @@ public class jdAddEmpresa extends javax.swing.JDialog {
      */
     private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE) || (int) c == 75 || (int) c == 107)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRutKeyTyped
 
     /**
      * Evento que impde escribir caracters o numeros en el campo de nombre de
-     * fantisia de la empresa.
+     * fantasia de la empresa.
      *
      * @param evt evento que indica que se realizo una accion definida
      * (KeyEvent)

@@ -2,6 +2,8 @@
 package presentacion;
 
 //Importaciones
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +29,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         addJTableCuentas();
         addJTableEmpresas();
         // Variables para adapatar la pantalla inicial al centro y 
-        // con tamaño 950x600 sin importar la resolucion del monitor
+        // con tamaño 950x500 sin importar la resolucion del monitor
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 950, 500); 
@@ -62,8 +64,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas = new javax.swing.JPanel();
         lblCuentas = new javax.swing.JLabel();
         btnEliminarCuenta = new javax.swing.JButton();
-        txtSearch = new javax.swing.JTextField();
-        piSearchIcon = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCuentas = new org.jdesktop.swingx.JXTable();
         btnAgregarCuenta = new javax.swing.JButton();
@@ -72,8 +72,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas = new javax.swing.JPanel();
         lblEmpresas = new javax.swing.JLabel();
         btnAgregarEmpresa = new javax.swing.JButton();
-        piIconSearch1 = new org.edisoncor.gui.panel.PanelImage();
-        txtSearch2 = new javax.swing.JTextField();
         btnModificarEmpresa = new javax.swing.JButton();
         btnEliminarEmpresa = new javax.swing.JButton();
         btnVerEmpresa = new javax.swing.JButton();
@@ -231,25 +229,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnEliminarCuenta.setText("ELIMINAR");
         jpCuentas.add(btnEliminarCuenta);
         btnEliminarCuenta.setBounds(240, 132, 110, 23);
-        jpCuentas.add(txtSearch);
-        txtSearch.setBounds(546, 132, 200, 20);
-
-        piSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/search_icon.png"))); // NOI18N
-        piSearchIcon.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout piSearchIconLayout = new javax.swing.GroupLayout(piSearchIcon);
-        piSearchIcon.setLayout(piSearchIconLayout);
-        piSearchIconLayout.setHorizontalGroup(
-            piSearchIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        piSearchIconLayout.setVerticalGroup(
-            piSearchIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        jpCuentas.add(piSearchIcon);
-        piSearchIcon.setBounds(520, 132, 20, 20);
 
         tblCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -337,25 +316,6 @@ public class jfPrincipal extends javax.swing.JFrame {
         });
         jpEmpresas.add(btnAgregarEmpresa);
         btnAgregarEmpresa.setBounds(0, 132, 110, 23);
-
-        piIconSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/search_icon.png"))); // NOI18N
-        piIconSearch1.setMaximumSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout piIconSearch1Layout = new javax.swing.GroupLayout(piIconSearch1);
-        piIconSearch1.setLayout(piIconSearch1Layout);
-        piIconSearch1Layout.setHorizontalGroup(
-            piIconSearch1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        piIconSearch1Layout.setVerticalGroup(
-            piIconSearch1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        jpEmpresas.add(piIconSearch1);
-        piIconSearch1.setBounds(520, 132, 20, 20);
-        jpEmpresas.add(txtSearch2);
-        txtSearch2.setBounds(546, 132, 200, 20);
 
         btnModificarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
         btnModificarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
@@ -498,20 +458,51 @@ public class jfPrincipal extends javax.swing.JFrame {
      */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
         jdAddEmpresa ventana = new jdAddEmpresa(this, true);
+        ventana.addWindowListener(new WindowAdapter(){
+        @Override
+        public void windowClosed(WindowEvent e){
+            limpiarTablaEmpresa();
+            addJTableEmpresas();
+        }
+        });
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
     /**
      * Método que invoca el modal de jdAddCuenta y lo hace visible.
+     * Se incorpora Listener para recargar tabla una vez se cierre el modal.
      * 
      * @param evt evento que indica que se realizo una accion definida (ActionEvent)
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         jdAddCuenta ventana = new jdAddCuenta(this, true);
+        ventana.addWindowListener(new WindowAdapter(){
+        @Override
+        public void windowClosed(WindowEvent e){
+            limpiarTablaCuentas();
+            addJTableCuentas();
+        }
+        });
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
     /**
+     * Método que deja sin registros listados la tabla de cuentas de usuario.
+     */
+    public void limpiarTablaCuentas(){
+        DefaultTableModel modelo = (DefaultTableModel) this.tblCuentas.getModel();
+        modelo.setRowCount(0);
+    }
+    
+    /**
+     * Método que deja sin registros listados la tabla de perfiles de empresas.
+     */
+    public void limpiarTablaEmpresa(){
+        DefaultTableModel modelo = (DefaultTableModel) this.tblEmpresa.getModel();
+        modelo.setRowCount(0);
+    }
+    
+     /**
      * Método que recibe la id del item de la tabla cuenta y abre la ventana de
      * modificaciones de datos en base a esa id.
      *
@@ -526,7 +517,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             
             int column2 = 3;
             //Valor del ID de rol
-            int value2;
+            int value2 = 0;
             String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
             switch (rol) {
                 case "Administrador":
@@ -547,18 +538,25 @@ public class jfPrincipal extends javax.swing.JFrame {
                 case "Técnico":
                     value2 = 6;
                     break;
-                default:
+                case "Médico":
                     value2 = 7;
+                    break;
+                default:
                     break;
             }
             jdUpCuenta ventana = new jdUpCuenta(this, true);
             ventana.cargaDeCampos(value, value2);
+            ventana.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    limpiarTablaCuentas();
+                    addJTableCuentas();
+                }
+            });
             ventana.setVisible(true);
-            //System.out.println("ID USER: " + value + " ID ROL: " + value2);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }
-        //System.out.println("ID: " + value);
     }//GEN-LAST:event_btnModificarCuentaActionPerformed
 
     /**
@@ -567,7 +565,7 @@ public class jfPrincipal extends javax.swing.JFrame {
      * @param evt evento que indica que se realizo una accion definida (ActionEvent)
      */
     private void btnModificarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpresaActionPerformed
-         try {
+        try {
             int row = this.tblEmpresa.getSelectedRow();
             int column = 0;
             //Valor del ID de Empresa
@@ -575,9 +573,16 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column2 = 3;
             //Valor del ID de Contrato
             int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
-          
+
             jdUpEmpresa ventana = new jdUpEmpresa(this, true);
             ventana.cargaDeCampos(idEmp, idCon);
+            ventana.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    limpiarTablaEmpresa();
+                    addJTableEmpresas();
+                }
+            });
             ventana.setVisible(true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
@@ -598,7 +603,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             
             int column2 = 3;
             //Valor del ID de rol
-            int value2;
+            int value2 = 0;
             String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
             switch (rol) {
                 case "Administrador":
@@ -619,8 +624,10 @@ public class jfPrincipal extends javax.swing.JFrame {
                 case "Técnico":
                     value2 = 6;
                     break;
-                default:
+                case "Médico":
                     value2 = 7;
+                    break;
+                default: 
                     break;
             }
             jdVerCuenta ventana = new jdVerCuenta(this, true);
@@ -696,6 +703,10 @@ public class jfPrincipal extends javax.swing.JFrame {
               }
               model.addRow(rowData);
             }
+            tblCuentas.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblCuentas.getColumnModel().getColumn(0).setMinWidth(0);
+            tblCuentas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+            tblCuentas.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
         } catch(Exception ex) {
             System.out.println("ERROR: " + ex.toString());
         }
@@ -714,13 +725,21 @@ public class jfPrincipal extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 rowData[0] = list.get(i).getIdEmpresa();
                 rowData[1] = list.get(i).getNombreFantasia();
-                rowData[2] = list.get(i).getCliente().getPersona().getNombres() + list.get(i).getCliente().getPersona().getAppPaterno();
+                rowData[2] = list.get(i).getCliente().getPersona().getNombres()+ " " + list.get(i).getCliente().getPersona().getAppPaterno();
                 rowData[3] = list.get(i).getContrato().getIdContrato();
                 rowData[4] = list.get(i).getContrato().getFechaInicio();
                 rowData[5] = list.get(i).getContrato().getFechaTermino();
 
                 model.addRow(rowData);
             }
+            tblEmpresa.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblEmpresa.getColumnModel().getColumn(0).setMinWidth(0);
+            tblEmpresa.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+            tblEmpresa.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+            tblEmpresa.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblEmpresa.getColumnModel().getColumn(3).setMinWidth(0);
+            tblEmpresa.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
+            tblEmpresa.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex.toString());
         }
@@ -790,15 +809,11 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblInicio;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
-    private org.edisoncor.gui.panel.PanelImage piIconSearch1;
     private org.edisoncor.gui.panel.PanelImage piLogout;
-    private org.edisoncor.gui.panel.PanelImage piSearchIcon;
     private rojerusan.RSPanelsSlider rSPanelsSlider1;
     private javax.swing.JTable tblContratos;
     private org.jdesktop.swingx.JXTable tblCuentas;
     private org.jdesktop.swingx.JXTable tblEmpresa;
     private javax.swing.JTable tblInfo;
-    private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtSearch2;
     // End of variables declaration//GEN-END:variables
 }

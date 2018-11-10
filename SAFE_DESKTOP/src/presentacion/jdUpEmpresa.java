@@ -44,6 +44,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
      */
     public jdUpEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -313,13 +314,27 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que evita escribir caracteres diferentes a números, en el campo de
+     * RUT.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
     private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE))) {
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACKSPACE) || (int) c == 75 || (int) c == 107)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRutKeyTyped
 
+    /**
+     * Evento que impde escribir caracters o numeros en el campo de nombre de
+     * fantasia de la empresa.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
     private void txtNombreFantasiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFantasiaKeyTyped
         char c = evt.getKeyChar();
         if (!(Character.isLetter(c) || c == KeyEvent.VK_SPACE)) {
@@ -327,11 +342,18 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtNombreFantasiaKeyTyped
 
+    /**
+     * Evento que realiza la recargar del combobox de comuna, dependiente la
+     * region selecionada.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ItemEvent)
+     */
     private void ddlRegionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ddlRegionItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (this.ddlRegion.getSelectedIndex() > 0) {
                 NegComuna negC = new NegComuna();
-                
+
                 this.ddlComuna.removeAllItems();
                 this.ddlComuna.addItem("Comuna...");
                 try {
@@ -373,14 +395,17 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         DefaultComboBoxModel modelCliente = (DefaultComboBoxModel) this.ddlCliente.getModel();
         DefaultComboBoxModel modelRegion = (DefaultComboBoxModel) this.ddlRegion.getModel();
         DefaultComboBoxModel modelComuna = (DefaultComboBoxModel) this.ddlComuna.getModel();
-        modelCliente.setSelectedItem(emp.getCliente().getPersona().getNombres() +" "+ emp.getCliente().getPersona().getAppPaterno());
+        modelCliente.setSelectedItem(emp.getCliente().getPersona().getNombres() + " " + emp.getCliente().getPersona().getAppPaterno());
         modelRegion.setSelectedItem(emp.getComuna().getRegion().getNombre());
         modelComuna.setSelectedItem(emp.getComuna().getNombre());
     }
 
     /**
+     * Método que recibe la informacion modificada en el formulario de
+     * actualizacion de empresa y la envia al controlador.
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnUpEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpEmpresaActionPerformed
 
@@ -413,6 +438,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                     negE.upEmpresa(e);
 
                     JOptionPane.showMessageDialog(rootPane, "Empresa modificada correctamente");
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
                 }
@@ -466,16 +492,21 @@ public class jdUpEmpresa extends javax.swing.JDialog {
     }
 
     /**
+     * Evento que cierra la ventana de ingreso de empresa (Cancelar)
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
+     * Evento que carga al momento de abrir la ventana y permite la carga de los
+     * combobox a utilizar (Clientes, Regiones, Comúnas).
      *
-     * @param evt
+     * @param evt evento que indica que se realizo una accion definida
+     * (WindowEvent)
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         NegRegion negR = new NegRegion();

@@ -155,6 +155,9 @@ public class jdVerCuenta extends javax.swing.JDialog {
             case 6:
                 nombreRol = "Técnico";
                 break;
+            case 7:
+                nombreRol = "Médico";
+                break;
             default:
                 break;
         }
