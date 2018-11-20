@@ -111,17 +111,12 @@ public class NegPersona {
      * registrado para evitar conflictos.
      *
      * @param run Run ingresado en la creacion de cuentas.
-     * @return False si existe el username, True si esta disponible.
+     * @return False si existe el rut, True si esta disponible.
      */
-    public boolean validateRun(String run) {
+    public Object validateRun(String run) {
         Query q = sesion.createSQLQuery("SELECT RUN FROM PERSONA WHERE RUN = ?")
                 .setParameter(0, run);
-        String result = String.valueOf(q);
-        if (result.equals("")) {
-            return true;
-        } else {
-            return result.equals(run);
-        }
+        return q.uniqueResult();
     }
 
     /**

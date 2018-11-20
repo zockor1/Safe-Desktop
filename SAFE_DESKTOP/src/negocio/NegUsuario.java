@@ -74,18 +74,21 @@ public class NegUsuario {
      * Método que que llama al stored procedure que elimina un usuario de la
      * base de datos.
      *
-     * @param u Usuario a eliminar
+     * @param id ID de usuario a eliminar
+     * @return True si se ha eliminado, False en caso contrario.
      * @throws Exception general
      */
-    public void delUsuario(Usuario u) throws Exception {
+    public boolean delUsuario(int id) throws Exception {
         try {
             Transaction tx = sesion.beginTransaction();
             Query q = sesion.createSQLQuery("call pkg_crud_usuario.delete_usuario(?)")
-                    .setParameter(0, u.getIdUsuario());
+                    .setParameter(0, id);
             q.executeUpdate();
             tx.commit();
+            return true;
         } catch (Exception ex) {
             System.out.print("ERROR DELETE USUARIO: " + ex.toString());
+            return false;
         }
     }
 

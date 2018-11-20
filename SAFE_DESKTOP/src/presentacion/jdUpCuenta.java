@@ -42,7 +42,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
     List<Comuna> listComuna;
     List<Region> listRegion;
     List<Empresa> listEmpresa;
-
+    Persona per;
     /**
      * Constructor que inicializa el modal de modificación de cuentas.
      *
@@ -164,8 +164,8 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.lblIdPer.setText(String.valueOf(pr.getIdPersona()));
         //Llenado campos de usuario
         this.txtUsername.setText(pr.getUsuario().getUsername());
-        this.txtPass.setText("");
-        this.txtPass2.setText("");
+        this.txtPass.setText(pr.getUsuario().getClave());
+        this.txtPass2.setText(pr.getUsuario().getClave());
         this.txtCorreo.setText(pr.getUsuario().getEmail());
         this.ddlRol.setSelectedIndex(pr.getUsuario().getRol());
         //Llenado campos de persona
@@ -173,7 +173,9 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.txtNombres.setText(pr.getNombres());
         this.txtAppPaterno.setText(pr.getAppPaterno());
         this.txtAppMaterno.setText(pr.getAppMaterno());
-
+        //Asignacion de la persona obtenida de la base de datos, a una temporal.
+        per = pr;
+      
     }
 
     /**
@@ -244,16 +246,20 @@ public class jdUpCuenta extends javax.swing.JDialog {
         lblTituloCuenta.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloCuenta.setText("MODIFICACION DE CUENTA DE USUARIO");
 
-        lblIdUsu.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdUsu.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdUsu.setForeground(new java.awt.Color(17, 48, 142));
         lblIdUsu.setText("ID Usu: ");
 
-        lblIdPer.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdPer.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdPer.setForeground(new java.awt.Color(17, 48, 142));
         lblIdPer.setText("ID Per:");
 
-        lblIdCli.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdCli.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdCli.setForeground(new java.awt.Color(17, 48, 142));
         lblIdCli.setText("ID Cli:");
 
-        lblIdTra.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdTra.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdTra.setForeground(new java.awt.Color(17, 48, 142));
         lblIdTra.setText("ID Tra:");
 
         javax.swing.GroupLayout pnlUpCuentaBannerLayout = new javax.swing.GroupLayout(pnlUpCuentaBanner);
@@ -633,7 +639,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     private void btnModificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCuentaActionPerformed
         if (!validateEmptys()) {
-            if (validateDuplicate()) {
+            if (validateDuplicateUser() && validateDuplicateRut()) {
                 try {
                     Usuario u = new Usuario();
                     u.setIdUsuario(Integer.parseInt(this.lblIdUsu.getText()));
@@ -960,20 +966,32 @@ public class jdUpCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_txtUsernameKeyTyped
 
     /**
-     * Método que verifica que el nombre de usuario o run ingresado, no se
+     * Método que verifica que el nombre de usuario ingresado, no se
      * encuentren ya registrados.
      *
      * @return true o false, si existe algún dato ya registrado.
      */
-    public boolean validateDuplicate() {
+    public boolean validateDuplicateUser() {
         String txtUser = this.txtUsername.getText();
-        String txtRunPer = this.txtRun.getText();
         NegUsuario negU = new NegUsuario();
-        NegPersona negP = new NegPersona();
-        if (negU.validateUsername(txtUser) != null) {
+        if (negU.validateUsername(txtUser) != null && !per.getUsuario().getUsername().equals(txtUser)) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese nombre de usuario, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (negP.validateRun(txtRunPer) != false) {
+        } else {
+            return true;
+        }
+    }
+    
+    /**
+     * Método que verifica que el rut de persona ingresado, no se
+     * encuentren ya registrados.
+     *
+     * @return true o false, si existe algún dato ya registrado.
+     */
+    public boolean validateDuplicateRut() {
+        String txtRunPer = this.txtRun.getText();
+        NegPersona negP = new NegPersona();
+        if (negP.validateRun(txtRunPer) != null && !per.getRun().equals(txtRunPer)) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de persona, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {

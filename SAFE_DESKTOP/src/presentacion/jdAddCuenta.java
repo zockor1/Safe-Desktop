@@ -503,11 +503,11 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                     NegUsuario user = new NegUsuario();
                                     user.addUsuario(u);
                                     Persona p = new Persona();
-                                    p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                    p.setRun(this.txtRun.getText());
                                     p.setNombres(this.txtNombres.getText());
                                     p.setAppPaterno(this.txtAppPaterno.getText());
                                     p.setAppMaterno(this.txtAppMaterno.getText());
-                                    //p.setIdUser(user.obtenerUser());Se ingesa el id autogenerado de usuario a persona
+                                    
 
                                     NegPersona per = new NegPersona();
                                     per.addPersona(p);
@@ -822,7 +822,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
         if (negU.validateUsername(txtUser) != null) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese nombre de usuario, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if (negP.validateRun(txtRunPer) != false) {
+        } else if (negP.validateRun(txtRunPer) != null) {
             JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de persona, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {

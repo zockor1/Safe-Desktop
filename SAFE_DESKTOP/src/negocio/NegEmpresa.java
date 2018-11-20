@@ -118,5 +118,39 @@ public class NegEmpresa {
         }
         return null;
     }
+    
+    /**
+     * Método que valida en la base de datos, si existe o no el RUT de Empresa
+     * ingresado, para evitar conflictos.
+     *
+     * @param rut Rut ingresado en la creacion de cuentas.
+     * @return False si existe el rut, True si esta disponible.
+     */
+    public Object validateDuplicateRut(String rut) {
+        Query q = sesion.createSQLQuery("SELECT RUT FROM EMPRESA WHERE RUT = ?")
+                .setParameter(0, rut);
+        return q.uniqueResult();
+    }
 
+        /**
+     * Método que que llama al stored procedure que elimina una empresa de la
+     * base de datos.
+     *
+     * @param id ID de empresa a eliminar
+     * @return True si se ha eliminado, False en caso contrario.
+     * @throws Exception general
+     */
+    public boolean delEmpresa(int id) throws Exception {
+        try {
+            Transaction tx = sesion.beginTransaction();
+            Query q = sesion.createSQLQuery("call pkg_crud_empresa.delete_empresa(?)")
+                    .setParameter(0, id);
+            q.executeUpdate();
+            tx.commit();
+            return true;
+        } catch (Exception ex) {
+            System.out.print("ERROR DELETE EMPRESA: " + ex.toString());
+            return false;
+        }
+    }
 }

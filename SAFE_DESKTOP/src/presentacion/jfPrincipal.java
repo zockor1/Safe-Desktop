@@ -2,15 +2,19 @@
 package presentacion;
 
 //Importaciones
+import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empresa;
 import modelo.Persona;
 import negocio.NegEmpresa;
 import negocio.NegPersona;
+import negocio.NegUsuario;
 import rojerusan.RSPanelsSlider;
 
 /**
@@ -227,6 +231,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnEliminarCuenta.setBackground(new java.awt.Color(17, 48, 142));
         btnEliminarCuenta.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCuenta.setText("ELIMINAR");
+        btnEliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCuentaActionPerformed(evt);
+            }
+        });
         jpCuentas.add(btnEliminarCuenta);
         btnEliminarCuenta.setBounds(240, 132, 110, 23);
 
@@ -331,6 +340,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnEliminarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
         btnEliminarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarEmpresa.setText("ELIMINAR");
+        btnEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEmpresaActionPerformed(evt);
+            }
+        });
         jpEmpresas.add(btnEliminarEmpresa);
         btnEliminarEmpresa.setBounds(240, 132, 110, 23);
 
@@ -585,7 +599,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             });
             ventana.setVisible(true);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }
         //System.out.println("ID: " + value);
     }//GEN-LAST:event_btnModificarEmpresaActionPerformed
@@ -660,6 +674,130 @@ public class jfPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnVerEmpresaActionPerformed
+
+    /**
+     * Método que realiza la llamada a la eliminación de cuentas
+     * @param evt 
+     */
+    private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
+
+        try {
+            int column = 0;
+            int row = this.tblCuentas.getSelectedRow();
+            //Valor del ID de usuario
+            int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
+            int column2 = 3;
+            //Valor del ID de rol
+            int value2 = 0;
+            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
+            switch (rol) {
+                case "Administrador":
+                    value2 = 1;
+                    break;
+                case "Supervisor":
+                    value2 = 2;
+                    break;
+                case "Cliente":
+                    value2 = 3;
+                    break;
+                case "Trabajador":
+                    value2 = 4;
+                    break;
+                case "Ingeniero":
+                    value2 = 5;
+                    break;
+                case "Técnico":
+                    value2 = 6;
+                    break;
+                case "Médico":
+                    value2 = 7;
+                    break;
+                default: 
+                    break;
+            }
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar la cuenta de usuario "+ rol +" seleccionada? \n "
+                    + "Esto eliminara todas la información y relación existente con otros datos registrados.",
+                    "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            jdUpCuenta ventana = new jdUpCuenta(this, true);
+            ventana.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    limpiarTablaCuentas();
+                    addJTableCuentas();
+                }
+            });
+            ventana.setVisible(false);
+            switch (opcion) {
+                case 0:
+                    NegUsuario user = new NegUsuario();
+                    if (user.delUsuario(value)) {
+                        JOptionPane.showMessageDialog(null, "Cuenta eliminada", "", JOptionPane.INFORMATION_MESSAGE);
+                        ventana.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un problema con la eliminación", "", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case 1:
+                    this.dispose();
+                    break;
+                default:
+                    this.dispose();
+                    break;
+            }
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(jfPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarCuentaActionPerformed
+
+    /**
+     * Método que realiza la llamada a la eliminación de empresas
+     *
+     * @param evt
+     */
+    private void btnEliminarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpresaActionPerformed
+        try {
+            int row = this.tblEmpresa.getSelectedRow();
+            int column = 0;
+            //Valor del ID de Empresa
+            int idEmp = (Integer) this.tblEmpresa.getModel().getValueAt(row, column);
+            int column2 = 3;
+            //Valor del ID de Contrato
+            int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar el perfil de la empresa seleccionada? \n "
+                    + "Esto eliminara todas la información y relación existente con otros datos registrados incluyendo el contrato.",
+                    "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            jdVerEmpresa ventana = new jdVerEmpresa(this, true);
+            ventana.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    limpiarTablaEmpresa();
+                    addJTableEmpresas();
+                }
+            });
+            ventana.setVisible(false);
+            switch(opcion){
+                case 0:
+                    NegEmpresa emp = new NegEmpresa();
+                    if (emp.delEmpresa(idEmp)) {
+                        JOptionPane.showMessageDialog(null, "Perfil de Empresa eliminado", "", JOptionPane.INFORMATION_MESSAGE);
+                        ventana.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un problema con la eliminación", "", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case 1:
+                    this.dispose();
+                    break;
+                default:
+                    this.dispose();
+                    break;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarEmpresaActionPerformed
 
     /**
      * Método que realiza el llenado de la tabla de cuentas con la información

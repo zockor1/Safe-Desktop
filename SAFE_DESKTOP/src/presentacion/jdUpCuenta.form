@@ -161,32 +161,44 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblIdUsu">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ID Usu: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblIdPer">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ID Per:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblIdCli">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ID Cli:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblIdTra">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="8e" green="30" red="11" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ID Tra:"/>
               </Properties>

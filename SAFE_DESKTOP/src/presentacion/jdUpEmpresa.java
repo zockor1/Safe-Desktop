@@ -5,6 +5,7 @@ package presentacion;
 import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.event.ItemEvent;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
     List<Comuna> listComuna;
     List<Region> listRegion;
     List<Cliente> listCliente;
+    Empresa empresa;
 
     /**
      * Constructor que inicializa la ventana de ingreso de empresa.
@@ -102,10 +104,12 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         lblTituloEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloEmpresa.setText("MODIFICACION DE EMPRESA");
 
-        lblIdContrato.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdContrato.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdContrato.setForeground(new java.awt.Color(17, 48, 142));
         lblIdContrato.setText("ID CONTRATO");
 
-        lblIdEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        lblIdEmpresa.setForeground(new java.awt.Color(17, 48, 142));
         lblIdEmpresa.setText("ID EMPRESA");
 
         javax.swing.GroupLayout pnlAddEmpresaBannerLayout = new javax.swing.GroupLayout(pnlAddEmpresaBanner);
@@ -209,19 +213,23 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                     .addComponent(lblNombFantasia)
                     .addComponent(lblCliente))
                 .addGap(76, 76, 76)
-                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtNombreFantasia)
-                    .addComponent(txtRut)
-                    .addComponent(ddlCliente, 0, 123, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRegion)
-                    .addComponent(lblComuna))
-                .addGap(44, 44, 44)
-                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNombreFantasia, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(txtRut))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRegion)
+                            .addComponent(lblComuna))
+                        .addGap(44, 44, 44)
+                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
+                        .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jpAddEmpresaLayout.setVerticalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,9 +403,11 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         DefaultComboBoxModel modelCliente = (DefaultComboBoxModel) this.ddlCliente.getModel();
         DefaultComboBoxModel modelRegion = (DefaultComboBoxModel) this.ddlRegion.getModel();
         DefaultComboBoxModel modelComuna = (DefaultComboBoxModel) this.ddlComuna.getModel();
-        modelCliente.setSelectedItem(emp.getCliente().getPersona().getNombres() + " " + emp.getCliente().getPersona().getAppPaterno());
+        modelCliente.setSelectedItem(emp.getCliente().getPersona().getNombres() + " " + emp.getCliente().getPersona().getAppPaterno()+ " " + emp.getCliente().getPersona().getAppMaterno());
         modelRegion.setSelectedItem(emp.getComuna().getRegion().getNombre());
         modelComuna.setSelectedItem(emp.getComuna().getNombre());
+        //Asignacion de empresa a cargar, a variable temporal.
+        empresa = emp;
     }
 
     /**
@@ -409,46 +419,46 @@ public class jdUpEmpresa extends javax.swing.JDialog {
      */
     private void btnUpEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpEmpresaActionPerformed
 
-        try {
-            if (!validateEmptys()) {
-                Contrato c = new Contrato();
-                c.setIdContrato(Integer.parseInt(this.lblIdContrato.getText()));
-                c.setFechaInicio(this.dpFechaInicio.getDate());
-                c.setFechaTermino(this.dpFechaTermino.getDate());
-                NegContrato contrato = new NegContrato();
-                contrato.upContrato(c);
+        if (!validateEmptys()) {
+            if (validateDuplicateRut()) {
+                try {
+                    Contrato c = new Contrato();
+                    c.setIdContrato(Integer.parseInt(this.lblIdContrato.getText()));
+                    c.setFechaInicio(this.dpFechaInicio.getDate());
+                    c.setFechaTermino(this.dpFechaTermino.getDate());
+                    NegContrato contrato = new NegContrato();
+                    contrato.upContrato(c);
 
-                Empresa e = new Empresa();
-                Comuna com = new Comuna();
-                Cliente cli = new Cliente();
-                if (new validadorRunChileno(this.txtRut.getText()).validateRun() == true) {
-                    e.setIdEmpresa(Integer.parseInt(this.lblIdEmpresa.getText()));
-                    e.setRut(this.txtRut.getText());
-                    e.setNombreFantasia(this.txtNombreFantasia.getText());
-                    e.setEstado('1');
-                    e.setCliente(cli);
-                    cli = (Cliente) this.ddlCliente.getModel().getSelectedItem();
-                    e.getCliente().setIdCliente(cli.getIdCliente());
-                    e.setContrato(c);
-                    e.getContrato().setIdContrato(Integer.parseInt(this.lblIdContrato.getText()));
-                    e.setComuna(com);
-                    com = (Comuna) this.ddlComuna.getModel().getSelectedItem();
-                    e.getComuna().setIdComuna(com.getIdComuna());
-                    NegEmpresa negE = new NegEmpresa();
-                    negE.upEmpresa(e);
+                    Empresa e = new Empresa();
+                    Comuna com = new Comuna();
+                    Cliente cli = new Cliente();
+                    if (new validadorRunChileno(this.txtRut.getText()).validateRun() == true) {
+                        e.setIdEmpresa(Integer.parseInt(this.lblIdEmpresa.getText()));
+                        e.setRut(this.txtRut.getText());
+                        e.setNombreFantasia(this.txtNombreFantasia.getText());
+                        e.setEstado('1');
+                        e.setCliente(cli);
+                        e.getCliente().setIdCliente(this.ddlCliente.getSelectedIndex());
+                        e.setContrato(c);
+                        e.getContrato().setIdContrato(Integer.parseInt(this.lblIdContrato.getText()));
+                        e.setComuna(com);
+                        e.getComuna().setIdComuna(this.ddlComuna.getSelectedIndex());
+                        NegEmpresa negE = new NegEmpresa();
+                        negE.upEmpresa(e);
 
-                    JOptionPane.showMessageDialog(rootPane, "Empresa modificada correctamente");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "Empresa modificada correctamente");
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado" + ex.toString());
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado" + ex.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
+
 
     }//GEN-LAST:event_btnUpEmpresaActionPerformed
 
@@ -490,6 +500,21 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         editor.setEditable(false);
         editor2.setEditable(false);
     }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean validateDuplicateRut(){
+        String rut = this.txtRut.getText();
+        NegEmpresa emp = new NegEmpresa();
+        if (emp.validateDuplicateRut(rut) != null && !empresa.getRut().equals(rut)) {
+            JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de Empresa, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        } 
+    }
 
     /**
      * Evento que cierra la ventana de ingreso de empresa (Cancelar)
@@ -514,10 +539,12 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         NegCliente negCl = new NegCliente();
 
         DefaultComboBoxModel cModelR = (DefaultComboBoxModel) this.ddlRegion.getModel();
+        DefaultComboBoxModel cModelC = (DefaultComboBoxModel) this.ddlCliente.getModel();
+        DefaultComboBoxModel cModelCm = (DefaultComboBoxModel) this.ddlComuna.getModel();
 
         cModelR.addElement("Región...");
-        this.ddlComuna.addItem("Comuna...");
-        this.ddlCliente.addItem("Cliente...");
+        cModelCm.addElement("Comuna...");
+        cModelC.addElement("Cliente...");
         try {
             listRegion = negR.getAllRegion();
             listComuna = negC.getAllComuna();
@@ -531,17 +558,11 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         }
 
         for (Comuna c : listComuna) {
-            Comuna cm = new Comuna();
-            cm.setNombre(c.getNombre());
-            cm.setIdComuna(c.getIdComuna());
-            this.ddlComuna.addItem(cm);
+            cModelCm.addElement(c.getNombre());
         }
 
         for (Cliente c : listCliente) {
-            Cliente cl = new Cliente();
-            cl.setIdCliente(c.getIdCliente());
-            cl.setPersona(c.getPersona());
-            this.ddlCliente.addItem(cl);
+            cModelC.addElement(c.getPersona().getNombres() +" "+ c.getPersona().getAppPaterno() +" "+ c.getPersona().getAppMaterno());
         }
     }//GEN-LAST:event_formWindowOpened
 

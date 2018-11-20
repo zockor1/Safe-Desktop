@@ -326,43 +326,43 @@ public class jdAddEmpresa extends javax.swing.JDialog {
      */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
 
-        try {
-            if (!validateEmptys()) {
-                Contrato c = new Contrato();
-                c.setFechaInicio(this.dpFechaInicio.getDate());
-                c.setFechaTermino(this.dpFechaTermino.getDate());
-                NegContrato contrato = new NegContrato();
-                contrato.addContrato(c);
+        if (!validateEmptys()) {
+            if (validateDuplicateEmpresa()) {
+                try {
+                    Contrato c = new Contrato();
+                    c.setFechaInicio(this.dpFechaInicio.getDate());
+                    c.setFechaTermino(this.dpFechaTermino.getDate());
+                    NegContrato contrato = new NegContrato();
+                    contrato.addContrato(c);
 
-                Empresa e = new Empresa();
-                Comuna com = new Comuna();
-                Cliente cli = new Cliente();
-                if (new validadorRunChileno(this.txtRut.getText()).validateRun() == true) {
-                    e.setRut(this.txtRut.getText());
-                    e.setNombreFantasia(this.txtNombreFantasia.getText());
-                    e.setEstado('1');
-                    e.setCliente(cli);
-                    cli = (Cliente) this.ddlCliente.getModel().getSelectedItem();
-                    e.getCliente().setIdCliente(cli.getIdCliente());
-                    e.setComuna(com);
-                    com = (Comuna) this.ddlComuna.getModel().getSelectedItem();
-                    e.getComuna().setIdComuna(com.getIdComuna());
-                    NegEmpresa negE = new NegEmpresa();
-                    negE.addEmpresa(e);
+                    Empresa e = new Empresa();
+                    Comuna com = new Comuna();
+                    Cliente cli = new Cliente();
+                    if (new validadorRunChileno(this.txtRut.getText()).validateRun() == true) {
+                        e.setRut(this.txtRut.getText());
+                        e.setNombreFantasia(this.txtNombreFantasia.getText());
+                        e.setEstado('1');
+                        e.setCliente(cli);
+                        cli = (Cliente) this.ddlCliente.getModel().getSelectedItem();
+                        e.getCliente().setIdCliente(cli.getIdCliente());
+                        e.setComuna(com);
+                        com = (Comuna) this.ddlComuna.getModel().getSelectedItem();
+                        e.getComuna().setIdComuna(com.getIdComuna());
+                        NegEmpresa negE = new NegEmpresa();
+                        negE.addEmpresa(e);
 
-                    JOptionPane.showMessageDialog(rootPane, "Empresa ingresada correctamente");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "Empresa ingresada correctamente");
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El RUT ingresado es invalido", "", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado" + ex.toString());
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Ha ocurrido un error inesperado" + ex.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
     /**
@@ -490,6 +490,21 @@ public class jdAddEmpresa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_ddlRegionItemStateChanged
 
+    /**
+     * Método que verifica que el RUT ingresado no se encuentre ya registrado.
+     *
+     * @return true si esta disponible, de lo contrario false.
+     */
+    private boolean validateDuplicateEmpresa(){
+       String runEmp = this.txtRut.getText();
+       NegEmpresa emp = new NegEmpresa();
+        if (emp.validateDuplicateRut(runEmp) != null) {
+            JOptionPane.showMessageDialog(null, "Ya existe registrado ese RUN de Empresa, ingrese otro...", "", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else{
+            return true;
+        }
+    }
     /**
      * Evento que evita escribir caracteres diferentes a números, en el campo de
      * RUT.
