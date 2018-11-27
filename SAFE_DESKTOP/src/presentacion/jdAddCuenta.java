@@ -30,6 +30,7 @@ import negocio.NegRegion;
 import presentacion.validaciones.jTextFieldCharLimits;
 import presentacion.validaciones.validadorCorreo;
 import presentacion.validaciones.validadorRunChileno;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * @author Ignacio Antillanca
@@ -521,7 +522,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
                     u.setUsername(this.txtUsername.getText());
                     if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
                         if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
-                            u.setClave(String.valueOf(this.txtPass.getPassword()));
+                            //Encriptación de contraseña con SHA1
+                            String passPura = String.valueOf(this.txtPass.getPassword());
+                            String passEncrip = DigestUtils.sha1Hex(passPura);
+                            u.setClave(passEncrip);
                             if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
                                 u.setEmail(this.txtCorreo.getText());
                                 u.setRol(this.ddlRol.getSelectedIndex());

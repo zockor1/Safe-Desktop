@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import modelo.Persona;
 import negocio.NegLogin;
 import negocio.NegPersona;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * @author Ignacio Antillanca
@@ -194,8 +195,9 @@ public class jfLogin extends javax.swing.JFrame {
      * (ActionEvent)
      */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String password = new String(txtPass.getPassword());
-        boolean permiso = NegLogin.Login(txtUser.getText(), password);
+        String passPura = new String(txtPass.getPassword());
+        String passEncrip = DigestUtils.sha1Hex(passPura);
+        boolean permiso = NegLogin.Login(txtUser.getText(), passEncrip);
         Persona persona = new NegPersona().obtenerPersona2(txtUser.getText());
 
         if (permiso) {

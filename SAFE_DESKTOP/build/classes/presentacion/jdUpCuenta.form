@@ -267,18 +267,23 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtUsername" pref="138" max="32767" attributes="0"/>
-                                  <Component id="txtPass" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtUsername" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtPass" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblCorreo" max="32767" attributes="0"/>
-                                  <Component id="lblRol" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblCorreo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblRol" min="-2" pref="88" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtCorreo" max="32767" attributes="0"/>
-                                  <Component id="ddlRol" pref="143" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ddlRol" min="-2" pref="143" max="-2" attributes="0"/>
+                                  <Component id="txtCorreo" min="-2" pref="163" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -286,7 +291,7 @@
                               <Component id="txtPass2" min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -399,10 +404,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblRun" max="32767" attributes="0"/>
-                              <Component id="lblNombres" pref="78" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="lblRun" max="32767" attributes="0"/>
+                          <Component id="lblNombres" max="32767" attributes="0"/>
                           <Component id="lblAppPaterno" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblAppMaterno" alignment="0" max="32767" attributes="0"/>
                       </Group>

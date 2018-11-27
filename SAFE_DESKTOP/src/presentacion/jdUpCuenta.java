@@ -29,6 +29,7 @@ import negocio.NegRegion;
 import presentacion.validaciones.jTextFieldCharLimits;
 import presentacion.validaciones.validadorCorreo;
 import presentacion.validaciones.validadorRunChileno;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * @author Ignacio Antillanca
@@ -344,20 +345,23 @@ public class jdUpCuenta extends javax.swing.JDialog {
                     .addGroup(jpUpUsuarioLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                            .addComponent(txtPass))
-                        .addGap(95, 95, 95)
-                        .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(33, 33, 33)
-                        .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCorreo)
-                            .addComponent(ddlRol, 0, 143, Short.MAX_VALUE)))
+                            .addGroup(jpUpUsuarioLayout.createSequentialGroup()
+                                .addComponent(txtUsername)
+                                .addGap(125, 125, 125))
+                            .addGroup(jpUpUsuarioLayout.createSequentialGroup()
+                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(126, 126, 126)))
+                        .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCorreo)
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ddlRol, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpUpUsuarioLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(66, 66, 66))
         );
         jpUpUsuarioLayout.setVerticalGroup(
             jpUpUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,9 +428,8 @@ public class jdUpCuenta extends javax.swing.JDialog {
             .addGroup(jpUpPersonaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jpUpPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                    .addComponent(lblRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAppPaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAppMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
@@ -676,7 +679,13 @@ public class jdUpCuenta extends javax.swing.JDialog {
                     u.setUsername(this.txtUsername.getText());
                     if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
                         if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
-                            u.setClave(String.valueOf(this.txtPass.getPassword()));
+                            if (String.valueOf(this.txtPass.getPassword()).length() > 20) {
+                                u.setClave(String.valueOf(this.txtPass.getPassword()));
+                            } else {
+                                String passPura = String.valueOf(this.txtPass.getPassword());
+                                String passEncrip = DigestUtils.sha1Hex(passPura);
+                                u.setClave(passEncrip);
+                            }
                             if (new validadorCorreo(this.txtCorreo.getText()).validateEmail() == true) {
                                 u.setEmail(this.txtCorreo.getText());
                                 u.setRol(this.ddlRol.getSelectedIndex());
@@ -1036,8 +1045,8 @@ public class jdUpCuenta extends javax.swing.JDialog {
      */
     public void limits() {
         this.txtUsername.setDocument(new jTextFieldCharLimits(20));
-        this.txtPass.setDocument(new jTextFieldCharLimits(20));
-        this.txtPass2.setDocument(new jTextFieldCharLimits(20));
+        this.txtPass.setDocument(new jTextFieldCharLimits(70));
+        this.txtPass2.setDocument(new jTextFieldCharLimits(70));
         this.txtCorreo.setDocument(new jTextFieldCharLimits(40));
         this.txtRun.setDocument(new jTextFieldCharLimits(9));
         this.txtNombres.setDocument(new jTextFieldCharLimits(40));
