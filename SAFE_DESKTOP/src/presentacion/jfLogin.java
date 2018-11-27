@@ -2,7 +2,10 @@
 package presentacion;
 
 //Importaciones
+import java.awt.Cursor;
+import modelo.Persona;
 import negocio.NegLogin;
+import negocio.NegPersona;
 
 /**
  * @author Ignacio Antillanca
@@ -42,7 +45,7 @@ public class jfLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 2, true));
         jPanel1.setPreferredSize(new java.awt.Dimension(430, 330));
         jPanel1.setLayout(null);
 
@@ -53,33 +56,40 @@ public class jfLogin extends javax.swing.JFrame {
         lblTitulo.setBounds(60, 180, 350, 22);
 
         txtUser.setToolTipText("Nombre de Usuario");
-        txtUser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 1, true));
         jPanel1.add(txtUser);
-        txtUser.setBounds(130, 240, 190, 30);
+        txtUser.setBounds(140, 240, 190, 30);
 
         txtPass.setToolTipText("Contraseña");
-        txtPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtPass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 1, true));
         jPanel1.add(txtPass);
-        txtPass.setBounds(130, 290, 190, 30);
+        txtPass.setBounds(140, 290, 190, 30);
 
         btnLogin.setBackground(new java.awt.Color(17, 48, 142));
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("ENTRAR");
         btnLogin.setBorder(null);
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
         jPanel1.add(btnLogin);
-        btnLogin.setBounds(150, 350, 130, 30);
+        btnLogin.setBounds(160, 350, 130, 30);
 
         piClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/close_icon.png"))); // NOI18N
         piClose.setPreferredSize(new java.awt.Dimension(30, 30));
         piClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 piCloseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piCloseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piCloseMouseExited(evt);
             }
         });
 
@@ -186,13 +196,34 @@ public class jfLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String password = new String(txtPass.getPassword());
         boolean permiso = NegLogin.Login(txtUser.getText(), password);
+        Persona persona = new NegPersona().obtenerPersona2(txtUser.getText());
 
         if (permiso) {
             this.dispose();
-            jfPrincipal nueva = new jfPrincipal();
+            jfPrincipal nueva = new jfPrincipal(persona);
             nueva.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    /**
+     * Cambia el icono del cursor cuando entra sobre el icono de cierre del 
+     * login.
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piCloseMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_piCloseMouseEntered
+
+    /**
+     * Cambia el icono del cursor cuando sale sobre el icono de cierre del
+     * login.
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piCloseMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_piCloseMouseExited
 
     /**
      * @param args the command line arguments

@@ -20,10 +20,11 @@ public class jdVerEmpresa extends javax.swing.JDialog {
      */
     public jdVerEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setUndecorated(true);
         initComponents();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 650);
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 670, 480);
         this.setLocationRelativeTo(this);
     }
     
@@ -72,7 +73,7 @@ public class jdVerEmpresa extends javax.swing.JDialog {
         lblFechaTerText = new javax.swing.JLabel();
         lblIdContrato = new javax.swing.JLabel();
         lblIdContratoText = new javax.swing.JLabel();
-        jpEmpresaVer = new javax.swing.JPanel();
+        jpEmpresaVer2 = new javax.swing.JPanel();
         lblRut = new javax.swing.JLabel();
         lblNombFantasia = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
@@ -88,9 +89,14 @@ public class jdVerEmpresa extends javax.swing.JDialog {
         btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(670, 480));
+        setResizable(false);
 
         jpVerEmpresa.setBackground(new java.awt.Color(255, 255, 255));
-        jpVerEmpresa.setPreferredSize(new java.awt.Dimension(800, 600));
+        jpVerEmpresa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 4, true));
+        jpVerEmpresa.setMaximumSize(null);
+        jpVerEmpresa.setMinimumSize(null);
+        jpVerEmpresa.setPreferredSize(new java.awt.Dimension(670, 480));
 
         pnlVerCuentaBanner.setBackground(new java.awt.Color(17, 48, 142));
 
@@ -103,16 +109,16 @@ public class jdVerEmpresa extends javax.swing.JDialog {
         pnlVerCuentaBannerLayout.setHorizontalGroup(
             pnlVerCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVerCuentaBannerLayout.createSequentialGroup()
-                .addContainerGap(335, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(308, 308, 308))
+                .addGap(220, 220, 220))
         );
         pnlVerCuentaBannerLayout.setVerticalGroup(
             pnlVerCuentaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVerCuentaBannerLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addComponent(lblTituloCuenta)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jpVerContrato.setBackground(new java.awt.Color(255, 255, 255));
@@ -131,9 +137,9 @@ public class jdVerEmpresa extends javax.swing.JDialog {
             .addGroup(jpVerContratoLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lblIdContrato)
-                .addGap(49, 49, 49)
+                .addGap(95, 95, 95)
                 .addComponent(lblIdContratoText, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
+                .addGap(26, 26, 26)
                 .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpVerContratoLayout.createSequentialGroup()
                         .addComponent(lblFechaInicio)
@@ -143,17 +149,17 @@ public class jdVerEmpresa extends javax.swing.JDialog {
                         .addComponent(lblFechaTermino)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFechaTerText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jpVerContratoLayout.setVerticalGroup(
             jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpVerContratoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdContratoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblFechaInicio)
-                        .addComponent(lblIdContrato)
-                        .addComponent(lblIdContratoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblIdContrato))
                     .addComponent(lblFechaIniText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jpVerContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,8 +168,8 @@ public class jdVerEmpresa extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jpEmpresaVer.setBackground(new java.awt.Color(255, 255, 255));
-        jpEmpresaVer.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Empresa"));
+        jpEmpresaVer2.setBackground(new java.awt.Color(255, 255, 255));
+        jpEmpresaVer2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de Empresa"));
 
         lblRut.setText("Rut");
 
@@ -177,67 +183,69 @@ public class jdVerEmpresa extends javax.swing.JDialog {
 
         lblIdEmpresa.setText("ID Empresa");
 
-        javax.swing.GroupLayout jpEmpresaVerLayout = new javax.swing.GroupLayout(jpEmpresaVer);
-        jpEmpresaVer.setLayout(jpEmpresaVerLayout);
-        jpEmpresaVerLayout.setHorizontalGroup(
-            jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpEmpresaVer2Layout = new javax.swing.GroupLayout(jpEmpresaVer2);
+        jpEmpresaVer2.setLayout(jpEmpresaVer2Layout);
+        jpEmpresaVer2Layout.setHorizontalGroup(
+            jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpEmpresaVer2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRut)
                     .addComponent(lblNombFantasia)
                     .addComponent(lblIdEmpresa))
                 .addGap(66, 66, 66)
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblNombreFanText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                     .addComponent(lblRutText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                     .addComponent(lblIdEmpresaText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRegion)
                     .addComponent(lblComuna)
                     .addComponent(lblCliente))
                 .addGap(73, 73, 73)
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblComunaText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRegionText, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblClienteText, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                    .addComponent(lblRegionText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblComunaText, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpEmpresaVerLayout.setVerticalGroup(
-            jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpEmpresaVerLayout.createSequentialGroup()
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+        jpEmpresaVer2Layout.setVerticalGroup(
+            jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpEmpresaVer2Layout.createSequentialGroup()
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpEmpresaVer2Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCliente)
                             .addComponent(lblIdEmpresa)
                             .addComponent(lblIdEmpresaText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVerLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVer2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
-                .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
-                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpEmpresaVer2Layout.createSequentialGroup()
+                        .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblRegion)
                                 .addComponent(lblRut))
                             .addComponent(lblRegionText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addGroup(jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpEmpresaVer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblComuna)
                                 .addComponent(lblNombFantasia))
                             .addComponent(lblComunaText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpEmpresaVerLayout.createSequentialGroup()
+                    .addGroup(jpEmpresaVer2Layout.createSequentialGroup()
                         .addComponent(lblRutText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(lblNombreFanText, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
 
+        btnVolver.setBackground(new java.awt.Color(17, 48, 142));
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
         btnVolver.setText("VOLVER");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,13 +263,13 @@ public class jdVerEmpresa extends javax.swing.JDialog {
                 .addComponent(jpVerContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jpVerEmpresaLayout.createSequentialGroup()
-                .addGap(362, 362, 362)
+                .addGap(248, 248, 248)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpVerEmpresaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jpEmpresaVer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpEmpresaVer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jpVerEmpresaLayout.setVerticalGroup(
@@ -270,13 +278,13 @@ public class jdVerEmpresa extends javax.swing.JDialog {
                 .addComponent(pnlVerCuentaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jpVerContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
                 .addComponent(btnVolver)
-                .addGap(177, 177, 177))
+                .addGap(23, 23, 23))
             .addGroup(jpVerEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpVerEmpresaLayout.createSequentialGroup()
                     .addGap(208, 208, 208)
-                    .addComponent(jpEmpresaVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpEmpresaVer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(212, Short.MAX_VALUE)))
         );
 
@@ -284,15 +292,11 @@ public class jdVerEmpresa extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jpVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -310,7 +314,7 @@ public class jdVerEmpresa extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
-    private javax.swing.JPanel jpEmpresaVer;
+    private javax.swing.JPanel jpEmpresaVer2;
     private javax.swing.JPanel jpVerContrato;
     private javax.swing.JPanel jpVerEmpresa;
     private javax.swing.JLabel lblCliente;

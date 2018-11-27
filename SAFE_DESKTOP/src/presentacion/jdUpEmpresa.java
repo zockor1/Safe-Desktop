@@ -51,7 +51,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         limits();
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 800, 600);
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 850, 550);
         this.setLocationRelativeTo(this);
     }
 
@@ -87,8 +87,10 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         ddlComuna = new javax.swing.JComboBox<>();
         btnUpEmpresa = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -96,9 +98,12 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         });
 
         pnlUpEmpresa.setBackground(new java.awt.Color(255, 255, 255));
-        pnlUpEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlUpEmpresa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 4, true));
+        pnlUpEmpresa.setMaximumSize(null);
+        pnlUpEmpresa.setPreferredSize(new java.awt.Dimension(850, 550));
 
         pnlAddEmpresaBanner.setBackground(new java.awt.Color(17, 48, 142));
+        pnlAddEmpresaBanner.setPreferredSize(new java.awt.Dimension(842, 72));
 
         lblTituloEmpresa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTituloEmpresa.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,20 +126,18 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                 .addGroup(pnlAddEmpresaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblIdEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblIdContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
-                .addComponent(lblTituloEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(270, 270, 270))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                .addComponent(lblTituloEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlAddEmpresaBannerLayout.setVerticalGroup(
             pnlAddEmpresaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddEmpresaBannerLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(pnlAddEmpresaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloEmpresa)
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(pnlAddEmpresaBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloEmpresa, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblIdContrato))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblIdEmpresa)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(lblIdEmpresa))
         );
 
         jpAddContrato.setBackground(new java.awt.Color(255, 255, 255));
@@ -152,23 +155,24 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(lblFechaInicio)
                 .addGap(84, 84, 84)
-                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95)
                 .addComponent(lblFechaTermino)
-                .addGap(18, 18, 18)
-                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpAddContratoLayout.setVerticalGroup(
             jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpAddContratoLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dpFechaTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFechaTermino)
-                    .addComponent(lblFechaInicio))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(jpAddContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFechaInicio)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jpAddEmpresa.setBackground(new java.awt.Color(255, 255, 255));
@@ -213,23 +217,19 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                     .addComponent(lblNombFantasia)
                     .addComponent(lblCliente))
                 .addGap(76, 76, 76)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtRut)
+                    .addComponent(txtNombreFantasia)
+                    .addComponent(ddlCliente, 0, 147, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
-                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtNombreFantasia, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(txtRut))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRegion)
-                            .addComponent(lblComuna))
-                        .addGap(44, 44, 44)
-                        .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpAddEmpresaLayout.createSequentialGroup()
-                        .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(lblRegion)
+                    .addComponent(lblComuna))
+                .addGap(92, 92, 92)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ddlComuna, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ddlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpAddEmpresaLayout.setVerticalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,6 +258,8 @@ public class jdUpEmpresa extends javax.swing.JDialog {
                 .addGap(26, 26, 26))
         );
 
+        btnUpEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnUpEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnUpEmpresa.setText("MODIFICAR");
         btnUpEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,6 +267,8 @@ public class jdUpEmpresa extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(17, 48, 142));
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,47 +276,58 @@ public class jdUpEmpresa extends javax.swing.JDialog {
             }
         });
 
+        lblMensaje.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(153, 153, 153));
+        lblMensaje.setText("*Todos los campos son obligatorios");
+
         javax.swing.GroupLayout pnlUpEmpresaLayout = new javax.swing.GroupLayout(pnlUpEmpresa);
         pnlUpEmpresa.setLayout(pnlUpEmpresaLayout);
         pnlUpEmpresaLayout.setHorizontalGroup(
             pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpEmpresaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jpAddEmpresa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpAddContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(pnlAddEmpresaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(185, 185, 185))
             .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(btnUpEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlAddEmpresaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
+                .addGroup(pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpAddContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpAddEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
+                        .addGap(294, 294, 294)
+                        .addComponent(btnUpEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpEmpresaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblMensaje)
+                .addGap(322, 322, 322))
         );
         pnlUpEmpresaLayout.setVerticalGroup(
             pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpEmpresaLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(pnlAddEmpresaBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(27, 27, 27)
                 .addComponent(jpAddContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jpAddEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pnlUpEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpEmpresa)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMensaje)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlUpEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlUpEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,6 +597,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
     private javax.swing.JLabel lblFechaTermino;
     private javax.swing.JLabel lblIdContrato;
     private javax.swing.JLabel lblIdEmpresa;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblNombFantasia;
     private javax.swing.JLabel lblRegion;
     private javax.swing.JLabel lblRut;

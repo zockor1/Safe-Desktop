@@ -2,12 +2,10 @@
 package presentacion;
 
 //Importaciones
-import java.awt.HeadlessException;
+import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empresa;
@@ -23,11 +21,14 @@ import rojerusan.RSPanelsSlider;
  */
 public class jfPrincipal extends javax.swing.JFrame {
     
+    public static Persona per;
 
     /**
      * Constructor por defecto de jfPrincipal.
+     *
+     * @param p
      */
-    public jfPrincipal() {
+    public jfPrincipal(Persona p) {
         this.setUndecorated(true);
         initComponents();
         addJTableCuentas();
@@ -36,8 +37,12 @@ public class jfPrincipal extends javax.swing.JFrame {
         // con tamaño 950x500 sin importar la resolucion del monitor
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 950, 500); 
-        this.setLocationRelativeTo(this); 
+        this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 950, 500);        
+        this.setLocationRelativeTo(this);
+        this.lblSesion.setText("Conectado como: " + p.getNombres() + " " + p.getAppPaterno());
+        this.lblSesion1.setText("Conectado como: " + p.getNombres() + " " + p.getAppPaterno());
+        this.lblSesion2.setText("Conectado como: " + p.getNombres() + " " + p.getAppPaterno());
+        
     }
 
     /**
@@ -56,37 +61,44 @@ public class jfPrincipal extends javax.swing.JFrame {
         btnCuentas = new javax.swing.JButton();
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
         piLogout = new org.edisoncor.gui.panel.PanelImage();
+        jLabel1 = new javax.swing.JLabel();
         rSPanelsSlider1 = new rojerusan.RSPanelsSlider();
         jpInicio = new javax.swing.JPanel();
         lblInicio = new javax.swing.JLabel();
-        lblInfo = new javax.swing.JLabel();
-        lblContratos = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblInfo = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblContratos = new javax.swing.JTable();
+        lblDerechos = new javax.swing.JLabel();
+        lblSesion = new javax.swing.JLabel();
+        panelImage2 = new org.edisoncor.gui.panel.PanelImage();
+        piMinimize = new org.edisoncor.gui.panel.PanelImage();
         jpCuentas = new javax.swing.JPanel();
         lblCuentas = new javax.swing.JLabel();
-        btnEliminarCuenta = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCuentas = new org.jdesktop.swingx.JXTable();
-        btnAgregarCuenta = new javax.swing.JButton();
-        btnModificarCuenta = new javax.swing.JButton();
+        lblDerechos1 = new javax.swing.JLabel();
+        jpanelAcciones = new javax.swing.JPanel();
         btnVerCuenta = new javax.swing.JButton();
+        btnEliminarCuenta = new javax.swing.JButton();
+        btnModificarCuenta = new javax.swing.JButton();
+        btnAgregarCuenta = new javax.swing.JButton();
+        lblSesion1 = new javax.swing.JLabel();
+        piMinimize1 = new org.edisoncor.gui.panel.PanelImage();
         jpEmpresas = new javax.swing.JPanel();
         lblEmpresas = new javax.swing.JLabel();
-        btnAgregarEmpresa = new javax.swing.JButton();
-        btnModificarEmpresa = new javax.swing.JButton();
-        btnEliminarEmpresa = new javax.swing.JButton();
-        btnVerEmpresa = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmpresa = new org.jdesktop.swingx.JXTable();
+        lblDerechos2 = new javax.swing.JLabel();
+        jpanelAcciones1 = new javax.swing.JPanel();
+        btnVerEmpresa = new javax.swing.JButton();
+        btnEliminarEmpresa = new javax.swing.JButton();
+        btnModificarEmpresa = new javax.swing.JButton();
+        btnAgregarEmpresa = new javax.swing.JButton();
+        lblSesion2 = new javax.swing.JLabel();
+        piMinimize2 = new org.edisoncor.gui.panel.PanelImage();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(0, 590));
 
         jpPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        jpPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jpPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 2, true));
         jpPrincipal.setName(""); // NOI18N
         jpPrincipal.setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -94,10 +106,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnEmpresa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnEmpresa.setText("GESTION DE EMPRESAS");
-        btnEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnEmpresa.setContentAreaFilled(false);
+        btnEmpresa.setBorder(null);
+        btnEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpresaActionPerformed(evt);
@@ -106,10 +119,12 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpMenu.add(btnEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 180, 30));
 
         btnInicio.setBackground(new java.awt.Color(17, 48, 142));
+        btnInicio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText("INICIO");
-        btnInicio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnInicio.setContentAreaFilled(false);
+        btnInicio.setBorder(null);
+        btnInicio.setBorderPainted(false);
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInicioActionPerformed(evt);
@@ -118,10 +133,15 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpMenu.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 30));
 
         btnCuentas.setBackground(new java.awt.Color(17, 48, 142));
+        btnCuentas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCuentas.setForeground(new java.awt.Color(255, 255, 255));
         btnCuentas.setText("GESTION DE CUENTAS");
-        btnCuentas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCuentas.setContentAreaFilled(false);
+        btnCuentas.setBorder(null);
+        btnCuentas.setBorderPainted(false);
+        btnCuentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCuentas.setMaximumSize(new java.awt.Dimension(41, 15));
+        btnCuentas.setMinimumSize(new java.awt.Dimension(41, 15));
+        btnCuentas.setPreferredSize(new java.awt.Dimension(41, 15));
         btnCuentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCuentasActionPerformed(evt);
@@ -129,7 +149,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         });
         jpMenu.add(btnCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 180, 30));
 
-        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/logo.png"))); // NOI18N
+        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/logo_2.png"))); // NOI18N
 
         javax.swing.GroupLayout panelImage1Layout = new javax.swing.GroupLayout(panelImage1);
         panelImage1.setLayout(panelImage1Layout);
@@ -149,6 +169,12 @@ public class jfPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 piLogoutMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piLogoutMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout piLogoutLayout = new javax.swing.GroupLayout(piLogout);
@@ -164,6 +190,11 @@ public class jfPrincipal extends javax.swing.JFrame {
 
         jpMenu.add(piLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 60, 60));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("SALIR");
+        jpMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 40, -1));
+
         rSPanelsSlider1.setBackground(new java.awt.Color(255, 255, 255));
 
         jpInicio.setBackground(new java.awt.Color(255, 255, 255));
@@ -173,49 +204,61 @@ public class jfPrincipal extends javax.swing.JFrame {
         lblInicio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblInicio.setText("BIENVENIDO ADMINISTRADOR");
         jpInicio.add(lblInicio);
-        lblInicio.setBounds(290, 30, 220, 17);
+        lblInicio.setBounds(10, 0, 280, 30);
 
-        lblInfo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblInfo.setText("Informacion general:");
-        jpInicio.add(lblInfo);
-        lblInfo.setBounds(110, 290, 160, 15);
+        lblDerechos.setForeground(new java.awt.Color(153, 153, 153));
+        lblDerechos.setText("Sistema Administrativo SAFE - 2018 - Todos los derechos reservados (C).");
+        jpInicio.add(lblDerechos);
+        lblDerechos.setBounds(180, 480, 410, 14);
 
-        lblContratos.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblContratos.setText("Contratos activos:");
-        jpInicio.add(lblContratos);
-        lblContratos.setBounds(110, 130, 160, 15);
+        lblSesion.setText("Conectado como: ");
+        jpInicio.add(lblSesion);
+        lblSesion.setBounds(10, 30, 310, 14);
 
-        tblInfo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        panelImage2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/logo_texto.png"))); // NOI18N
+
+        javax.swing.GroupLayout panelImage2Layout = new javax.swing.GroupLayout(panelImage2);
+        panelImage2.setLayout(panelImage2Layout);
+        panelImage2Layout.setHorizontalGroup(
+            panelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+        panelImage2Layout.setVerticalGroup(
+            panelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+
+        jpInicio.add(panelImage2);
+        panelImage2.setBounds(250, 160, 240, 160);
+
+        piMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/minimize.png"))); // NOI18N
+        piMinimize.setMaximumSize(null);
+        piMinimize.setPreferredSize(new java.awt.Dimension(30, 30));
+        piMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                piMinimizeMouseClicked(evt);
             }
-        ));
-        jScrollPane1.setViewportView(tblInfo);
-
-        jpInicio.add(jScrollPane1);
-        jScrollPane1.setBounds(210, 330, 380, 100);
-
-        tblContratos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piMinimizeMouseEntered(evt);
             }
-        ));
-        jScrollPane2.setViewportView(tblContratos);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piMinimizeMouseExited(evt);
+            }
+        });
 
-        jpInicio.add(jScrollPane2);
-        jScrollPane2.setBounds(210, 160, 380, 100);
+        javax.swing.GroupLayout piMinimizeLayout = new javax.swing.GroupLayout(piMinimize);
+        piMinimize.setLayout(piMinimizeLayout);
+        piMinimizeLayout.setHorizontalGroup(
+            piMinimizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        piMinimizeLayout.setVerticalGroup(
+            piMinimizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jpInicio.add(piMinimize);
+        piMinimize.setBounds(710, 10, 30, 30);
 
         rSPanelsSlider1.add(jpInicio, "card2");
 
@@ -226,19 +269,9 @@ public class jfPrincipal extends javax.swing.JFrame {
         lblCuentas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblCuentas.setText("Gestion de Cuentas de Usuarios");
         jpCuentas.add(lblCuentas);
-        lblCuentas.setBounds(230, 10, 280, 17);
+        lblCuentas.setBounds(230, 10, 280, 30);
 
-        btnEliminarCuenta.setBackground(new java.awt.Color(17, 48, 142));
-        btnEliminarCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarCuenta.setText("ELIMINAR");
-        btnEliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarCuentaActionPerformed(evt);
-            }
-        });
-        jpCuentas.add(btnEliminarCuenta);
-        btnEliminarCuenta.setBounds(240, 132, 110, 23);
-
+        tblCuentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -255,6 +288,7 @@ public class jfPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblCuentas.setShowGrid(false);
         tblCuentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblCuentas);
         if (tblCuentas.getColumnModel().getColumnCount() > 0) {
@@ -269,29 +303,15 @@ public class jfPrincipal extends javax.swing.JFrame {
         }
 
         jpCuentas.add(jScrollPane5);
-        jScrollPane5.setBounds(2, 160, 750, 280);
+        jScrollPane5.setBounds(2, 180, 750, 260);
 
-        btnAgregarCuenta.setBackground(new java.awt.Color(17, 48, 142));
-        btnAgregarCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarCuenta.setText("AGREGAR");
-        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCuentaActionPerformed(evt);
-            }
-        });
-        jpCuentas.add(btnAgregarCuenta);
-        btnAgregarCuenta.setBounds(0, 132, 110, 23);
+        lblDerechos1.setForeground(new java.awt.Color(153, 153, 153));
+        lblDerechos1.setText("Sistema Administrativo SAFE - 2018 - Todos los derechos reservados (C).");
+        jpCuentas.add(lblDerechos1);
+        lblDerechos1.setBounds(180, 480, 410, 14);
 
-        btnModificarCuenta.setBackground(new java.awt.Color(17, 48, 142));
-        btnModificarCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarCuenta.setText("MODIFICAR");
-        btnModificarCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarCuentaActionPerformed(evt);
-            }
-        });
-        jpCuentas.add(btnModificarCuenta);
-        btnModificarCuenta.setBounds(120, 132, 110, 23);
+        jpanelAcciones.setBackground(new java.awt.Color(255, 255, 255));
+        jpanelAcciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
 
         btnVerCuenta.setBackground(new java.awt.Color(17, 48, 142));
         btnVerCuenta.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,8 +321,95 @@ public class jfPrincipal extends javax.swing.JFrame {
                 btnVerCuentaActionPerformed(evt);
             }
         });
-        jpCuentas.add(btnVerCuenta);
-        btnVerCuenta.setBounds(360, 132, 110, 23);
+
+        btnEliminarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnEliminarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarCuenta.setText("ELIMINAR");
+        btnEliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCuentaActionPerformed(evt);
+            }
+        });
+
+        btnModificarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnModificarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarCuenta.setText("MODIFICAR");
+        btnModificarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarCuentaActionPerformed(evt);
+            }
+        });
+
+        btnAgregarCuenta.setBackground(new java.awt.Color(17, 48, 142));
+        btnAgregarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarCuenta.setText("AGREGAR");
+        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCuentaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelAccionesLayout = new javax.swing.GroupLayout(jpanelAcciones);
+        jpanelAcciones.setLayout(jpanelAccionesLayout);
+        jpanelAccionesLayout.setHorizontalGroup(
+            jpanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelAccionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgregarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVerCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jpanelAccionesLayout.setVerticalGroup(
+            jpanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelAccionesLayout.createSequentialGroup()
+                .addGroup(jpanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVerCuenta)
+                    .addComponent(btnEliminarCuenta)
+                    .addComponent(btnModificarCuenta)
+                    .addComponent(btnAgregarCuenta))
+                .addGap(0, 24, Short.MAX_VALUE))
+        );
+
+        jpCuentas.add(jpanelAcciones);
+        jpanelAcciones.setBounds(0, 110, 560, 70);
+
+        lblSesion1.setText("Conectado como: ");
+        jpCuentas.add(lblSesion1);
+        lblSesion1.setBounds(10, 30, 310, 14);
+
+        piMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/minimize.png"))); // NOI18N
+        piMinimize1.setMaximumSize(null);
+        piMinimize1.setPreferredSize(new java.awt.Dimension(30, 30));
+        piMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                piMinimize1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piMinimize1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piMinimize1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout piMinimize1Layout = new javax.swing.GroupLayout(piMinimize1);
+        piMinimize1.setLayout(piMinimize1Layout);
+        piMinimize1Layout.setHorizontalGroup(
+            piMinimize1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        piMinimize1Layout.setVerticalGroup(
+            piMinimize1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jpCuentas.add(piMinimize1);
+        piMinimize1.setBounds(710, 10, 30, 30);
 
         rSPanelsSlider1.add(jpCuentas, "card3");
 
@@ -311,54 +418,11 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.setLayout(null);
 
         lblEmpresas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblEmpresas.setText("Gestion de Contratos y Empresas");
+        lblEmpresas.setText("Gestion de Empresas");
         jpEmpresas.add(lblEmpresas);
-        lblEmpresas.setBounds(240, 10, 260, 17);
+        lblEmpresas.setBounds(280, 20, 160, 17);
 
-        btnAgregarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
-        btnAgregarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarEmpresa.setText("AGREGAR");
-        btnAgregarEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEmpresaActionPerformed(evt);
-            }
-        });
-        jpEmpresas.add(btnAgregarEmpresa);
-        btnAgregarEmpresa.setBounds(0, 132, 110, 23);
-
-        btnModificarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
-        btnModificarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarEmpresa.setText("MODIFICAR");
-        btnModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarEmpresaActionPerformed(evt);
-            }
-        });
-        jpEmpresas.add(btnModificarEmpresa);
-        btnModificarEmpresa.setBounds(120, 132, 110, 23);
-
-        btnEliminarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
-        btnEliminarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarEmpresa.setText("ELIMINAR");
-        btnEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarEmpresaActionPerformed(evt);
-            }
-        });
-        jpEmpresas.add(btnEliminarEmpresa);
-        btnEliminarEmpresa.setBounds(240, 132, 110, 23);
-
-        btnVerEmpresa.setBackground(new java.awt.Color(17, 42, 148));
-        btnVerEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        btnVerEmpresa.setText("VER");
-        btnVerEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerEmpresaActionPerformed(evt);
-            }
-        });
-        jpEmpresas.add(btnVerEmpresa);
-        btnVerEmpresa.setBounds(360, 132, 110, 23);
-
+        tblEmpresa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -375,10 +439,117 @@ public class jfPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblEmpresa.setPreferredSize(new java.awt.Dimension(60, 0));
         jScrollPane3.setViewportView(tblEmpresa);
 
         jpEmpresas.add(jScrollPane3);
-        jScrollPane3.setBounds(0, 160, 750, 280);
+        jScrollPane3.setBounds(0, 180, 750, 260);
+
+        lblDerechos2.setForeground(new java.awt.Color(153, 153, 153));
+        lblDerechos2.setText("Sistema Administrativo SAFE - 2018 - Todos los derechos reservados (C).");
+        jpEmpresas.add(lblDerechos2);
+        lblDerechos2.setBounds(180, 480, 410, 14);
+
+        jpanelAcciones1.setBackground(new java.awt.Color(255, 255, 255));
+        jpanelAcciones1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
+
+        btnVerEmpresa.setBackground(new java.awt.Color(17, 42, 148));
+        btnVerEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerEmpresa.setText("VER");
+        btnVerEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEmpresaActionPerformed(evt);
+            }
+        });
+
+        btnEliminarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnEliminarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarEmpresa.setText("ELIMINAR");
+        btnEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEmpresaActionPerformed(evt);
+            }
+        });
+
+        btnModificarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnModificarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarEmpresa.setText("MODIFICAR");
+        btnModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarEmpresaActionPerformed(evt);
+            }
+        });
+
+        btnAgregarEmpresa.setBackground(new java.awt.Color(17, 48, 142));
+        btnAgregarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarEmpresa.setText("AGREGAR");
+        btnAgregarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEmpresaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelAcciones1Layout = new javax.swing.GroupLayout(jpanelAcciones1);
+        jpanelAcciones1.setLayout(jpanelAcciones1Layout);
+        jpanelAcciones1Layout.setHorizontalGroup(
+            jpanelAcciones1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelAcciones1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgregarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVerEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jpanelAcciones1Layout.setVerticalGroup(
+            jpanelAcciones1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelAcciones1Layout.createSequentialGroup()
+                .addGroup(jpanelAcciones1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVerEmpresa)
+                    .addComponent(btnEliminarEmpresa)
+                    .addComponent(btnModificarEmpresa)
+                    .addComponent(btnAgregarEmpresa))
+                .addGap(0, 24, Short.MAX_VALUE))
+        );
+
+        jpEmpresas.add(jpanelAcciones1);
+        jpanelAcciones1.setBounds(0, 110, 560, 70);
+
+        lblSesion2.setText("Conectado como: ");
+        jpEmpresas.add(lblSesion2);
+        lblSesion2.setBounds(10, 30, 310, 14);
+
+        piMinimize2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/minimize.png"))); // NOI18N
+        piMinimize2.setMaximumSize(null);
+        piMinimize2.setPreferredSize(new java.awt.Dimension(30, 30));
+        piMinimize2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                piMinimize2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piMinimize2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piMinimize2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout piMinimize2Layout = new javax.swing.GroupLayout(piMinimize2);
+        piMinimize2.setLayout(piMinimize2Layout);
+        piMinimize2Layout.setHorizontalGroup(
+            piMinimize2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        piMinimize2Layout.setVerticalGroup(
+            piMinimize2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jpEmpresas.add(piMinimize2);
+        piMinimize2.setBounds(710, 10, 30, 30);
 
         rSPanelsSlider1.add(jpEmpresas, "card4");
 
@@ -414,7 +585,9 @@ public class jfPrincipal extends javax.swing.JFrame {
     /**
      * Método que mueve hacia vista de GESTION DE CUENTAS y oculta las otras por
      * el PanelSlider.
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasActionPerformed
         if (!this.btnCuentas.isSelected()) {
@@ -422,14 +595,16 @@ public class jfPrincipal extends javax.swing.JFrame {
             this.btnCuentas.setSelected(true);
             this.btnEmpresa.setSelected(false);
             
-            rSPanelsSlider1.setPanelSlider(20,jpCuentas, RSPanelsSlider.DIRECT.RIGHT);
+            rSPanelsSlider1.setPanelSlider(20, jpCuentas, RSPanelsSlider.DIRECT.RIGHT);
         }
     }//GEN-LAST:event_btnCuentasActionPerformed
 
     /**
-     * Método que mueve hacia vista de INICIO y oculta las otras por
-     * el PanelSlider.
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     * Método que mueve hacia vista de INICIO y oculta las otras por el
+     * PanelSlider.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         if (!this.btnInicio.isSelected()) {
@@ -437,14 +612,16 @@ public class jfPrincipal extends javax.swing.JFrame {
             this.btnCuentas.setSelected(false);
             this.btnEmpresa.setSelected(false);
             
-            rSPanelsSlider1.setPanelSlider(20,jpInicio, RSPanelsSlider.DIRECT.RIGHT);
+            rSPanelsSlider1.setPanelSlider(20, jpInicio, RSPanelsSlider.DIRECT.RIGHT);
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     /**
      * Método que mueve hacia vista de GESTION DE EMPRESA y oculta las otras por
      * el PanelSlider.
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
         if (!this.btnEmpresa.isSelected()) {
@@ -452,50 +629,63 @@ public class jfPrincipal extends javax.swing.JFrame {
             this.btnCuentas.setSelected(false);
             this.btnEmpresa.setSelected(true);
             
-            rSPanelsSlider1.setPanelSlider(20,jpEmpresas, RSPanelsSlider.DIRECT.RIGHT);
+            rSPanelsSlider1.setPanelSlider(20, jpEmpresas, RSPanelsSlider.DIRECT.RIGHT);
         }
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     /**
-     * Método de evento que cierra el proceso de login al posicionar el mouse
-     * sobre la imagen.
-     * @param evt evento que indica que se realizo una accion definida (MouseEvent)
+     * Método de evento que cierra el proceso de login al hacer click sobre la
+     * imagen.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
      */
     private void piLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piLogoutMouseClicked
-        System.exit(0);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?",
+                "Salir del sistema", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        switch (opcion) {
+            case 0:
+                System.exit(0);
+            case 1:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_piLogoutMouseClicked
 
     /**
      * Método que invoca el modal de jdAddEmpresa y lo hace visible.
-     * 
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnAgregarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaActionPerformed
         jdAddEmpresa ventana = new jdAddEmpresa(this, true);
-        ventana.addWindowListener(new WindowAdapter(){
-        @Override
-        public void windowClosed(WindowEvent e){
-            limpiarTablaEmpresa();
-            addJTableEmpresas();
-        }
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                limpiarTablaEmpresa();
+                addJTableEmpresas();
+            }
         });
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarEmpresaActionPerformed
 
     /**
-     * Método que invoca el modal de jdAddCuenta y lo hace visible.
-     * Se incorpora Listener para recargar tabla una vez se cierre el modal.
-     * 
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     * Método que invoca el modal de jdAddCuenta y lo hace visible. Se incorpora
+     * Listener para recargar tabla una vez se cierre el modal.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         jdAddCuenta ventana = new jdAddCuenta(this, true);
-        ventana.addWindowListener(new WindowAdapter(){
-        @Override
-        public void windowClosed(WindowEvent e){
-            limpiarTablaCuentas();
-            addJTableCuentas();
-        }
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                limpiarTablaCuentas();
+                addJTableCuentas();
+            }
         });
         ventana.setVisible(true);
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
@@ -503,24 +693,25 @@ public class jfPrincipal extends javax.swing.JFrame {
     /**
      * Método que deja sin registros listados la tabla de cuentas de usuario.
      */
-    public void limpiarTablaCuentas(){
+    public void limpiarTablaCuentas() {
         DefaultTableModel modelo = (DefaultTableModel) this.tblCuentas.getModel();
         modelo.setRowCount(0);
     }
-    
+
     /**
      * Método que deja sin registros listados la tabla de perfiles de empresas.
      */
-    public void limpiarTablaEmpresa(){
+    public void limpiarTablaEmpresa() {
         DefaultTableModel modelo = (DefaultTableModel) this.tblEmpresa.getModel();
         modelo.setRowCount(0);
     }
-    
-     /**
+
+    /**
      * Método que recibe la id del item de la tabla cuenta y abre la ventana de
      * modificaciones de datos en base a esa id.
      *
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnModificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCuentaActionPerformed
         try {
@@ -532,7 +723,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column2 = 3;
             //Valor del ID de rol
             int value2 = 0;
-            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
+            String rol = (String) this.tblCuentas.getModel().getValueAt(row, column2);
             switch (rol) {
                 case "Administrador":
                     value2 = 1;
@@ -575,8 +766,9 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     /**
      * Método que invoca el modal de modificacion de empresa y lo hace visible.
-     * 
-     * @param evt evento que indica que se realizo una accion definida (ActionEvent)
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (ActionEvent)
      */
     private void btnModificarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpresaActionPerformed
         try {
@@ -587,7 +779,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column2 = 3;
             //Valor del ID de Contrato
             int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
-
+            
             jdUpEmpresa ventana = new jdUpEmpresa(this, true);
             ventana.cargaDeCampos(idEmp, idCon);
             ventana.addWindowListener(new WindowAdapter() {
@@ -606,7 +798,8 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     /**
      * Método que invoca el modal de ver cuentas y lo hace visible
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnVerCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCuentaActionPerformed
         try {
@@ -618,7 +811,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column2 = 3;
             //Valor del ID de rol
             int value2 = 0;
-            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
+            String rol = (String) this.tblCuentas.getModel().getValueAt(row, column2);
             switch (rol) {
                 case "Administrador":
                     value2 = 1;
@@ -641,7 +834,7 @@ public class jfPrincipal extends javax.swing.JFrame {
                 case "Médico":
                     value2 = 7;
                     break;
-                default: 
+                default:                    
                     break;
             }
             jdVerCuenta ventana = new jdVerCuenta(this, true);
@@ -655,10 +848,11 @@ public class jfPrincipal extends javax.swing.JFrame {
 
     /**
      * Método que invoca el modal de ver cuentas y lo hace visible
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnVerEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEmpresaActionPerformed
-         try {
+        try {
             int row = this.tblEmpresa.getSelectedRow();
             int column = 0;
             //Valor del ID de Empresa
@@ -666,88 +860,65 @@ public class jfPrincipal extends javax.swing.JFrame {
             int column2 = 3;
             //Valor del ID de Contrato
             int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
-          
+            
             jdVerEmpresa ventana = new jdVerEmpresa(this, true);
             ventana.cargaDeCampos(idEmp, idCon);
             ventana.setVisible(true);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla..." + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnVerEmpresaActionPerformed
 
     /**
      * Método que realiza la llamada a la eliminación de cuentas
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
-
+        
         try {
             int column = 0;
             int row = this.tblCuentas.getSelectedRow();
             //Valor del ID de usuario
             int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
-            int column2 = 3;
-            //Valor del ID de rol
-            int value2 = 0;
-            String rol = (String)this.tblCuentas.getModel().getValueAt(row, column2);
-            switch (rol) {
-                case "Administrador":
-                    value2 = 1;
-                    break;
-                case "Supervisor":
-                    value2 = 2;
-                    break;
-                case "Cliente":
-                    value2 = 3;
-                    break;
-                case "Trabajador":
-                    value2 = 4;
-                    break;
-                case "Ingeniero":
-                    value2 = 5;
-                    break;
-                case "Técnico":
-                    value2 = 6;
-                    break;
-                case "Médico":
-                    value2 = 7;
-                    break;
-                default: 
-                    break;
-            }
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar la cuenta de usuario "+ rol +" seleccionada? \n "
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar la cuenta de usuario seleccionada? \n "
                     + "Esto eliminara todas la información y relación existente con otros datos registrados.",
-                    "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    "Eliminar cuenta de usuario", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             jdUpCuenta ventana = new jdUpCuenta(this, true);
             ventana.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     limpiarTablaCuentas();
                     addJTableCuentas();
+                    limpiarTablaEmpresa();
+                    addJTableEmpresas();
                 }
             });
             ventana.setVisible(false);
+            // 0 = si , 1 = no , 2 = cancel
             switch (opcion) {
                 case 0:
                     NegUsuario user = new NegUsuario();
-                    if (user.delUsuario(value)) {
-                        JOptionPane.showMessageDialog(null, "Cuenta eliminada", "", JOptionPane.INFORMATION_MESSAGE);
-                        ventana.dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Ha ocurrido un problema con la eliminación", "", JOptionPane.ERROR_MESSAGE);
+                     {
+                        try {
+                            if (user.delUsuario(value)) {
+                                JOptionPane.showMessageDialog(null, "Cuenta eliminada", "", JOptionPane.INFORMATION_MESSAGE);
+                                ventana.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Ha ocurrido un problema con la eliminación", "", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                     break;
                 case 1:
-                    this.dispose();
                     break;
                 default:
-                    this.dispose();
                     break;
             }
-        } catch (HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            Logger.getLogger(jfPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Seleccione un item de la tabla...", "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
 
@@ -774,16 +945,18 @@ public class jfPrincipal extends javax.swing.JFrame {
                 public void windowClosed(WindowEvent e) {
                     limpiarTablaEmpresa();
                     addJTableEmpresas();
+                    limpiarTablaCuentas();
+                    addJTableCuentas();
                 }
             });
             ventana.setVisible(false);
-            switch(opcion){
+            switch (opcion) {
                 case 0:
                     NegEmpresa emp = new NegEmpresa();
                     if (emp.delEmpresa(idEmp)) {
                         JOptionPane.showMessageDialog(null, "Perfil de Empresa eliminado", "", JOptionPane.INFORMATION_MESSAGE);
                         ventana.dispose();
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Ha ocurrido un problema con la eliminación", "", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
@@ -800,56 +973,130 @@ public class jfPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarEmpresaActionPerformed
 
     /**
+     * Cambia el icono del cursor cuando entra sobre el icono de salida.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piLogoutMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_piLogoutMouseEntered
+
+    /**
+     * Cambia el icono del cursor cuando sale sobre el icono de salida.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piLogoutMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_piLogoutMouseExited
+
+    /**
+     * Cambia el icono del cursor cuando entra sobre el icono de minimizar.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimizeMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_piMinimizeMouseEntered
+
+    /**
+     * Cambia el icono del cursor cuando sale sobre el icono de minimizar.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimizeMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_piMinimizeMouseExited
+
+    /**
+     * Método de evento que minimiza la pantalla principal.
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (MouseEvent)
+     */
+    private void piMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimizeMouseClicked
+        this.setExtendedState(1);
+    }//GEN-LAST:event_piMinimizeMouseClicked
+
+    private void piMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize1MouseClicked
+        this.setExtendedState(1);
+    }//GEN-LAST:event_piMinimize1MouseClicked
+
+    private void piMinimize1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize1MouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_piMinimize1MouseEntered
+
+    private void piMinimize1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize1MouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_piMinimize1MouseExited
+
+    private void piMinimize2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize2MouseClicked
+        this.setExtendedState(1);
+    }//GEN-LAST:event_piMinimize2MouseClicked
+
+    private void piMinimize2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize2MouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_piMinimize2MouseEntered
+
+    private void piMinimize2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piMinimize2MouseExited
+       this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_piMinimize2MouseExited
+
+    /**
      * Método que realiza el llenado de la tabla de cuentas con la información
      * de las personas.
      */
-    public void addJTableCuentas(){
-        DefaultTableModel model = (DefaultTableModel)this.tblCuentas.getModel();
+    public void addJTableCuentas() {
+        DefaultTableModel model = (DefaultTableModel) this.tblCuentas.getModel();
         NegPersona negPer = new NegPersona();
         try {
-          List<Persona> list = negPer.getAllPersona();  
-          Object rowData[] = new Object[5];
+            List<Persona> list = negPer.getAllPersona();            
+            Object rowData[] = new Object[5];
             for (int i = 0; i < list.size(); i++) {
                 rowData[0] = list.get(i).getUsuario().getIdUsuario();
-                rowData[1] = list.get(i).getNombres() +" "+ list.get(i).getAppPaterno();
+                rowData[1] = list.get(i).getNombres() + " " + list.get(i).getAppPaterno();
                 rowData[2] = list.get(i).getRun();
-              switch (list.get(i).getUsuario().getRol()) {
-                  case 1:
-                      rowData[3] = "Administrador";
-                      break;
-                  case 2:
-                      rowData[3] = "Supervisor";
-                      break;
-                  case 3:
-                      rowData[3] = "Cliente";
-                      break;
-                  case 4:
-                      rowData[3] = "Trabajador";
-                      break;
-                  case 5:
-                      rowData[3] = "Ingeniero";
-                      break;
-                  case 6:
-                      rowData[3] = "Técnico";
-                      break;
-                  case 7:
-                      rowData[3] = "Médico";
-                      break;
-                  default:
-                      rowData[3] = "Otro";
-                      break;
-              }
-              model.addRow(rowData);
+                switch (list.get(i).getUsuario().getRol()) {
+                    case 1:
+                        rowData[3] = "Administrador";
+                        break;
+                    case 2:
+                        rowData[3] = "Supervisor";
+                        break;
+                    case 3:
+                        rowData[3] = "Cliente";
+                        break;
+                    case 4:
+                        rowData[3] = "Trabajador";
+                        break;
+                    case 5:
+                        rowData[3] = "Ingeniero";
+                        break;
+                    case 6:
+                        rowData[3] = "Técnico";
+                        break;
+                    case 7:
+                        rowData[3] = "Médico";
+                        break;
+                    default:
+                        rowData[3] = "Otro";
+                        break;
+                }
+                model.addRow(rowData);
             }
             tblCuentas.getColumnModel().getColumn(0).setMaxWidth(0);
             tblCuentas.getColumnModel().getColumn(0).setMinWidth(0);
             tblCuentas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
             tblCuentas.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("ERROR: " + ex.toString());
         }
     }
-    
+
     /**
      * Método que realiza el llenado de la tabla de empresas con la información
      * de empresas y su contrato.
@@ -863,11 +1110,11 @@ public class jfPrincipal extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 rowData[0] = list.get(i).getIdEmpresa();
                 rowData[1] = list.get(i).getNombreFantasia();
-                rowData[2] = list.get(i).getCliente().getPersona().getNombres()+ " " + list.get(i).getCliente().getPersona().getAppPaterno();
+                rowData[2] = list.get(i).getCliente().getPersona().getNombres() + " " + list.get(i).getCliente().getPersona().getAppPaterno();
                 rowData[3] = list.get(i).getContrato().getIdContrato();
                 rowData[4] = list.get(i).getContrato().getFechaInicio();
                 rowData[5] = list.get(i).getContrato().getFechaTermino();
-
+                
                 model.addRow(rowData);
             }
             tblEmpresa.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -882,9 +1129,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             System.out.println("ERROR: " + ex.toString());
         }
     }
-    
-   
-    
+
     /**
      * @param args the command line arguments
      */
@@ -915,7 +1160,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfPrincipal().setVisible(true);
+                new jfPrincipal(per).setVisible(true);
             }
         });
     }
@@ -932,8 +1177,7 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarEmpresa;
     private javax.swing.JButton btnVerCuenta;
     private javax.swing.JButton btnVerEmpresa;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel jpCuentas;
@@ -941,17 +1185,25 @@ public class jfPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jpInicio;
     private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel jpPrincipal;
-    private javax.swing.JLabel lblContratos;
+    private javax.swing.JPanel jpanelAcciones;
+    private javax.swing.JPanel jpanelAcciones1;
     private javax.swing.JLabel lblCuentas;
+    private javax.swing.JLabel lblDerechos;
+    private javax.swing.JLabel lblDerechos1;
+    private javax.swing.JLabel lblDerechos2;
     private javax.swing.JLabel lblEmpresas;
-    private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblInicio;
+    private javax.swing.JLabel lblSesion;
+    private javax.swing.JLabel lblSesion1;
+    private javax.swing.JLabel lblSesion2;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
+    private org.edisoncor.gui.panel.PanelImage panelImage2;
     private org.edisoncor.gui.panel.PanelImage piLogout;
+    private org.edisoncor.gui.panel.PanelImage piMinimize;
+    private org.edisoncor.gui.panel.PanelImage piMinimize1;
+    private org.edisoncor.gui.panel.PanelImage piMinimize2;
     private rojerusan.RSPanelsSlider rSPanelsSlider1;
-    private javax.swing.JTable tblContratos;
     private org.jdesktop.swingx.JXTable tblCuentas;
     private org.jdesktop.swingx.JXTable tblEmpresa;
-    private javax.swing.JTable tblInfo;
     // End of variables declaration//GEN-END:variables
 }

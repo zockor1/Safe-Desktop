@@ -4,6 +4,7 @@ package negocio;
 //Importaciones
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
+import modelo.Persona;
 import modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -42,7 +43,7 @@ public class NegLogin {
                     JOptionPane.showMessageDialog(null, "No tienes permiso para acceder a este modulo", "", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
-
+                //Credenciales correctas
                 if (usuario.getClave().equals(password)) {
                     return true;
                 } else {

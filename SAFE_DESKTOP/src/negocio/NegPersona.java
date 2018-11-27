@@ -143,4 +143,29 @@ public class NegPersona {
         }
         return null;
     }
+    
+    /**
+     * Método que devuelve la informacion de la persona en base al nombre de 
+     * usuario, para ser usado en la sesion.
+     *
+     * @param user nombre de usuario proporcionado
+     * @return Persona encontrada o null
+     */
+    public Persona obtenerPersona2(String user) {
+        try {
+            Query q = sesion.createSQLQuery("SELECT pr.ID_PERSONA\n"
+                    + "FROM PERSONA pr\n"
+                    + "INNER JOIN USUARIO usu\n"
+                    + "ON pr.USUARIO_ID_USUARIO = usu.ID_USUARIO\n"
+                    + "WHERE usu.USERNAME = ?")
+                    .setParameter(0, user);
+            Object result = q.uniqueResult();
+            int id = ((Number) result).intValue();
+            Persona p = (Persona) sesion.get(Persona.class, id);
+            return p;
+        } catch (Exception ex) {
+            System.out.println("ERROR controller: " + ex.toString());
+        }
+        return null;
+    }
 }
