@@ -248,12 +248,12 @@
                           <Component id="lblComuna" pref="86" max="32767" attributes="0"/>
                           <Component id="lblRegion" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ddlComuna" pref="119" max="32767" attributes="0"/>
-                          <Component id="ddlRegion" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ddlComuna" min="-2" pref="144" max="-2" attributes="0"/>
+                          <Component id="ddlRegion" min="-2" pref="144" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -306,7 +306,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblNombFantasia">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre fantas&#xed;a"/>
+                <Property name="text" type="java.lang.String" value="Nombre Fantas&#xed;a"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombreFantasia">
@@ -331,7 +331,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblRegion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Region"/>
+                <Property name="text" type="java.lang.String" value="Regi&#xf3;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="ddlRegion">

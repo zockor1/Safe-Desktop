@@ -5,6 +5,7 @@ package presentacion;
 import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.event.ItemEvent;
+import java.beans.PropertyChangeEvent;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,6 +50,17 @@ public class jdUpEmpresa extends javax.swing.JDialog {
         this.setUndecorated(true);
         initComponents();
         limits();
+        this.dpFechaInicio.getDateEditor().addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if (this.dpFechaInicio.getDate() == null) {
+            } else {
+                Date fecha = this.dpFechaInicio.getDate();
+                int dias = 365;
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(fecha);
+                calendar.add(Calendar.DAY_OF_YEAR, dias);
+                dpFechaTermino.setDate(calendar.getTime());
+            }
+        });
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.setBounds((ancho / 2) - (this.getWidth() / 2), (alto / 2) - (this.getHeight() / 2), 850, 550);
@@ -186,7 +198,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
             }
         });
 
-        lblNombFantasia.setText("Nombre fantasía");
+        lblNombFantasia.setText("Nombre Fantasía");
 
         txtNombreFantasia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -196,7 +208,7 @@ public class jdUpEmpresa extends javax.swing.JDialog {
 
         lblCliente.setText("Cliente");
 
-        lblRegion.setText("Region");
+        lblRegion.setText("Región");
 
         ddlRegion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -502,13 +514,10 @@ public class jdUpEmpresa extends javax.swing.JDialog {
     public void limits() {
         Date fechaInicio = new Date();
         this.dpFechaInicio.setMinSelectableDate(fechaInicio);
-        Date fechaTermino = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechaTermino);
-        calendar.add(Calendar.DAY_OF_YEAR, 365);
-        this.dpFechaTermino.setMinSelectableDate(calendar.getTime());
+        
         this.txtRut.setDocument(new jTextFieldCharLimits(9));
         this.txtNombreFantasia.setDocument(new jTextFieldCharLimits(30));
+        this.dpFechaTermino.setEnabled(false);
 
         JTextFieldDateEditor editor = (JTextFieldDateEditor) this.dpFechaInicio.getDateEditor();
         JTextFieldDateEditor editor2 = (JTextFieldDateEditor) this.dpFechaTermino.getDateEditor();

@@ -97,11 +97,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.lblIdUsu.setText(String.valueOf(idUsu));
         this.lblIdPer.setText(String.valueOf(cliente.getPersona().getIdPersona()));
         this.lblIdCli.setText(String.valueOf(cliente.getIdCliente()));
-
         //Llenado campos de usuario
         this.txtUsername.setText(cliente.getPersona().getUsuario().getUsername());
-        this.txtPass.setText("");
-        this.txtPass2.setText("");
+        this.txtPass.setText(cliente.getPersona().getUsuario().getClave());
+        this.txtPass2.setText(cliente.getPersona().getUsuario().getClave());
         this.txtCorreo.setText(cliente.getPersona().getUsuario().getEmail());
         this.ddlRol.setSelectedIndex(cliente.getPersona().getUsuario().getRol());
         //Llenado campos de persona
@@ -133,8 +132,8 @@ public class jdUpCuenta extends javax.swing.JDialog {
         this.lblIdTra.setText(String.valueOf(trabajador.getIdTrabajador()));
         //Llenado campos de usuario
         this.txtUsername.setText(trabajador.getPersona().getUsuario().getUsername());
-        this.txtPass.setText("");
-        this.txtPass2.setText("");
+        this.txtPass.setText(trabajador.getPersona().getUsuario().getClave());
+        this.txtPass2.setText(trabajador.getPersona().getUsuario().getClave());
         this.txtCorreo.setText(trabajador.getPersona().getUsuario().getEmail());
         this.ddlRol.setSelectedIndex(trabajador.getPersona().getUsuario().getRol());
         //Llenado campos de persona
@@ -312,9 +311,9 @@ public class jdUpCuenta extends javax.swing.JDialog {
 
         lblPass.setText("Contraseña");
 
-        lblPass2.setText("Repita contraseña");
+        lblPass2.setText("Repita Contraseña");
 
-        lblCorreo.setText("Correo electronico");
+        lblCorreo.setText("Correo Electrónico");
 
         lblRol.setText("Rol");
 
@@ -490,7 +489,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
 
         lblComuna.setText("Comuna");
 
-        lblRegion.setText("Region");
+        lblRegion.setText("Región");
 
         lblCargo.setText("Cargo");
 

@@ -157,9 +157,9 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
         lblPass.setText("Contraseña");
 
-        lblPass2.setText("Repita contraseña");
+        lblPass2.setText("Repita Contraseña");
 
-        lblCorreo.setText("Correo electronico");
+        lblCorreo.setText("Correo Electrónico");
 
         lblRol.setText("Rol");
 
@@ -328,7 +328,7 @@ public class jdAddCuenta extends javax.swing.JDialog {
 
         lblComuna.setText("Comuna");
 
-        lblRegion.setText("Region");
+        lblRegion.setText("Región");
 
         lblCargo.setText("Cargo");
 

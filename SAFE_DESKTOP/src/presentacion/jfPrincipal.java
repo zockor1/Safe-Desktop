@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empresa;
 import modelo.Persona;
@@ -33,6 +34,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         initComponents();
         addJTableCuentas();
         addJTableEmpresas();
+        this.tblCuentas.setSortable(false);
+        this.tblEmpresa.setSortable(false);
         // Variables para adapatar la pantalla inicial al centro y 
         // con tamaño 950x500 sin importar la resolucion del monitor
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -267,7 +270,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpCuentas.setLayout(null);
 
         lblCuentas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblCuentas.setText("Gestion de Cuentas de Usuarios");
+        lblCuentas.setText("Gestión de Cuentas de Usuarios");
         jpCuentas.add(lblCuentas);
         lblCuentas.setBounds(230, 10, 280, 30);
 
@@ -288,9 +291,11 @@ public class jfPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblCuentas.setColumnSelectionAllowed(true);
         tblCuentas.setShowGrid(false);
         tblCuentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblCuentas);
+        tblCuentas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tblCuentas.getColumnModel().getColumnCount() > 0) {
             tblCuentas.getColumnModel().getColumn(0).setResizable(false);
             tblCuentas.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -418,7 +423,7 @@ public class jfPrincipal extends javax.swing.JFrame {
         jpEmpresas.setLayout(null);
 
         lblEmpresas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblEmpresas.setText("Gestion de Empresas");
+        lblEmpresas.setText("Gestión de Empresas");
         jpEmpresas.add(lblEmpresas);
         lblEmpresas.setBounds(280, 20, 160, 17);
 
@@ -439,8 +444,19 @@ public class jfPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblEmpresa.setColumnSelectionAllowed(true);
         tblEmpresa.setPreferredSize(new java.awt.Dimension(60, 0));
+        tblEmpresa.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblEmpresa);
+        tblEmpresa.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblEmpresa.getColumnModel().getColumnCount() > 0) {
+            tblEmpresa.getColumnModel().getColumn(0).setResizable(false);
+            tblEmpresa.getColumnModel().getColumn(1).setResizable(false);
+            tblEmpresa.getColumnModel().getColumn(2).setResizable(false);
+            tblEmpresa.getColumnModel().getColumn(3).setResizable(false);
+            tblEmpresa.getColumnModel().getColumn(4).setResizable(false);
+            tblEmpresa.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jpEmpresas.add(jScrollPane3);
         jScrollPane3.setBounds(0, 180, 750, 260);
@@ -882,7 +898,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             //Valor del ID de usuario
             int value = (Integer) this.tblCuentas.getModel().getValueAt(row, column);
             int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar la cuenta de usuario seleccionada? \n "
-                    + "Esto eliminara todas la información y relación existente con otros datos registrados.",
+                    + "Esto eliminara toda la información de la cuenta y podría afectar a otros registros que tengan relación con ella.",
                     "Eliminar cuenta de usuario", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             jdUpCuenta ventana = new jdUpCuenta(this, true);
             ventana.addWindowListener(new WindowAdapter() {
@@ -937,7 +953,7 @@ public class jfPrincipal extends javax.swing.JFrame {
             //Valor del ID de Contrato
             int idCon = (Integer) this.tblEmpresa.getModel().getValueAt(row, column2);
             int opcion = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar el perfil de la empresa seleccionada? \n "
-                    + "Esto eliminara todas la información y relación existente con otros datos registrados incluyendo el contrato.",
+                    + "Esto eliminara todas la información registrada y afectará a otros datos registrados, incluyendo el contrato.",
                     "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             jdVerEmpresa ventana = new jdVerEmpresa(this, true);
             ventana.addWindowListener(new WindowAdapter() {
@@ -961,10 +977,8 @@ public class jfPrincipal extends javax.swing.JFrame {
                     }
                     break;
                 case 1:
-                    this.dispose();
                     break;
                 default:
-                    this.dispose();
                     break;
             }
         } catch (Exception ex) {

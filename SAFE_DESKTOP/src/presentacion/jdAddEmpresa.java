@@ -181,7 +181,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
             }
         });
 
-        lblNombFantasia.setText("Nombre fantasía");
+        lblNombFantasia.setText("Nombre Fantasía");
 
         txtNombreFantasia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -191,7 +191,7 @@ public class jdAddEmpresa extends javax.swing.JDialog {
 
         lblCliente.setText("Cliente");
 
-        lblRegion.setText("Region");
+        lblRegion.setText("Región");
 
         ddlRegion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -220,11 +220,11 @@ public class jdAddEmpresa extends javax.swing.JDialog {
                 .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblComuna, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(lblRegion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(41, 41, 41)
-                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ddlComuna, 0, 119, Short.MAX_VALUE)
-                    .addComponent(ddlRegion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(112, 112, 112))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ddlComuna, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ddlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85))
         );
         jpAddEmpresaLayout.setVerticalGroup(
             jpAddEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -3,6 +3,7 @@ package presentacion;
 
 //Importaciones
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
 import modelo.Persona;
 import negocio.NegLogin;
 import negocio.NegPersona;
@@ -58,11 +59,21 @@ public class jfLogin extends javax.swing.JFrame {
 
         txtUser.setToolTipText("Nombre de Usuario");
         txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 1, true));
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtUser);
         txtUser.setBounds(140, 240, 190, 30);
 
         txtPass.setToolTipText("Contraseña");
         txtPass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(17, 48, 142), 1, true));
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtPass);
         txtPass.setBounds(140, 290, 190, 30);
 
@@ -226,6 +237,50 @@ public class jfLogin extends javax.swing.JFrame {
     private void piCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piCloseMouseExited
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_piCloseMouseExited
+
+    /**
+     * Método que invoca la llamada al login desde el campo de contraseña al
+     * presionar la tecla ENTER
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String passPura = new String(txtPass.getPassword());
+            String passEncrip = DigestUtils.sha1Hex(passPura);
+            boolean permiso = NegLogin.Login(txtUser.getText(), passEncrip);
+            Persona persona = new NegPersona().obtenerPersona2(txtUser.getText());
+
+            if (permiso) {
+                this.dispose();
+                jfPrincipal nueva = new jfPrincipal(persona);
+                nueva.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_txtPassKeyPressed
+
+    /**
+     * Método que invoca la llamada al login desde el campo de nombre de usuario
+     * al presionar la tecla ENTER
+     *
+     * @param evt evento que indica que se realizo una accion definida
+     * (KeyEvent)
+     */
+    private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String passPura = new String(txtPass.getPassword());
+            String passEncrip = DigestUtils.sha1Hex(passPura);
+            boolean permiso = NegLogin.Login(txtUser.getText(), passEncrip);
+            Persona persona = new NegPersona().obtenerPersona2(txtUser.getText());
+
+            if (permiso) {
+                this.dispose();
+                jfPrincipal nueva = new jfPrincipal(persona);
+                nueva.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_txtUserKeyPressed
 
     /**
      * @param args the command line arguments
