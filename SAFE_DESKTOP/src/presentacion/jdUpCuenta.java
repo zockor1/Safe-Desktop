@@ -2,6 +2,7 @@
 package presentacion;
 
 //Importaciones
+import callService.ValidacionMedico;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.HeadlessException;
@@ -673,7 +674,10 @@ public class jdUpCuenta extends javax.swing.JDialog {
         if (!validateEmptys()) {
             if (validateDuplicateUser() && validateDuplicateRut()) {
                 try {
+                    NegUsuario user = new NegUsuario();
+                    NegPersona per = new NegPersona();
                     Usuario u = new Usuario();
+                    Persona p = new Persona();
                     u.setIdUsuario(Integer.parseInt(this.lblIdUsu.getText()));
                     u.setUsername(this.txtUsername.getText());
                     if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
@@ -689,21 +693,17 @@ public class jdUpCuenta extends javax.swing.JDialog {
                                 u.setEmail(this.txtCorreo.getText());
                                 u.setRol(this.ddlRol.getSelectedIndex());
                                 if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
-                                    NegUsuario user = new NegUsuario();
-                                    user.upUsuario(u);
-                                    Persona p = new Persona();
-                                    p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
-                                    p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
-                                    p.setNombres(this.txtNombres.getText());
-                                    p.setAppPaterno(this.txtAppPaterno.getText());
-                                    p.setAppMaterno(this.txtAppMaterno.getText());
-                                    p.setUsuario(u);
-                                    p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
-
-                                    NegPersona per = new NegPersona();
-                                    per.upPersona(p);
                                     switch (this.ddlRol.getSelectedIndex()) {
                                         case 3:
+                                            user.upUsuario(u);
+                                            p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
+                                            p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                            p.setNombres(this.txtNombres.getText());
+                                            p.setAppPaterno(this.txtAppPaterno.getText());
+                                            p.setAppMaterno(this.txtAppMaterno.getText());
+                                            p.setUsuario(u);
+                                            p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
+                                            per.upPersona(p);
                                             Cliente cl = new Cliente();
                                             Region reg = new Region();
                                             Comuna com = new Comuna();
@@ -721,6 +721,15 @@ public class jdUpCuenta extends javax.swing.JDialog {
                                             this.dispose();
                                             break;
                                         case 4:
+                                            user.upUsuario(u);
+                                            p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
+                                            p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                            p.setNombres(this.txtNombres.getText());
+                                            p.setAppPaterno(this.txtAppPaterno.getText());
+                                            p.setAppMaterno(this.txtAppMaterno.getText());
+                                            p.setUsuario(u);
+                                            p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
+                                            per.upPersona(p);
                                             Trabajador tr = new Trabajador();
                                             Empresa emp = new Empresa();
                                             tr.setIdTrabajador(Integer.parseInt(this.lblIdTra.getText()));
@@ -736,6 +745,25 @@ public class jdUpCuenta extends javax.swing.JDialog {
                                             JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador modificada correctamente");
                                             this.dispose();
                                             break;
+                                        case 7:
+                                            if (validarMedico(this.txtRun.getText()) == true) {
+                                                user.upUsuario(u);
+                                                p.setIdPersona(Integer.parseInt(this.lblIdPer.getText()));
+                                                p.setRun(this.txtRun.getText()); //Agregar validación de ingreso
+                                                p.setNombres(this.txtNombres.getText());
+                                                p.setAppPaterno(this.txtAppPaterno.getText());
+                                                p.setAppMaterno(this.txtAppMaterno.getText());
+                                                p.setUsuario(u);
+                                                p.getUsuario().setIdUsuario(Integer.parseInt(this.lblIdUsu.getText())); //Se ingesa el id autogenerado de usuario a persona
+                                                per.upPersona(p);
+                                                JOptionPane.showMessageDialog(null, "Cuenta de médico modificada correctamente");
+                                                this.dispose();
+                                                break;
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "El medico a registrar no es válido, comuníquese con su supervisor.", "", JOptionPane.ERROR_MESSAGE);
+                                                break;
+                                            }
+
                                         default:
                                             JOptionPane.showMessageDialog(rootPane, "Cuenta de Usuario modificada correctamente");
                                             this.dispose();
@@ -758,7 +786,7 @@ public class jdUpCuenta extends javax.swing.JDialog {
                 } catch (HeadlessException e) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado", "", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    System.out.println("ERROR EN LA MODIFICACION" + ex.toString());
+                    JOptionPane.showMessageDialog(null, "Error inesperado", "", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
@@ -794,6 +822,15 @@ public class jdUpCuenta extends javax.swing.JDialog {
             campo |= this.ddlIdEmpresa.getSelectedIndex() == 0;
         }
         return campo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private boolean validarMedico(String rut) {
+        ValidacionMedico val = new ValidacionMedico();
+        return val.validar(rut);
     }
 
     /**

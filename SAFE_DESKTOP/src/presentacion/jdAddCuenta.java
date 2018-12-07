@@ -2,6 +2,7 @@
 package presentacion;
 
 //Importaciones
+import callService.ValidacionMedico;
 import com.sun.glass.events.KeyEvent;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Component;
@@ -518,7 +519,10 @@ public class jdAddCuenta extends javax.swing.JDialog {
         if (!validateEmptys()) {
             if (validateDuplicate()) {
                 try {
+                    NegUsuario user = new NegUsuario();
+                    NegPersona per = new NegPersona();
                     Usuario u = new Usuario();
+                    Persona p = new Persona();
                     u.setUsername(this.txtUsername.getText());
                     if (String.valueOf(this.txtPass.getPassword()).length() >= 6) {
                         if (String.valueOf(this.txtPass.getPassword()).equals(String.valueOf(this.txtPass2.getPassword()))) {
@@ -530,19 +534,14 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                 u.setEmail(this.txtCorreo.getText());
                                 u.setRol(this.ddlRol.getSelectedIndex());
                                 if (new validadorRunChileno(this.txtRun.getText()).validateRun() == true) {
-                                    NegUsuario user = new NegUsuario();
-                                    user.addUsuario(u);
-                                    Persona p = new Persona();
-                                    p.setRun(this.txtRun.getText());
-                                    p.setNombres(this.txtNombres.getText());
-                                    p.setAppPaterno(this.txtAppPaterno.getText());
-                                    p.setAppMaterno(this.txtAppMaterno.getText());
-                                    
-
-                                    NegPersona per = new NegPersona();
-                                    per.addPersona(p);
                                     switch (this.ddlRol.getSelectedIndex()) {
                                         case 3:
+                                            user.addUsuario(u);
+                                            p.setRun(this.txtRun.getText());
+                                            p.setNombres(this.txtNombres.getText());
+                                            p.setAppPaterno(this.txtAppPaterno.getText());
+                                            p.setAppMaterno(this.txtAppMaterno.getText());
+                                            per.addPersona(p);
                                             Cliente cl = new Cliente();
                                             Comuna com = new Comuna();
                                             cl.setTelefono(this.txtTelefono.getText());
@@ -555,6 +554,12 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                             this.dispose();
                                             break;
                                         case 4:
+                                            user.addUsuario(u);
+                                            p.setRun(this.txtRun.getText());
+                                            p.setNombres(this.txtNombres.getText());
+                                            p.setAppPaterno(this.txtAppPaterno.getText());
+                                            p.setAppMaterno(this.txtAppMaterno.getText());
+                                            per.addPersona(p);
                                             Trabajador tr = new Trabajador();
                                             Empresa emp = new Empresa();
                                             tr.setTelefono(this.txtTelefono.getText());
@@ -568,7 +573,29 @@ public class jdAddCuenta extends javax.swing.JDialog {
                                             JOptionPane.showMessageDialog(rootPane, "Cuenta de Trabajador registrada correctamente");
                                             this.dispose();
                                             break;
+                                        case 7:
+                                            if (validarMedico(this.txtRun.getText()) == true) {
+                                                user.addUsuario(u);
+                                                p.setRun(this.txtRun.getText());
+                                                p.setNombres(this.txtNombres.getText());
+                                                p.setAppPaterno(this.txtAppPaterno.getText());
+                                                p.setAppMaterno(this.txtAppMaterno.getText());
+                                                per.addPersona(p);
+                                                JOptionPane.showMessageDialog(null, "Cuenta de médico registrada correctamente");
+                                                this.dispose();
+                                                break;
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "El medico a registrar no es válido, comuníquese con su supervisor.", "", JOptionPane.ERROR_MESSAGE);
+                                                break;
+                                            }
+
                                         default:
+                                            user.addUsuario(u);
+                                            p.setRun(this.txtRun.getText());
+                                            p.setNombres(this.txtNombres.getText());
+                                            p.setAppPaterno(this.txtAppPaterno.getText());
+                                            p.setAppMaterno(this.txtAppMaterno.getText());
+                                            per.addPersona(p);
                                             JOptionPane.showMessageDialog(rootPane, "Cuenta de usuario registrada correctamente");
                                             this.dispose();
                                             break;
@@ -624,6 +651,15 @@ public class jdAddCuenta extends javax.swing.JDialog {
             campo |= this.ddlIdEmpresa.getSelectedIndex() == 0;
         }
         return campo;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    private boolean validarMedico(String rut){
+       ValidacionMedico val = new ValidacionMedico();
+        return val.validar(rut);
     }
 
     /**
